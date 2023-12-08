@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigation } from "./feachers/Navigation";
+import { Navigation } from "./features/Navigation";
 
 export default function App() {
   
