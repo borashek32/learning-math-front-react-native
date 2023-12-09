@@ -70,11 +70,5 @@ export const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderWidth: 1,
     borderColor: 'darkgreen',
-  },
-  scoreWrapper: {
-    marginTop: 50,
-  },
-  scoreText: {
-    fontSize: 18,
   }
 });

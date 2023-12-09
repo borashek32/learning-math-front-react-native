@@ -9,15 +9,23 @@ import { ResultInput } from '../common/components/inputs/ResultInput';
 import { DefaultButton } from '../common/components/buttons/appButtons/DefaultButton';
 import { Score } from '../common/components/score/Score';
 
-export const Summ = ({ navigation }) => {
+export const Diff = ({ navigation }) => {
 
   const [firstDigit, setFirstDigit] = useState<number>(null)
   const [secondDigit, setSecondDigit] = useState<number>(null)
   const [answer, setAnswer] = useState<string>('')
 
+  const generateNewDigits = () => {
+    const firstDigit = Math.floor(Math.random() * 21) + 1
+    setFirstDigit(firstDigit)
+  
+    const secondDigit = Math.floor(Math.random() * firstDigit) + 1
+    setSecondDigit(secondDigit)
+  }
+  
+
   const onGenerateNewDigits = () => {
-    setFirstDigit(Math.floor(Math.random() * 21) + 1)
-    setSecondDigit(Math.floor(Math.random() * 11) + 1)
+    generateNewDigits()
     setAnswer('')
     setRight(false)
     setWrong(false)
@@ -34,7 +42,7 @@ export const Summ = ({ navigation }) => {
   const onCheck = () => {
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-    if (firstDigit + secondDigit === answerToNumber) {
+    if (firstDigit - secondDigit === answerToNumber) {
       setRight(true)
       setScore(score + 1)
     } else {
@@ -46,8 +54,7 @@ export const Summ = ({ navigation }) => {
   const onPressPlayMore = () => {
     setRight(false)
     setAnswer('')
-    setFirstDigit(Math.floor(Math.random() * 21) + 1)
-    setSecondDigit(Math.floor(Math.random() * 11) + 1)
+    generateNewDigits()
   }
 
   const onPressTryAgain = () => {
@@ -56,8 +63,7 @@ export const Summ = ({ navigation }) => {
   }
 
   useEffect(() => {
-    setFirstDigit(Math.floor(Math.random() * 21) + 1)
-    setSecondDigit(Math.floor(Math.random() * 11) + 1)
+    generateNewDigits()
   }, [])
 
   return (
@@ -67,7 +73,7 @@ export const Summ = ({ navigation }) => {
       <Text style={styles.title}>Summ of two digits</Text>
       <View style={styles.containerMathOperation}>
         <Digit title={firstDigit} />
-        <MathOperation title='+' />
+        <MathOperation title='-' />
         <Digit title={secondDigit} />
         <MathOperation title='=' />
 

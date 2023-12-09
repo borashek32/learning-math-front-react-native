@@ -7,7 +7,10 @@ export const AlertResult = (props: Props) => {
   return (
     <View>
       {props.right && 
-        <TouchableOpacity style={[styles.alertWrapper, styles.alertGreen]}>
+        <TouchableOpacity 
+          style={[styles.alertWrapper, styles.alertGreen]}
+          onPress={props.onPress}
+        >
           <Text style={styles.alertText}>Yeah, you are right</Text>
           <View>
             <Button
@@ -18,7 +21,10 @@ export const AlertResult = (props: Props) => {
         </TouchableOpacity>
       }
       {props.wrong && 
-        <TouchableOpacity style={[styles.alertWrapper, styles.alertRed]}>
+        <TouchableOpacity 
+          style={[styles.alertWrapper, styles.alertRed]}
+          onPress={props.onPress}
+        >
           <Text style={styles.alertText}>Oh, nooooo. Please, try again</Text>
           <View>
             <Button

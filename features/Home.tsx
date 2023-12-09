@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, View } from 'react-native';
+import { styles } from './../common/styles/styles';
 
 export const Home = ({ navigation }) => {
 
@@ -10,16 +11,11 @@ export const Home = ({ navigation }) => {
         title="Calculate summ"
         onPress={() => navigation.navigate('Summ')}
       />
+      <Button
+        title="Difference"
+        onPress={() => navigation.navigate('Diff')}
+      />
       <StatusBar style="auto" />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

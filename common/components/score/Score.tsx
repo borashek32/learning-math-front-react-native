@@ -5,8 +5,10 @@ import { Props } from './types'
 export const Score: React.FC<Props> = ({ score }) => {
 
   return (
-    <View style={styles.scoreWrapper}>
-      <Text style={styles.scoreText}>Your score: {score}</Text>
+    <View>
+      <Text style={styles.title}>
+        Your score: {score}
+      </Text>
     </View>
   )
 }
