@@ -1,0 +1,9 @@
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>learning-math</string>
+    </array>
+  </dict>
+</array>

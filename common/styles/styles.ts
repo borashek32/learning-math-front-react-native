@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#01143d',
     alignItems: 'center',
   },
   button: {
@@ -70,5 +70,9 @@ export const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderWidth: 1,
     borderColor: 'darkgreen',
+  },
+  multDigit: {
+    fontSize: 30,
+    fontWeight: '700'
   }
 });

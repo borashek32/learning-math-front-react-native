@@ -1,0 +1,151 @@
+{
+  "lang": "en",
+  "screens": {
+    "welcome": "Welcome",
+    "home": "Home",
+    "summ": "Summ",
+    "diff": "Difference",
+    "mult": "Multiplication",
+    "multDigit": "Multiplication by",
+    "multCheck": "Check mutiplication knowledge",
+    "login": "Login",
+    "register": "Register"
+  },
+  "nav": {
+    "select": {
+      "changeLang": "Change language",
+      "options": {
+        "en": "English",
+        "ru": "Russian"
+      }
+    },
+    "items": {
+      "home": "Home",
+      "mathOperations": "Math Operations",
+      "instructions": "Instructions",
+      "profile": "Profile",
+      "score": "Your score"
+    }
+  },
+  "buttons": {
+    "submit": "Submit",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "modal": {
+    "success": "Yeah success)))",
+    "linkSent": "We've sent you a link to verify your email. Check your mail, please"
+  },
+  "links": {
+    "back": "Back"
+  },
+  "errors": {
+    "serverError": "There is no connection to the server. Please, try later",
+    "someError": "Some error occured",
+    "error400": "User with this email already exists",
+    "required": "Field required",
+    "latinLetters": "Only latin letters are supported",
+    "min": "Field length should be at least 4 characters",
+    "max": "Field cannot exceed more than 64 characters",
+    "notMatch": "Passwords do not match",
+    "mustBeEmail": "Email must be an email",
+    "logout": "User not authorized. First log in and then you can log out"
+  },
+  "auth": {
+    "links": {
+      "register": "Register",
+      "login": "Login",
+      "forgotPassword": "Forgot password",
+      "instructions": "Instructions"
+    },
+    "changePassword": {
+      "inputs": {
+        "password": {
+          "label": "Your old password",
+          "placeholder": "Enter your old password"
+        },
+        "newPassword": {
+          "label": "Your new password",
+          "placeholder": "Enter your new password"
+        },
+        "newPasswordConfirmation": {
+          "label": "New password confirmation",
+          "placeholder": "Enter your new password confirmation"
+        }
+      }
+    },
+    "changeEmail": {
+      "inputs": {
+        "newEmail": {
+          "label": "Your new email",
+          "placeholder": "Enter your new email"
+        }
+      }
+    },
+    "login": {
+      "inputs": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        }
+      },
+      "note": "If you don't have an account, go to registration page"
+    },
+    "register": {
+      "inputs": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "passwordConfirmation": {
+          "label": "Password confirmation",
+          "placeholder": "Enter your password confirmation"
+        }
+      },
+      "note": "If you already have an account, go to login page"
+    },
+    "logout": {
+      "sure": "Are you sure?"
+    },
+    "verify": "Your email is verified successfully"
+  },
+  "home": {
+    "hello": "Hello"
+  },
+  "mathOperations": {
+    "title": "Math operations",
+    "common": {
+      "generate": "Generate new digits",
+      "check": "Check",
+      "right": "You are right!",
+      "notRight": "You are not right",
+      "more": "Play more?",
+      "again": "Try again?",
+      "choose": "Choose a number:"
+    },
+    "score": "Your score:",
+    "diff": "Calculate difference",
+    "summ": "Calculate summ",
+    "multiplication": "Multiplication",
+    "multTable": "Multiplication table",
+    "multBy": "Multiplication by"
+  },
+  "profile": {
+    "title": "Profile",
+    "changePassword": "Change password",
+    "changeEmail": "Change email",
+    "yourScore": "Progress table"
+  },
+  "yourScore": {
+
+  }
+}

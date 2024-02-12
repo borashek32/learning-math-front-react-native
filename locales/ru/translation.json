@@ -1,0 +1,148 @@
+{
+  "lang": "ru",
+  "screens": {
+    "welcome": "Добро пожаловать",
+    "home": "Главная",
+    "summ": "Сумма",
+    "diff": "Разница",
+    "mult": "Умножение",
+    "multDigit": "Умножение на",
+    "multCheck": "Проверка знаний умножения",
+    "login": "Вход",
+    "register": "Регистрация"
+  },
+  "nav": {
+    "select": {
+      "changeLang": "Выбор языка",
+      "options": {
+        "en": "Английский",
+        "ru": "Русский"
+      }
+    },
+    "items": {
+      "home": "Домой",
+      "mathOperations": "Математические операции",
+      "instructions": "Инструкции",
+      "profile": "Профайл",
+      "score": "Ваш счет"
+    }
+  },
+  "buttons": {
+    "submit": "Отправить",
+    "logout": "Выйти",
+    "login": "Вход",
+    "register": "Регистрация"
+  },
+  "modal": {
+    "success": "У вас получилось успешно)))",
+    "linkSent": "Пожалуйста, проверьте вашу почту"
+  },
+  "links": {
+    "back": "Назад"
+  },
+  "errors": {
+    "serverError": "Нет связи с сервером. Пожалуйста, попробуйте позже",
+    "someError": "Какая-то ошибка:(",
+    "error400": "Пользователь с таким email уже существует",
+    "required": "Обязательное поле",
+    "latinLetters": "Tолько латинские буквы",
+    "min": "Минимальная длина поля 4 символа",
+    "max": "Максимальная длина поля 64 символа",
+    "notMatch": "Пароли не совпадают",
+    "mustBeEmail": "Email должен быть email",
+    "logout": "Вы не авторизованы, залогиньтесь, тогда вы сможете выйти"
+  },
+  "auth": {
+    "links": {
+      "register": "Регистрация",
+      "login": "Вход",
+      "forgotPassword": "Забыли пароль",
+      "instructions": "Инструкции"
+    },
+    "changePassword": {
+      "inputs": {
+        "password": {
+          "label": "Ваш старый пароль",
+          "placeholder": "Введите ваш старый пароль"
+        },
+        "newPassword": {
+          "label": "Ваш новый пароль",
+          "placeholder": "Введите ваш новый пароль"
+        },
+        "newPasswordConfirmation": {
+          "label": "Подтверждение пароля",
+          "placeholder": "Подтвердите ваш новый пароль"
+        }
+      }
+    },
+    "changeEmail": {
+      "inputs": {
+        "newEmail": {
+          "label": "Ваш новый email",
+          "placeholder": "Введите ваш новый email"
+        }
+      }
+    },
+    "login": {
+      "inputs": {
+        "email": {
+          "label": "Электронная почта",
+          "placeholder": "Введите ваш email"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите ваш пароль"
+        }
+      },
+      "note": "Если у вас нет аккаунта, пройдите регистрацию"
+    },
+    "register": {
+      "inputs": {
+        "email": {
+          "label": "Электронная почта",
+          "placeholder": "Введите ваш email"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите ваш пароль"
+        },
+        "passwordConfirmation": {
+          "label": "Подтверждение пароля",
+          "placeholder": "Подтвердите ваш пароль"
+        }
+      },
+      "note": "Если у вас уже есть аккаунт, пройдите на страницу входа"
+    },
+    "logout": {
+      "sure": "Вы уверены"
+    },
+    "verify": "Ваш email подтвержден успешно"
+  },
+  "home": {
+    "hello": "Привет"
+  },
+  "mathOperations": {
+    "title": "Математические операции",
+    "common": {
+      "generate": "Сгенерировать новые числа",
+      "check": "Проверить",
+      "right": "Вы правы!",
+      "notRight": "Вы не правы",
+      "more": "Играть еще?",
+      "again": "Попробовать еще раз?",
+      "choose": "Выбери число:"
+    },
+    "score": "Ваш счет:",
+    "diff": "Рассчитать разность",
+    "summ": "Рассчитать сумму",
+    "multiplication": "Умножение",
+    "multTable": "Таблица умножения",
+    "multBy": "Умножение на"
+  },
+  "profile": {
+    "title": "Профайл",
+    "changePassword": "Изменить пароль",
+    "changeEmail": "Изменить email",
+    "yourScore": "Таблица прогресса"
+  }
+}

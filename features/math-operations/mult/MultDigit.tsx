@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Keyboard, Text, View } from 'react-native';
-import { MathOperation } from '../common/components/mathOperation/MathOperation';
-import { GoHome } from '../common/components/buttons/goHomeButton/goHome';
-import { styles } from './../common/styles/styles'
-import { Digit } from '../common/components/borderedText/borderedText';
-import { AlertResult } from '../common/components/alerts/AlertResult';
-import { ResultInput } from '../common/components/inputs/ResultInput';
-import { DefaultButton } from '../common/components/buttons/appButtons/DefaultButton';
-import { Score } from '../common/components/score/Score';
+import { GoHome } from '../../../common/components/buttons/goHomeButton/goHome';
+import { styles } from '../../../common/styles/styles'
+import { DefaultButton } from '../../../common/components/buttons/appButtons/DefaultButton';
+import { AlertResult } from '../../../common/components/alerts/AlertResult';
+import { Score } from '../../../common/components/score/Score';
+import { ResultInput } from '../../../common/components/inputs/ResultInput';
+import { Digit } from '../../../common/components/borderedText/borderedText';
+import { MathOperation } from '../../../common/components/mathOperation/MathOperation';
 
-export const Diff = ({ navigation }) => {
+export const MultDigit = ({ navigation, route }) => {
+  const { digit } = route.params
 
   const [firstDigit, setFirstDigit] = useState<number>(null)
-  const [secondDigit, setSecondDigit] = useState<number>(null)
   const [answer, setAnswer] = useState<string>('')
 
-  const generateNewDigits = () => {
-    const firstDigit = Math.floor(Math.random() * 21) + 1
-    setFirstDigit(firstDigit)
-  
-    const secondDigit = Math.floor(Math.random() * firstDigit) + 1
-    setSecondDigit(secondDigit)
-  }
-  
-
   const onGenerateNewDigits = () => {
-    generateNewDigits()
+    setFirstDigit(Math.floor(Math.random() * (9 - 2 + 1)) + 2)
     setAnswer('')
     setRight(false)
     setWrong(false)
@@ -42,7 +33,7 @@ export const Diff = ({ navigation }) => {
   const onCheck = () => {
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-    if (firstDigit - secondDigit === answerToNumber) {
+    if (firstDigit * digit === answerToNumber) {
       setRight(true)
       setScore(score + 1)
     } else {
@@ -54,7 +45,7 @@ export const Diff = ({ navigation }) => {
   const onPressPlayMore = () => {
     setRight(false)
     setAnswer('')
-    generateNewDigits()
+    setFirstDigit(Math.floor(Math.random() * (9 - 2 + 1)) + 2)
   }
 
   const onPressTryAgain = () => {
@@ -63,18 +54,18 @@ export const Diff = ({ navigation }) => {
   }
 
   useEffect(() => {
-    generateNewDigits()
+    setFirstDigit(Math.floor(Math.random() * (9 - 2 + 1)) + 2)
   }, [])
 
   return (
     <View style={styles.container}>
       <GoHome navigation={navigation} />
 
-      <Text style={styles.title}>Summ of two digits</Text>
+      <Text style={styles.title}>Multiplying by {digit}</Text>
       <View style={styles.containerMathOperation}>
         <Digit title={firstDigit} />
-        <MathOperation title='-' />
-        <Digit title={secondDigit} />
+        <MathOperation title='*' />
+        <Digit title={digit} />
         <MathOperation title='=' />
 
         <ResultInput 
@@ -85,7 +76,7 @@ export const Diff = ({ navigation }) => {
       </View>
 
       <DefaultButton 
-        title='Generate new digits' 
+        title='Generate new digit' 
         onPress={onGenerateNewDigits}
       />
       <DefaultButton 
@@ -93,7 +84,7 @@ export const Diff = ({ navigation }) => {
         onPress={onCheck}
       />
       
-      <AlertResult 
+      <AlertResult
         title={'Play more;)'} 
         right={right}
         onPress={onPressPlayMore} 
@@ -106,5 +97,5 @@ export const Diff = ({ navigation }) => {
       
       <Score score={score} />
     </View>
-  );
+  )
 }

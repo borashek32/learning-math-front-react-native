@@ -1,15 +1,16 @@
 import React from 'react'
 import { styles } from '../../../styles/styles'
-import { Props } from './types'
+import { Props } from './DefaultButton.types'
 import { Button, TouchableOpacity } from 'react-native'
 
-export const DefaultButton: React.FC<Props> = ({ title, onPress }) => {
+export const DefaultButton: React.FC<Props> = ({ title, onPress }: Props) => {
 
   return (
     <TouchableOpacity style={[styles.generateButton, styles.buttonBorder]}>
       <Button 
         title={title}
-        onPress={onPress} 
+        onPress={onPress}
+        color={'#fff'}
       />
     </TouchableOpacity>
   )
