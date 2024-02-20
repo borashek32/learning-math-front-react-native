@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 20,
     marginRight: 20,
-    marginBottom: 40,
+    marginBottom: 20,
     marginLeft: 20,
   },
   logoWrapper: {

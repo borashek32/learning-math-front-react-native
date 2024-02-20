@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#01143d',
-    alignItems: 'center',
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   button: {
     width: 200,
@@ -18,24 +18,27 @@ export const styles = StyleSheet.create({
     height: 40,
   },
   buttonBorder: {
-    borderColor: 'black',
+    borderColor: '#fff',
     borderWidth: 1,
-    color: 'black',
+    color: '#fff',
     marginTop: 20,
   },
   title: {
     margin: 20,
     fontSize: 24,
+    color: '#fff',
+    textAlign: 'center'
   },
   firstDigit: {
     padding: 10,
-    borderColor: 'black',
+    borderColor: '#fff',
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   digitsText: {
     fontSize: 34,
+    color: '#fff'
   },
   digitInput: {
     width: 40,
@@ -51,7 +54,7 @@ export const styles = StyleSheet.create({
   },
   alertText: {
     fontSize: 24,
-    color: 'white',
+    color: '#fff',
   },
   alertWrapper: {
     marginTop: -150,

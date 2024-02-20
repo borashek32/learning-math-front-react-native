@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Text } from "react-native"
-import { useVerifyQuery } from "../../common/services/auth/auth.api"
+import { useVerifyQuery } from "../auth.api"
 import { useRoute } from "@react-navigation/native"
 
 type Props = {

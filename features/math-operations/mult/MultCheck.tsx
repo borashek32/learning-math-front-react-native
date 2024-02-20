@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Keyboard, Text, View } from 'react-native';
-import { GoHome } from '../../../common/components/buttons/goHomeButton/goHome';
-import { styles } from '../../../common/styles/styles'
-import { DefaultButton } from '../../../common/components/buttons/appButtons/DefaultButton';
-import { AlertResult } from '../../../common/components/alerts/AlertResult';
-import { Score } from '../../../common/components/score/Score';
-import { ResultInput } from '../../../common/components/inputs/ResultInput';
-import { Digit } from '../../../common/components/borderedText/borderedText';
-import { MathOperation } from '../../../common/components/mathOperation/MathOperation';
+import React, { useEffect, useState } from 'react'
+import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
+import { styles } from './../MathOperations.styles'
+import { AlertResult } from '../../../common/components/alerts/AlertResult'
+import { Score } from '../../../common/components/score/Score'
+import { ResultInput } from '../../../common/components/inputs/ResultInput'
+import { Digit } from '../../../common/components/borderedText/borderedText'
+import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
+import { useTranslation } from 'react-i18next'
+import { AppLayout } from '../../../common/components/layouts/AppLayout'
 
 export const MultCheck = ({ navigation }) => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
   const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
   const [product, setProduct] = useState<number>(null)
   const [answer, setAnswer] = useState<string>('')
+
+  const { t } = useTranslation('translation')
 
   const onGenerateNewDigits = () => {
     setFirstMultiplier(Math.floor(Math.random() * 8) + 2)
@@ -68,44 +70,43 @@ export const MultCheck = ({ navigation }) => {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <GoHome navigation={navigation} />
+    <AppLayout title={t('mathOperations.multCheck')}>
+      <>
+        <View style={styles.containerMathOperation}>
+          <Digit title={product} />
+          <MathOperation title=':' />
+          <Digit title={firstMultiplier} />
+          <MathOperation title='=' />
 
-      <Text style={styles.title}>Check multiplication table</Text>
-      <View style={styles.containerMathOperation}>
-        <Digit title={product} />
-        <MathOperation title=':' />
-        <Digit title={firstMultiplier} />
-        <MathOperation title='=' />
+          <ResultInput 
+            value={answer} 
+            type={'numeric'}
+            onChange={onChangeHandler}
+          />
+        </View>
 
-        <ResultInput 
-          value={answer} 
-          type={'numeric'}
-          onChange={onChangeHandler}
+        <View style={styles.buttonsWrapper}>
+          <TouchableOpacity style={styles.button} onPress={onGenerateNewDigits}>
+            <Text style={styles.buttonText}>{t('mathOperations.common.generate')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={onCheck}>
+            <Text style={styles.buttonText}>{t('mathOperations.common.check')}</Text>
+          </TouchableOpacity>
+        </View>
+        
+        <AlertResult
+          title={'Play more)'} 
+          right={right}
+          onPress={onPressPlayMore} 
         />
-      </View>
-
-      <DefaultButton 
-        title='Generate new digit' 
-        onPress={onGenerateNewDigits}
-      />
-      <DefaultButton 
-        title='Check' 
-        onPress={onCheck}
-      />
-      
-      <AlertResult
-        title={'Play more;)'} 
-        right={right}
-        onPress={onPressPlayMore} 
-      />
-      <AlertResult 
-        title={'Oh, noooooooo'}
-        wrong={wrong} 
-        onPress={onPressTryAgain} 
-      />
-      
-      <Score score={score} />
-    </View>
+        <AlertResult 
+          title={'Oh, noooooooo'}
+          wrong={wrong} 
+          onPress={onPressTryAgain} 
+        />
+        
+        <Score score={score} />
+      </>
+    </AppLayout>
   )
 }

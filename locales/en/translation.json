@@ -1,15 +1,19 @@
 {
   "lang": "en",
   "screens": {
-    "welcome": "Welcome",
+    "main": "Welcome",
     "home": "Home",
+    "instructions": "Instructions",
+    "math": "Math Operations",
     "summ": "Summ",
     "diff": "Difference",
     "mult": "Multiplication",
     "multDigit": "Multiplication by",
     "multCheck": "Check mutiplication knowledge",
     "login": "Login",
-    "register": "Register"
+    "register": "Registeration",
+    "verify": "Verify",
+    "logout": "Logout"
   },
   "nav": {
     "select": {
@@ -34,7 +38,8 @@
     "register": "Register"
   },
   "modal": {
-    "success": "Yeah success)))",
+    "success": "Registration was successfull.",
+    "fail": "Something went wrong. Please, try later",
     "linkSent": "We've sent you a link to verify your email. Check your mail, please"
   },
   "links": {
@@ -44,6 +49,7 @@
     "serverError": "There is no connection to the server. Please, try later",
     "someError": "Some error occured",
     "error400": "User with this email already exists",
+    "error401": "User not found",
     "required": "Field required",
     "latinLetters": "Only latin letters are supported",
     "min": "Field length should be at least 4 characters",
@@ -130,14 +136,16 @@
       "notRight": "You are not right",
       "more": "Play more?",
       "again": "Try again?",
-      "choose": "Choose a number:"
+      "choose": "Choose a number:",
+      "saveScore": "Save today score"
     },
     "score": "Your score:",
     "diff": "Calculate difference",
     "summ": "Calculate summ",
     "multiplication": "Multiplication",
     "multTable": "Multiplication table",
-    "multBy": "Multiplication by"
+    "multBy": "Multiplication by",
+    "multCheck": "Check mutiplication knowledge"
   },
   "profile": {
     "title": "Profile",

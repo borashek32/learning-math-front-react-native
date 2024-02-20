@@ -1,25 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Button, View } from 'react-native';
-import { styles } from '../../../common/styles/styles';
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { AppLayout } from '../../../common/components/layouts/AppLayout'
+import { DefaultButton } from '../../../common/components/buttons/DefaultButton'
+import { PATHS } from '../../../common/constants/paths'
+import { useTranslation } from 'react-i18next'
+import { styles } from './../Home.styles'
+import { DevideLine } from '../../../common/components/devideLine/DevideLine'
 
 export const Home = ({ navigation }) => {
+  const { t, i18n } = useTranslation('translation')
 
   return (
-    <View style={styles.container}>
-      <Button
-        title="Summ"
-        onPress={() => navigation.navigate('summ')}
-      />
-      <Button
-        title="Difference"
-        onPress={() => navigation.navigate('diff')}
-      />
-      <Button
-        title="Multiplication table"
-        onPress={() => navigation.navigate('mult')}
-      />
-      <StatusBar style="auto" />
-    </View>
+    <AppLayout>
+      <>
+        <View style={styles.menuContainer}>
+          <DefaultButton title={t('nav.items.mathOperations')} path={PATHS.MATH_OPERATIONS}/>
+          <DefaultButton title={t('nav.items.instructions')} path={PATHS.INSTRUCTIONS}/>
+        </View>
+        <DevideLine />
+        <View style={styles.menuContainer}>
+          <DefaultButton title={t('profile.title')} path={PATHS.PROFILE} />
+          <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
+        </View>
+        <StatusBar style="auto" />
+      </>
+    </AppLayout>
   )
 }

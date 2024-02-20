@@ -1,5 +1,5 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { baseURL } from '../../baseUrl'
+import { baseURL } from '../../common/baseUrl'
 import { 
   ForgotPasswordType, 
   RegistedUserType, 
@@ -9,7 +9,7 @@ import {
   NewPasswordType,
   NewEmailType,
 } from './auth.api.types'
-import { algByDecodingToken } from '../../utils/algByDecodingToken'
+import { algByDecodingToken } from '../../common/utils/algByDecodingToken'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const baseQuery = fetchBaseQuery({

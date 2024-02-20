@@ -1,10 +1,10 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { View, Text, StyleSheet } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select'
+import { useTranslation } from 'react-i18next'
 
 export const SelectLang = () => {
-  const { t, i18n } = useTranslation('translation', { keyPrefix: 'nav.select' })
+  const { t, i18n } = useTranslation('translation')
 
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang)
@@ -12,16 +12,16 @@ export const SelectLang = () => {
 
   return (
     <View style={styles.selectWrapper}>
-      <View>
-        <Text style={styles.change}>{t('changeLang')}</Text>
+      <View style={styles.select}>
+        <Text style={styles.change}>{t('nav.select.changeLang')}</Text>
 
         <RNPickerSelect
           style={pickerSelectStyles}
           value={i18n.language}
           onValueChange={(value) => changeLang(value)}
           items={[
-            { label: t('options.en'), value: 'en' },
-            { label: t('options.ru'), value: 'ru' },
+            { label: t('nav.select.options.ru'), value: 'ru' },
+            { label: t('nav.select.options.en'), value: 'en' },
           ]}
         />
       </View>
@@ -56,7 +56,10 @@ const pickerSelectStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   selectWrapper: {
-    alignItems: 'center',
+    position: 'relative'
+  },
+  select: {
+
   },
   change: {
     fontSize: 12,
