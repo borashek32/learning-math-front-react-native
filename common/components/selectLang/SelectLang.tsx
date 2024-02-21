@@ -59,11 +59,12 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   select: {
-
+    
   },
   change: {
     fontSize: 12,
     color: 'white',
     marginBottom: 4,
+    textAlign: 'center',
   },
 })

@@ -1,46 +1,55 @@
-import { useNavigation } from "@react-navigation/native"
-import { useState } from "react"
-import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from "react-native"
-import { TouchableOpacity } from "react-native"
-import { DefaultButton } from "../buttons/DefaultButton"
+import React, { useState } from "react"
+import { StyleSheet, View, TouchableOpacity, Dimensions } from "react-native"
 import { LogoSmall } from "../logo/LogoSmall"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { DefaultButton } from "../buttons/DefaultButton"
+import { useAppSelector } from "../../hooks/useAppSelector"
+import { selectUserEmail } from "../../../features/auth/auth.selectors"
+import { useTranslation } from "react-i18next"
 import { PATHS } from "../../constants/paths"
-
+import { SelectLang } from "../selectLang/SelectLang"
+import * as Animatable from 'react-native-animatable'
+import { NavLinkButton } from "../buttons/NavLinkButton"
 
 export const Nav = () => {
-  const [active, setActive] = useState(false)
-  const navigation = useNavigation()
-  const userEmail = AsyncStorage.getItem('userEmail')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const userEmail = useAppSelector(selectUserEmail)
   const { t } = useTranslation()
 
-  const onClick = () => {
-    setActive(!active)
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
   }
 
   return (
     <>
       <View style={styles.header}>
         <LogoSmall />
-        <View style={styles.headerWithUser}>
-          <TouchableOpacity style={styles.menu} onPress={onClick}>
-            <View style={[styles.line, active && { backgroundColor: '#01143d' }]}></View>
-            <View style={[styles.line, active && { backgroundColor: '#01143d' }]}></View>
-            <View style={[styles.line, active && { backgroundColor: '#01143d' }]}></View>
+        <View style={userEmail ? styles.headerWithUser : {}}>
+          <DefaultButton title={userEmail} path={PATHS.PROFILE} />
+          <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
+            <Animatable.View 
+              style={[styles.line, menuOpen && styles.lineActive]} 
+              animation={menuOpen ? 'rotate' : null} 
+              duration={300} 
+              easing="ease-in-out"
+            >
+              <View style={[styles.line, menuOpen && styles.firstLineActive]}></View>
+              <View style={[styles.line, menuOpen && styles.middleLineActive]}></View>
+              <View style={[styles.line, menuOpen && styles.lineActive]}></View>
+            </Animatable.View>
           </TouchableOpacity>
         </View>
       </View>
-      {userEmail && active && (
+      {userEmail && menuOpen && (
         <View style={styles.navigation}>
           <View style={styles.menuItems}>
-            <DefaultButton title={t('nav.items.home')} path={PATHS.HOME} />
-            <DefaultButton title={t('nav.items.mathOperations')} path={PATHS.MATH_OPERATIONS} />
-            <DefaultButton title={t('nav.items.instructions')} path={PATHS.INSTRUCTIONS} />
+            <NavLinkButton title={t("nav.items.home")} path={PATHS.HOME} />
+            <NavLinkButton title={t("nav.items.mathOperations")} path={PATHS.MATH_OPERATIONS} />
+            <NavLinkButton title={t("nav.items.instructions")} path={PATHS.INSTRUCTIONS} />
             <View style={styles.footerDevideLine}></View>
-            <DefaultButton title={t('nav.items.profile')} path={PATHS.PROFILE} />
-            <DefaultButton title={t('nav.items.score')} path={PATHS.SCORE} />
-            <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
+            <NavLinkButton title={t("nav.items.profile")} path={PATHS.PROFILE} />
+            <NavLinkButton title={t("nav.items.score")} path={PATHS.SCORE} />
+            <DefaultButton title={t("buttons.logout")} path={PATHS.LOGOUT} />
+            <SelectLang />
           </View>
         </View>
       )}
@@ -50,63 +59,82 @@ export const Nav = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingLeft: 10,
-    paddingRight: 10,
     height: 80,
-    width: '100%',
-    position:'relative',
+    width: "100%",
   },
   headerWithUser: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
+    paddingRight: 20,
+    width: Dimensions.get("window").width - 56,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    position: "relative",
   },
   userEmail: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
     marginRight: 10,
   },
   menu: {
     width: 56,
     height: 56,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
+  
   line: {
     width: 40,
     height: 2,
-    backgroundColor: '#fff',
-    marginBottom: 10
+    backgroundColor: "#fff",
+    marginBottom: 10,
   },
-  navigation: {
+  lineActive: {
+    transform: [{ rotate: '45deg' }],
+    backgroundColor: "#fff",
+  },
+  firstLineActive: {
+    transform: [{ rotate: '-45deg' }],
+    backgroundColor: "#fff",
+    top: 12,
     position: 'absolute',
+    zIndex: 1000
+  },
+  middleLineActive: {
+    backgroundColor: '#01143d'
+  },
+
+  navigation: {
+    position: "absolute",
     zIndex: 2,
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#01143d',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#01143d",
+    justifyContent: "flex-start",
+    marginTop: 70,
+    alignItems: "center",
   },
   menuItems: {
-    width: 200,
-    height: 300,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'column',
+    paddingTop: 40,
+    width: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    gap: 20,
   },
   item: {
     marginBottom: 10,
   },
   itemLink: {
-    color: '#fff',
-    textDecorationLine: 'none',
+    color: "#fff",
+    textDecorationLine: "none",
   },
   footerDevideLine: {
     height: 2,
-    width: '100%',
-    backgroundColor: '#61dafb',
+    width: "100%",
+    backgroundColor: "#61dafb",
   },
 })

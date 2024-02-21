@@ -22,9 +22,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#01143d',
+    width: '100%',
   },
   contentWrapper: {
-    marginTop: 40
+    marginTop: 40,
+    // width: 300
   },
   title: {
     marginBottom: 30,

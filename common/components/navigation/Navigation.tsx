@@ -30,7 +30,6 @@ export const Navigation = () => {
     config: {
       screens: {
         initialRouteName: PATHS.MAIN,
-        Welcome: PATHS.MAIN,
         Home: PATHS.HOME,
         Instructions: PATHS.INSTRUCTIONS,
         MathOperations: PATHS.MATH_OPERATIONS,

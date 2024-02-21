@@ -4,7 +4,7 @@ import { DefaultButtonProps } from './Buttons.types'
 import { PATHS } from '../../constants/paths'
 import { useNavigation } from '@react-navigation/native'
 
-export const DefaultButton: React.FC<DefaultButtonProps> = ({ 
+export const NavLinkButton: React.FC<DefaultButtonProps> = ({ 
   title, 
   path,
   text,
@@ -34,7 +34,7 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
           ? () => navigation.navigate(path)
           : onPress
         }>
-        <Text style={text ? styles.buttonTextSmall : styles.buttonText}>{title}</Text>
+        <Text style={styles.buttonTextSmall}>{title}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -74,11 +74,6 @@ export const styles = StyleSheet.create({
   },
   buttonRed: {
     backgroundColor: "#fb6161",
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#fff',
-    textAlign: 'center'
   },
   buttonTextSmall: {
     fontSize: 14,

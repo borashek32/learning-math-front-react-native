@@ -34,16 +34,15 @@ export const Login = ({ navigation }) => {
       .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, i18n.t('errors.mustBeEmail')),
     password: yup.string()
       .required(i18n.t('errors.required'))
-      .matches(/^[A-Za-z]+$/i, i18n.t('errors.latinLetters'))
+      // .matches(/^[A-Za-z]+$/i, i18n.t('errors.latinLetters'))
       .min(4, i18n.t('errors.min'))
-      .max(64, i18n.t('errors.max')),
+      .max(164, i18n.t('errors.max')),
   })
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-    reset,
     clearErrors,
     trigger,
   } = useForm<RegisterType>({
@@ -61,20 +60,21 @@ export const Login = ({ navigation }) => {
     login(data)
       .unwrap()
       .then(response => {
-        reset()
         if (response.user) {
           dispatch(setUserInfo(response.user))
           navigation.navigate(PATHS.HOME)
         }
       })
       .catch((e: any) => {
-        const serverE = t('errors.serverError')
-        const error400 = t('errors.error400')
-        const error401 = t('errors.error401')
+        console.log(e)
+        setServerError('Ошибку смотри в консоли')
+        // const serverE = t('errors.serverError')
+        // const error400 = t('errors.error400')
+        // const error401 = t('errors.error401')
 
-        if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        if (e.status === 400) setServerError(error400)
-        if (e.status === 401) setServerError(error401)
+        // if (e.status === 'FETCH_ERROR') setServerError(serverE)
+        // if (e.status === 400) setServerError(error400)
+        // if (e.status === 401) setServerError(error401)
       })
   }
 

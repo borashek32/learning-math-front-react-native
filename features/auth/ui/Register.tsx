@@ -1,14 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native"
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { useSignUpMutation } from "../auth.api"
 import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
 import { RegisterType } from "../auth.api.types"
@@ -29,34 +22,24 @@ interface IFormProps {
 export const Register = ({ navigation }) => {
   const [signUp, { isLoading }] = useSignUpMutation()
   const [serverError, setServerError] = useState('')
-
   const { t, i18n } = useTranslation('translation')
-
+  
   const formSchema = yup.object().shape({
     email: yup.string()
       .required(i18n.t('errors.required'))
       .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, i18n.t('errors.mustBeEmail')),
     password: yup.string()
       .required(i18n.t('errors.required'))
-      .matches(/^[A-Za-z]+$/i, i18n.t('errors.latinLetters'))
       .min(4, i18n.t('errors.min'))
-      .max(64, i18n.t('errors.max')),
+      .max(164, i18n.t('errors.max')),
     passwordConfirmation: yup.string()
       .required(i18n.t('errors.required'))
       .min(4, i18n.t('errors.min'))
-      .max(64, i18n.t('errors.max'))
+      .max(164, i18n.t('errors.max'))
       .oneOf([yup.ref("password"), null], i18n.t('errors.notMatch')),
   })
-  
-  const {
-    handleSubmit, 
-    formState: { errors },
-    clearErrors,
-    watch, 
-    reset,
-    control,
-    trigger,
-  } = useForm<IFormProps>({
+
+  const { handleSubmit, formState: { errors }, clearErrors, reset, control, trigger, setValue, getValues } = useForm<IFormProps>({
     mode: "onBlur",
     defaultValues: {
       email: '',
@@ -65,10 +48,15 @@ export const Register = ({ navigation }) => {
     },
     resolver: yupResolver(formSchema) as Resolver<IFormProps>,
   })
-  
-  watch('password', '')
 
-  const onSubmit: SubmitHandler<RegisterType> = (data: RegisterType) => { 
+  useEffect(() => {
+    if (getValues("password") && getValues("passwordConfirmation")) {
+      setValue("password", "")
+      setValue("passwordConfirmation", "")
+    }
+  }, [])
+
+  const onSubmit: SubmitHandler<RegisterType> = (data: RegisterType) => {
     clearErrors()
     data = { ...data, email: convertFirstLetterToLowerCase(data.email) }
     setServerError('')
@@ -79,12 +67,14 @@ export const Register = ({ navigation }) => {
         navigation.navigate(PATHS.LOGIN)
       })
       .catch(e => {
-        const serverE = i18n.t('errors.serverError')
-        const error400 = i18n.t('errors.error400')
-        const error401 = i18n.t('errors.error401')
-        if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        if (e.status === 400) setServerError(error400)
-        if (e.status === 401) setServerError(error401)
+        console.log(e)
+        setServerError('Ошибку смотри в консоли')
+        // const serverE = i18n.t('errors.serverError')
+        // const error400 = i18n.t('errors.error400')
+        // const error401 = i18n.t('errors.error401')
+        // if (e.status === 'FETCH_ERROR') setServerError(serverE)
+        // if (e.status === 400) setServerError(error400)
+        // if (e.status === 401) setServerError(error401)
       })
   }
 
