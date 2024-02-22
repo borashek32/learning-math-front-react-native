@@ -4,7 +4,8 @@ export const styles = StyleSheet.create({
   containerMathOperation: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 20,
+    alignItems: "center",
+    gap: 10,
   },
   digitsWrapper: {
     

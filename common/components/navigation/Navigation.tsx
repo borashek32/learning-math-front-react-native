@@ -17,6 +17,7 @@ import { Logout } from '../../../features/auth/ui/Logout'
 import { MathOperations } from '../../../features/math-operations/MathOperations'
 import { Profile } from '../../../features/profile/ui/Profile'
 import { useTranslation } from 'react-i18next'
+import { Loader } from '../loaders/CircularLoader'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -30,17 +31,17 @@ export const Navigation = () => {
     config: {
       screens: {
         initialRouteName: PATHS.MAIN,
-        Home: PATHS.HOME,
-        Instructions: PATHS.INSTRUCTIONS,
-        MathOperations: PATHS.MATH_OPERATIONS,
-        Summ: PATHS.SUMM,
-        Difference: PATHS.DIFF,
-        Mult: PATHS.MULT,
-        MultDigit: PATHS.MULT_DIGIT,
-        MultChech: PATHS.MULT_CHECK,
-        Login: PATHS.LOGIN,
-        Register: PATHS.REGISTER,
-        Verify: {
+        home: PATHS.HOME,
+        instructions: PATHS.INSTRUCTIONS,
+        mathOperations: PATHS.MATH_OPERATIONS,
+        summ: PATHS.SUMM,
+        difference: PATHS.DIFF,
+        mult: PATHS.MULT,
+        multDigit: PATHS.MULT_DIGIT,
+        multChech: PATHS.MULT_CHECK,
+        login: PATHS.LOGIN,
+        register: PATHS.REGISTER,
+        verify: {
           path: PATHS.VERIFY,
           parse: {
             verificationLink: (verificationLink: string) => verificationLink,
@@ -51,7 +52,7 @@ export const Navigation = () => {
   }
 
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer linking={linking} fallback={<Loader />}>
       <Stack.Navigator>
         {/* common */}
         <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />

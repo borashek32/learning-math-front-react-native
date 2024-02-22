@@ -1,7 +1,13 @@
 import React, { useEffect } from "react"
-import { Text } from "react-native"
 import { useVerifyQuery } from "../auth.api"
 import { useRoute } from "@react-navigation/native"
+import { KeyboardAvoidingView, Text } from "react-native"
+import { AuthLayout } from "../../../common/components/layouts/AuthLayout"
+import { Loader } from "../../../common/components/loaders/CircularLoader"
+import { useTranslation } from 'react-i18next'
+import { styles } from './../Auth.styles'
+import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
+import { PATHS } from "../../../common/constants/paths"
 
 type Props = {
   verificationLink: string
@@ -10,18 +16,37 @@ type Props = {
 export const Verify = ({ navigation }) => {
   const route = useRoute()
   const { verificationLink } = route.params as Props
-
-  const { data: error } = useVerifyQuery(verificationLink)
+  const { data: error, isLoading } = useVerifyQuery(verificationLink)
 
   useEffect(() => {
-    if (verificationLink) {
-      navigation.navigate('login')
-    } else if (error) {
-      console.log(error)
-    }
+    
   }, [verificationLink])
 
+  const { t, i18n } = useTranslation('translation')
+
   return (
-    <Text>Ваш аккаунт успешно верифицирован {verificationLink}</Text>
+    <>
+      {isLoading && <Loader />}
+      <AuthLayout title={i18n.t('auth.links.verify')}>
+        <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+          {error 
+          ? <>
+              <Text style={styles.title}>{i18n.t('auth.verify.error')}</Text>
+              <DefaultButton
+                title={t('auth.links.register')}
+                path={PATHS.REGISTER}
+              />
+            </>
+          : <>
+              <Text style={styles.title}>{i18n.t('auth.verify.success')}</Text>
+              <DefaultButton
+                title={t('auth.links.login')}
+                path={PATHS.LOGIN}
+              />
+            </>
+          }
+        </KeyboardAvoidingView>
+      </AuthLayout>
+    </>
   )
 }

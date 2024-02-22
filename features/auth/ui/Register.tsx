@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { useSignUpMutation } from "../auth.api"
 import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
 import { RegisterType } from "../auth.api.types"
@@ -12,6 +12,7 @@ import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirs
 import { PATHS } from "../../../common/constants/paths"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { styles } from './../Auth.styles'
+import { AlertResult } from "../../../common/components/alerts/AlertResult"
 
 interface IFormProps {
   email: string
@@ -20,8 +21,10 @@ interface IFormProps {
 }
 
 export const Register = ({ navigation }) => {
-  const [signUp, { isLoading }] = useSignUpMutation()
+  const [signUp, { isLoading, isError }] = useSignUpMutation()
   const [serverError, setServerError] = useState('')
+  const [open, setOpen] = useState(false)
+
   const { t, i18n } = useTranslation('translation')
   
   const formSchema = yup.object().shape({
@@ -64,7 +67,7 @@ export const Register = ({ navigation }) => {
       .unwrap()
       .then(() => {
         reset()
-        navigation.navigate(PATHS.LOGIN)
+        setOpen(true)
       })
       .catch(e => {
         console.log(e)
@@ -183,6 +186,12 @@ export const Register = ({ navigation }) => {
             text={t('auth.login.note')}
             path={PATHS.LOGIN}
           />
+
+          {open && <AlertResult
+            title={t('auth.register.alerts.success')} 
+            right={open}
+            onPress={() => setOpen(false)} 
+          />}
         </KeyboardAvoidingView>
       </AuthLayout>
     </>

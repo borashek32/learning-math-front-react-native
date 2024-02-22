@@ -1,5 +1,5 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { baseURL } from '../../common/baseUrl'
+import { baseURL } from '../../common/components/baseUrl/baseUrl'
 import { 
   ForgotPasswordType, 
   RegistedUserType, 

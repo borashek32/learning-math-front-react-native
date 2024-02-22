@@ -17,9 +17,7 @@ export const Home = ({ navigation }) => {
         <View style={styles.menuContainer}>
           <DefaultButton title={t('nav.items.mathOperations')} path={PATHS.MATH_OPERATIONS}/>
           <DefaultButton title={t('nav.items.instructions')} path={PATHS.INSTRUCTIONS}/>
-        </View>
-        <DevideLine />
-        <View style={styles.menuContainer}>
+          <DevideLine />
           <DefaultButton title={t('profile.title')} path={PATHS.PROFILE} />
           <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
         </View>

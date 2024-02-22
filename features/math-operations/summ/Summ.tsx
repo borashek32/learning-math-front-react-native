@@ -17,10 +17,12 @@ import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { selectUserId } from '../../auth/auth.selectors'
 
-export const Summ = ({ navigation }) => {
+export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
   const [secondDigit, setSecondDigit] = useState<number>(null)
   const [thirdDigit, setThirdDigit] = useState<number>(null)
+  const [fourthDigit, setFourthDigit] = useState<number>(null)
+
   const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
 
@@ -28,13 +30,22 @@ export const Summ = ({ navigation }) => {
 
   const { t, i18n } = useTranslation('translation')
 
-  const onGenerateNewDigits = () => {
+  const generateNewDigits = (score: number) => {
+    if (score > 5) {
+      setThirdDigit(Math.floor(Math.random() * 11) + 1)
+    }
+    if (score > 10) {
+      setFourthDigit(Math.floor(Math.random() * 11) + 1)
+    }
     setFirstDigit(Math.floor(Math.random() * 31) + 1)
     setSecondDigit(Math.floor(Math.random() * 11) + 1)
-    setThirdDigit(Math.floor(Math.random() * 11) + 1)
+  }
+  
+  const onGenerateNewDigits = () => {
     setAnswer('')
     setRight(false)
     setWrong(false)
+    generateNewDigits(score)
   }
 
   const onChangeHandler = (answer: string) => {
@@ -68,14 +79,12 @@ export const Summ = ({ navigation }) => {
   })
 
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    console.log(1324)
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-    if (firstDigit + secondDigit + thirdDigit === answerToNumber) {
+    if ((score <= 5) && (firstDigit + secondDigit === answerToNumber)) {
       setRight(true)
       setScore(score + 1)
       data = { ...data, score: score}
-      console.log("data", data)
       setServerError('')
       updateScore(data)
         .unwrap()
@@ -91,31 +100,57 @@ export const Summ = ({ navigation }) => {
           if (e.status === 400) setServerError(error400)
           if (e.status === 401) setServerError(error401)
         })
-      } else {
+      }
+      else if ((score >5 && score <= 10) && (firstDigit + secondDigit + thirdDigit === answerToNumber)) {
+        setRight(true)
+        setScore(score + 1)
+        data = { ...data, score: score}
+        setServerError('')
+        updateScore(data)
+          .unwrap()
+          .then(response => {
+            reset()
+          })
+          .catch((e: any) => {
+            const serverE = t('errors.serverError')
+            const error400 = t('errors.error400')
+            const error401 = t('errors.error401')
+  
+            if (e.status === 'FETCH_ERROR') setServerError(serverE)
+            if (e.status === 400) setServerError(error400)
+            if (e.status === 401) setServerError(error401)
+          })
+      }
+      else if ((score > 10) && (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)) {
+        setRight(true)
+        setScore(score + 1)
+        data = { ...data, score: score}
+        setServerError('')
+        updateScore(data)
+          .unwrap()
+          .then(response => {
+            reset()
+          })
+          .catch((e: any) => {
+            const serverE = t('errors.serverError')
+            const error400 = t('errors.error400')
+            const error401 = t('errors.error401')
+  
+            if (e.status === 'FETCH_ERROR') setServerError(serverE)
+            if (e.status === 400) setServerError(error400)
+            if (e.status === 401) setServerError(error401)
+          })
+      }
+      else {
         setWrong(true)
         setScore(score - 1)
       }
   }
 
-  const onCheck = () => {
-    const answerToNumber = Number(answer)
-    Keyboard.dismiss()
-    if (firstDigit + secondDigit + thirdDigit === answerToNumber) {
-      setRight(true)
-      setScore(score + 1)
-    } else {
-      setWrong(true)
-      setScore(score - 1)
-    }
-  }
-  console.log(score)
-
   const onPressPlayMore = () => {
     setRight(false)
     setAnswer('')
-    setFirstDigit(Math.floor(Math.random() * 31) + 1)
-    setSecondDigit(Math.floor(Math.random() * 11) + 1)
-    setThirdDigit(Math.floor(Math.random() * 11) + 1)
+    generateNewDigits(score)
   }
 
   const onPressTryAgain = () => {
@@ -124,9 +159,7 @@ export const Summ = ({ navigation }) => {
   }
 
   useEffect(() => {
-    setFirstDigit(Math.floor(Math.random() * 31) + 1)
-    setSecondDigit(Math.floor(Math.random() * 11) + 1)
-    setThirdDigit(Math.floor(Math.random() * 11) + 1)
+    generateNewDigits(score)
   }, [])
 
   return (
@@ -138,8 +171,18 @@ export const Summ = ({ navigation }) => {
             <Digit title={firstDigit} />
             <MathOperation title='+' />
             <Digit title={secondDigit} />
-            <MathOperation title='+' />
-            <Digit title={thirdDigit} />
+            {thirdDigit && 
+              <>
+                <MathOperation title='+' />
+                <Digit title={thirdDigit} />
+              </>
+            }
+            {fourthDigit && 
+              <>
+                <MathOperation title='+' />
+                <Digit title={fourthDigit} />
+              </>
+            }
             <MathOperation title='=' />
 
             <ResultInput 

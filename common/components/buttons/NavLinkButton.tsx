@@ -15,25 +15,24 @@ export const NavLinkButton: React.FC<DefaultButtonProps> = ({
   const buttonStyles = path === PATHS.LOGOUT
     ? [styles.button, styles.buttonBorder, styles.buttonRed]
     : path === PATHS.MATH_OPERATIONS
-    ? [styles.buttonLink]
+    ? [styles.buttonTextSmall]
     : path === PATHS.PROFILE
-    ? [styles.buttonLink]
+    ? [styles.buttonTextSmall]
     : path === PATHS.HOME
-    ? [styles.buttonLink]
+    ? [styles.buttonTextSmall]
     : path === PATHS.SCORE
-    ? [styles.buttonLink]
+    ? [styles.buttonTextSmall]
     : path === PATHS.INSTRUCTIONS
-    ? [styles.buttonLink]
+    ? [styles.buttonTextSmall]
     : [styles.button, styles.buttonBorder]
 
   return (
     <View style={styles.noteWrapper}>
       {text && <Text style={styles.note}>{text}</Text>}
-      <TouchableOpacity style={buttonStyles} onPress={
-        path 
-          ? () => navigation.navigate(path)
-          : onPress
-        }>
+      <TouchableOpacity 
+        style={buttonStyles} 
+        onPress={onPress}
+        >
         <Text style={styles.buttonTextSmall}>{title}</Text>
       </TouchableOpacity>
     </View>

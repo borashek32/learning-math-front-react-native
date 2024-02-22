@@ -11,7 +11,7 @@
     "multDigit": "Multiplication by",
     "multCheck": "Check mutiplication knowledge",
     "login": "Login",
-    "register": "Registeration",
+    "register": "Registration",
     "verify": "Verify",
     "logout": "Logout"
   },
@@ -117,12 +117,18 @@
           "placeholder": "Enter your password confirmation"
         }
       },
-      "note": "If you already have an account, go to login page"
+      "note": "If you already have an account, go to login page",
+      "alerts": {
+        "success": "Registration was successfull, check your inbox to verify your email"
+      }
     },
     "logout": {
       "sure": "Are you sure?"
     },
-    "verify": "Your email is verified successfully"
+    "verify": {
+      "success": "Your email is verified successfully",
+      "error": "Some error occured during verification, go to registration page again"
+    }
   },
   "home": {
     "hello": "Hello"

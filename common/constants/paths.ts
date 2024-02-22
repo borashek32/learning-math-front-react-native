@@ -1,19 +1,19 @@
 export const enum PATHS {
-  MAIN = "Main",
-  HOME = "Home",
-  INSTRUCTIONS = "Instructions",
-  PROFILE = "Profile",
-  SCORE = "Score",
-
-  MATH_OPERATIONS = 'Math Operations',
-  SUMM = "Summ",
-  DIFF = "Diff",
-  MULT = "Multiplication",
-  MULT_DIGIT = "Multiplication by digit",
-  MULT_CHECK = "Check multiplication",
-
-  LOGIN = "Login",
-  REGISTER = "Register",
-  VERIFY = "Verify",
-  LOGOUT = "Logout"
+  MAIN = "main",
+  HOME = "home",
+  INSTRUCTIONS = "instructions",
+  PROFILE = "profile",
+  SCORE = "score",
+  
+  MATH_OPERATIONS = 'mathOperations',
+  SUMM = "summ",
+  DIFF = "diff",
+  MULT = "multiplication",
+  MULT_DIGIT = "multiplicationByDigit",
+  MULT_CHECK = "checkMultiplication",
+  
+  LOGIN = "login",
+  REGISTER = "register",
+  VERIFY = "verify",
+  LOGOUT = "logout"
 }

@@ -20,14 +20,22 @@ import { PATHS } from "../../../common/constants/paths"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
+import { AlertResult } from "../../../common/components/alerts/AlertResult"
 
-export const Login = ({ navigation }) => {
+type RouteParams = {
+  isVerified: boolean
+}
+
+export const Login = ({ navigation, route }) => {
   const [login, { isLoading }] = useLoginMutation()
   const [serverError, setServerError] = useState('')
   const dispatch = useDispatch()
 
   const { t, i18n } = useTranslation('translation')
 
+  // const { isVerified } = route.params as RouteParams
+  // console.log(isVerified);
+  
   const formSchema = yup.object().shape({
     email: yup.string()
       .required(i18n.t('errors.required'))
@@ -155,6 +163,14 @@ export const Login = ({ navigation }) => {
             text={t('auth.login.note')}
             path={PATHS.REGISTER}
           />
+
+          {/* {isVerified &&
+            <AlertResult 
+            title={'Play more)'} 
+            right={isVerified}
+            onPress={() => {}} 
+          />
+          } */}
           </KeyboardAvoidingView>
         </AuthLayout>
       </>

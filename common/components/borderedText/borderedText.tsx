@@ -5,8 +5,8 @@ import { Props } from "./types"
 export const Digit = (props: Props) => {
 
   return (
-    <View style={styles.firstDigit}>
+    // <View style={styles.firstDigit}>
       <Text style={styles.digitsText}>{props.title}</Text>
-    </View>
+    // </View>
   )
 }

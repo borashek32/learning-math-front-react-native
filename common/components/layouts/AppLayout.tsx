@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     marginTop: 40,
-    // width: 300
+    width: 260
   },
   title: {
     marginBottom: 30,

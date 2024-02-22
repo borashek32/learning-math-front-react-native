@@ -9,10 +9,12 @@ import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
 import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
+import { useNavigation } from "@react-navigation/native"
 
 export const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
+  const navigation = useNavigation()
   const { t } = useTranslation()
 
   const toggleMenu = () => {
@@ -42,13 +44,55 @@ export const Nav = () => {
       {userEmail && menuOpen && (
         <View style={styles.navigation}>
           <View style={styles.menuItems}>
-            <NavLinkButton title={t("nav.items.home")} path={PATHS.HOME} />
-            <NavLinkButton title={t("nav.items.mathOperations")} path={PATHS.MATH_OPERATIONS} />
-            <NavLinkButton title={t("nav.items.instructions")} path={PATHS.INSTRUCTIONS} />
+            <NavLinkButton 
+              title={t("nav.items.home")}
+              path={PATHS.HOME}
+              onPress={() => {
+                navigation.navigate(PATHS.HOME)
+                setMenuOpen(false)
+              }} 
+            />
+            <NavLinkButton 
+              title={t("nav.items.mathOperations")} 
+              path={PATHS.MATH_OPERATIONS} 
+              onPress={() => {
+                navigation.navigate(PATHS.MATH_OPERATIONS)
+                setMenuOpen(false)
+              }} 
+            />
+            <NavLinkButton 
+              title={t("nav.items.instructions")} 
+              path={PATHS.INSTRUCTIONS}
+              onPress={() => {
+                navigation.navigate(PATHS.INSTRUCTIONS)
+                setMenuOpen(false)
+              }}  
+            />
             <View style={styles.footerDevideLine}></View>
-            <NavLinkButton title={t("nav.items.profile")} path={PATHS.PROFILE} />
-            <NavLinkButton title={t("nav.items.score")} path={PATHS.SCORE} />
-            <DefaultButton title={t("buttons.logout")} path={PATHS.LOGOUT} />
+            <NavLinkButton 
+              title={t("nav.items.profile")} 
+              path={PATHS.PROFILE} 
+              onPress={() => {
+                navigation.navigate(PATHS.PROFILE)
+                setMenuOpen(false)
+              }} 
+            />
+            <NavLinkButton 
+              title={t("nav.items.score")} 
+              path={PATHS.SCORE} 
+              onPress={() => {
+                navigation.navigate(PATHS.SCORE)
+                setMenuOpen(false)
+              }} 
+            />
+            <DefaultButton 
+              title={t("buttons.logout")} 
+              path={PATHS.LOGOUT} 
+              onPress={() => {
+                navigation.navigate(PATHS.LOGOUT)
+                setMenuOpen(false)
+              }} 
+            />
             <SelectLang />
           </View>
         </View>
@@ -134,7 +178,7 @@ const styles = StyleSheet.create({
   },
   footerDevideLine: {
     height: 2,
-    width: "100%",
+    width: 250,
     backgroundColor: "#61dafb",
   },
 })
