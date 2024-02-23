@@ -2,7 +2,7 @@ import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useEffect, useState } from "react"
-import { useCreateNewPasswordMutation } from "../auth.api"
+import { useSaveNewPasswordMutation } from "../auth.api"
 import { PasswordRecoveryType, RegisterType } from "../auth.types"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { Modal } from "../../../common/components/modal/Modal"
@@ -31,7 +31,7 @@ export const CreateNewPassword = () => {
   const [open, setOpen] = useState(true)
   // const [recoveryCode, setRecoveryCode] = useState('')
   const [serverError, setServerError] = useState('')
-  const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
+  const [saveNewPassword, { isLoading }] = useSaveNewPasswordMutation()
   const navigation = useNavigation()
 
   const { t } = useTranslation()
@@ -75,9 +75,9 @@ export const CreateNewPassword = () => {
     if (!data) {
       setServerError('Some error occured123')
     } else {
-      data.email = email
+      data = { ...data, email }
       setServerError('')
-      createNewPassword(data)
+      saveNewPassword(data)
         .unwrap()
         .then(() => {
           setSuccess(true)

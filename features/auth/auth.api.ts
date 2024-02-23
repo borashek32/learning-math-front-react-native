@@ -141,10 +141,10 @@ export const authApi = createApi({
           }
         },
       }),
-      createNewPassword: build.mutation<any, PasswordRecoveryType>({
+      saveNewPassword: build.mutation<any, PasswordRecoveryType>({
         query: ({ email, password }: PasswordRecoveryType) => {
           return {
-            url: `create-new-password`,
+            url: `save-new-password`,
             method: 'POST',
             body: {
               password,
@@ -198,7 +198,7 @@ export const {
   useVerifyQuery,
   useLogoutMutation,
   useEmailSentMutation,
-  useCreateNewPasswordMutation,
+  useSaveNewPasswordMutation,
   useMeQuery,
   useChangePasswordMutation,
   useChangeEmailMutation,

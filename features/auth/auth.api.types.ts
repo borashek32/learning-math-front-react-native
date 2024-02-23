@@ -26,7 +26,7 @@ export type ForgotPasswordType = {
 export type PasswordRecoveryType = {
   email: string | undefined
   password: string
-  passwordRecoveryCode: string | undefined
+  // createNewPasswordLink: string
 }
 
 export type NewPasswordType = {
