@@ -15,7 +15,8 @@ export type DefaultButtonProps = {
     PATHS.MULT_DIGIT |
     PATHS.PROFILE |
     PATHS.REGISTER |
-    PATHS.SCORE
+    PATHS.SCORE |
+    PATHS.FORGOT_PASSWORD
   onPress?: () => void
   text?: string
 }

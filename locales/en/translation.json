@@ -13,7 +13,9 @@
     "login": "Login",
     "register": "Registration",
     "verify": "Verify",
-    "logout": "Logout"
+    "logout": "Logout",
+    "forgotPassword": "Forgot password",
+    "createNewPassword": "Create new password"
   },
   "nav": {
     "select": {
@@ -40,7 +42,8 @@
   "modal": {
     "success": "Registration was successfull.",
     "fail": "Something went wrong. Please, try later",
-    "linkSent": "We've sent you a link to verify your email. Check your mail, please"
+    "linkSent": "We've sent you a link to verify your email. Check your mail, please",
+    "forgotPassword": "Please, check your email"
   },
   "links": {
     "back": "Back"
@@ -128,6 +131,9 @@
     "verify": {
       "success": "Your email is verified successfully",
       "error": "Some error occured during verification, go to registration page again"
+    },
+    "forgotPassword": {
+      "note": "If you forget your password, follow the link below"
     }
   },
   "home": {

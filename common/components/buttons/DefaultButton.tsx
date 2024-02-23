@@ -24,6 +24,8 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
     ? [styles.buttonLink]
     : path === PATHS.INSTRUCTIONS
     ? [styles.buttonLink]
+    : path === PATHS.FORGOT_PASSWORD
+    ? [styles.buttonLink]
     : [styles.button, styles.buttonBorder]
 
   return (

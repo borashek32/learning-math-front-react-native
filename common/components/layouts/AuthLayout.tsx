@@ -11,10 +11,10 @@ export const AuthLayout = ({ title, children }: Props) => {
         <LogoSmall />
       </View>
       <View style={styles.container}>
-        <View style={styles.contentWrapper}>
+        {/* <View style={styles.contentWrapper}> */}
           <Text style={styles.title}>{title}</Text>
           { children }
-        </View>
+        {/* </View> */}
       </View>
     </>
   );
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10
   },
   contentWrapper: {
-    marginTop: 40
+    marginTop: 40,
   },
   title: {
     marginBottom: 30,

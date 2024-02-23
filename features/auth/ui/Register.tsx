@@ -183,7 +183,7 @@ export const Register = ({ navigation }) => {
 
           <DefaultButton
             title={t('auth.links.login')} 
-            text={t('auth.login.note')}
+            text={t('auth.register.note')}
             path={PATHS.LOGIN}
           />
 

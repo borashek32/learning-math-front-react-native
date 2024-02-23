@@ -5,15 +5,17 @@ export const enum PATHS {
   PROFILE = "profile",
   SCORE = "score",
   
-  MATH_OPERATIONS = 'mathOperations',
+  MATH_OPERATIONS = 'math-operations',
   SUMM = "summ",
   DIFF = "diff",
   MULT = "multiplication",
-  MULT_DIGIT = "multiplicationByDigit",
-  MULT_CHECK = "checkMultiplication",
+  MULT_DIGIT = "multiplication-by-digit",
+  MULT_CHECK = "check-multiplication",
   
   LOGIN = "login",
   REGISTER = "register",
   VERIFY = "verify",
-  LOGOUT = "logout"
+  LOGOUT = "logout",
+  FORGOT_PASSWORD = "forgor-password",
+  CREATE_NEW_PASSWORD = "create-new-password"
 }

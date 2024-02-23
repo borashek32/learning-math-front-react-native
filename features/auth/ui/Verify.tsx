@@ -13,14 +13,10 @@ type Props = {
   verificationLink: string
 }
 
-export const Verify = ({ navigation }) => {
+export const Verify = () => {
   const route = useRoute()
   const { verificationLink } = route.params as Props
   const { data: error, isLoading } = useVerifyQuery(verificationLink)
-
-  useEffect(() => {
-    
-  }, [verificationLink])
 
   const { t, i18n } = useTranslation('translation')
 

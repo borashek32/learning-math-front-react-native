@@ -18,6 +18,8 @@ import { MathOperations } from '../../../features/math-operations/MathOperations
 import { Profile } from '../../../features/profile/ui/Profile'
 import { useTranslation } from 'react-i18next'
 import { Loader } from '../loaders/CircularLoader'
+import { ForgotPassword } from '../../../features/auth/ui/ForgotPassword'
+import { CreateNewPassword } from '../../../features/auth/ui/CreateNewPassword'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -31,20 +33,28 @@ export const Navigation = () => {
     config: {
       screens: {
         initialRouteName: PATHS.MAIN,
-        home: PATHS.HOME,
-        instructions: PATHS.INSTRUCTIONS,
-        mathOperations: PATHS.MATH_OPERATIONS,
-        summ: PATHS.SUMM,
-        difference: PATHS.DIFF,
-        mult: PATHS.MULT,
-        multDigit: PATHS.MULT_DIGIT,
-        multChech: PATHS.MULT_CHECK,
-        login: PATHS.LOGIN,
-        register: PATHS.REGISTER,
-        verify: {
+        [PATHS.HOME]: PATHS.HOME,
+        [PATHS.INSTRUCTIONS]: PATHS.INSTRUCTIONS,
+        [PATHS.MATH_OPERATIONS]: PATHS.MATH_OPERATIONS,
+        [PATHS.SUMM]: PATHS.SUMM,
+        [PATHS.DIFF]: PATHS.DIFF,
+        [PATHS.MULT]: PATHS.MULT,
+        [PATHS.MULT_DIGIT]: PATHS.MULT_DIGIT,
+        [PATHS.MULT_CHECK]: PATHS.MULT_CHECK,
+        [PATHS.LOGIN]: PATHS.LOGIN,
+        [PATHS.REGISTER]: PATHS.REGISTER,
+        [PATHS.VERIFY]: {
           path: PATHS.VERIFY,
           parse: {
             verificationLink: (verificationLink: string) => verificationLink,
+          },
+        },
+        [PATHS.FORGOT_PASSWORD]: PATHS.FORGOT_PASSWORD,
+        [PATHS.CREATE_NEW_PASSWORD]: {
+          path: 'create-new-password/:createNewPasswordLink/:email',
+          parse: {
+            createNewPasswordLink: (createNewPasswordLink: string) => createNewPasswordLink,
+            email: (email: string) => email,
           },
         },
       },
@@ -72,6 +82,8 @@ export const Navigation = () => {
         <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />
         <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
         <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
+        <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />
+        <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
       </Stack.Navigator>
     </NavigationContainer>
   )

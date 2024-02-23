@@ -32,9 +32,6 @@ export const Login = ({ navigation, route }) => {
   const dispatch = useDispatch()
 
   const { t, i18n } = useTranslation('translation')
-
-  // const { isVerified } = route.params as RouteParams
-  // console.log(isVerified);
   
   const formSchema = yup.object().shape({
     email: yup.string()
@@ -163,6 +160,13 @@ export const Login = ({ navigation, route }) => {
             text={t('auth.login.note')}
             path={PATHS.REGISTER}
           />
+
+          <DefaultButton 
+            title={t('auth.links.forgotPassword')} 
+            text={t('auth.forgotPassword.note')}
+            path={PATHS.FORGOT_PASSWORD}
+          />          
+          
 
           {/* {isVerified &&
             <AlertResult 
