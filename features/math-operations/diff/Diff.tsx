@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
 import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
-import { styles } from './../MathOperations.styles'
 import { Digit } from '../../../common/components/borderedText/borderedText'
-import { AlertResult } from '../../../common/components/alerts/AlertResult'
 import { ResultInput } from '../../../common/components/inputs/ResultInput'
 import { Score } from '../../../common/components/score/Score'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
@@ -12,25 +10,31 @@ import { useUpdateScoreMutation } from '../../profile/profile.api'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { ScoreType } from '../../profile/profile.api.types'
-import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { selectUserId } from '../../auth/auth.selectors'
 import { AnswerType } from '../mathOperations.types'
+import { useFormSchema } from '../validationShema'
+import { Error } from '../../../common/components/error/Error'
+import { Modal } from '../../../common/components/modal/Modal'
+import { Loader } from '../../../common/components/loaders/CircularLoader'
+import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
+import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
+import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
 
-export const Diff = ({ navigation }) => {
+export const Diff = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
   const [secondDigit, setSecondDigit] = useState<number>(null)
   const [thirdDigit, setThirdDigit] = useState<number>(null)
   const [fourthDigit, setFourthDigit] = useState<number>(null)
-
+  const [score, setScore] = useState(0)
   const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
-
-  const { t, i18n } = useTranslation('translation')
+  const { t } = useTranslation('translation')
+  const formSchema = useFormSchema()
 
   const generateNewDigits = (score: number) => {
     if (score > 5) {
@@ -39,7 +43,7 @@ export const Diff = ({ navigation }) => {
     if (score > 10) {
       setFourthDigit(Math.floor(Math.random() * 11) + 1)
     }
-    setFirstDigit(Math.floor(Math.random() * 11) + 10)
+    setFirstDigit(Math.floor(Math.random() * 11) + 100)
     setSecondDigit(Math.floor(Math.random() * 11) + 1)
   }
   
@@ -52,19 +56,6 @@ export const Diff = ({ navigation }) => {
   const onChangeHandler = (answer: string) => {
     setAnswer(answer)
   }
-
-  const [right, setRight] = useState(false)
-  const [wrong, setWrong] = useState(false)
-  const [score, setScore] = useState(0)
-
-  const formSchema = yup.object().shape({
-    score: yup.number()
-      .required(i18n.t('errors.required')),
-    userId: yup.string()
-      .required(i18n.t('errors.required')),
-    date: yup.date()
-      .required(i18n.t('errors.required'))
-  })
 
   const {
     handleSubmit,
@@ -81,82 +72,61 @@ export const Diff = ({ navigation }) => {
 
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
     const answerToNumber = Number(answer)
+    setServerError('')
     Keyboard.dismiss()
-    if ((score <= 5) && (firstDigit - secondDigit === answerToNumber)) {
-      setRight(true)
+    if (
+      (score <= 5) && 
+      (firstDigit - secondDigit === answerToNumber)
+      ) {
       setScore(score + 1)
-      data = { ...data, score: score}
-      setServerError('')
-      updateScore(data)
-        .unwrap()
-        .then(response => {
-          reset()
-        })
-        .catch((e: any) => {
-          const serverE = t('errors.serverError')
-          const error400 = t('errors.error400')
-          const error401 = t('errors.error401')
-
-          if (e.status === 'FETCH_ERROR') setServerError(serverE)
-          if (e.status === 400) setServerError(error400)
-          if (e.status === 401) setServerError(error401)
-        })
-      }
-      else if ((score >5 && score <= 10) && (firstDigit - secondDigit - thirdDigit === answerToNumber)) {
-        setRight(true)
+      setRightWrong('right')
+    }
+    else if (
+      (score >5 && score <= 10) && 
+      (firstDigit - secondDigit - thirdDigit === answerToNumber)
+      ) {
         setScore(score + 1)
-        data = { ...data, score: score}
-        setServerError('')
-        updateScore(data)
-          .unwrap()
-          .then(response => {
-            reset()
-          })
-          .catch((e: any) => {
-            const serverE = t('errors.serverError')
-            const error400 = t('errors.error400')
-            const error401 = t('errors.error401')
-  
-            if (e.status === 'FETCH_ERROR') setServerError(serverE)
-            if (e.status === 400) setServerError(error400)
-            if (e.status === 401) setServerError(error401)
-          })
+        setRightWrong('right')
       }
-      else if ((score > 10) && (firstDigit - secondDigit - thirdDigit - fourthDigit === answerToNumber)) {
-        setRight(true)
+      else if (
+        (score > 10) && 
+        (firstDigit - secondDigit - thirdDigit - fourthDigit === answerToNumber)
+      ) {
         setScore(score + 1)
-        data = { ...data, score: score}
-        setServerError('')
-        updateScore(data)
-          .unwrap()
-          .then(response => {
-            reset()
-          })
-          .catch((e: any) => {
-            const serverE = t('errors.serverError')
-            const error400 = t('errors.error400')
-            const error401 = t('errors.error401')
-  
-            if (e.status === 'FETCH_ERROR') setServerError(serverE)
-            if (e.status === 400) setServerError(error400)
-            if (e.status === 401) setServerError(error401)
-          })
+        setRightWrong('right')
       }
       else {
-        setWrong(true)
         setScore(score - 1)
+        setRightWrong('wrong')
       }
+    
+    data = { ...data, score: score} 
+    updateScore(data)
+      .unwrap()
+      .then(response => {
+        reset()
+        setOpen(true)
+      })
+      .catch((e: any) => {
+        const serverE = t('errors.serverError')
+        const error400 = t('errors.error400')
+        const error401 = t('errors.error401')
+
+        if (e.status === 'FETCH_ERROR') setServerError(serverE)
+        if (e.status === 400) setServerError(error400)
+        if (e.status === 401) setServerError(error401)
+      })
   }
 
 
   const onPressPlayMore = () => {
-    setRight(false)
-    setAnswer('')
+    setOpen(false)
     generateNewDigits(score)
+    setAnswer('')
   }
 
   const onPressTryAgain = () => {
-    setWrong(false)
+    setOpen(false)
     setAnswer('')
   }
 
@@ -166,43 +136,60 @@ export const Diff = ({ navigation }) => {
 
   return (
     <>
+      {isLoading && <Loader />}
+      {open && (
+        <Modal
+          text={
+            rightWrong === 'right' 
+              ? t('modal.checkMathOperationSuccess') 
+              : t('modal.checkMathOperationFail')
+            }
+          open={open}
+          outlinedButton={false}
+          buttonName={t('modal.button')}
+          buttonCallback={rightWrong === 'right' ? onPressPlayMore : onPressTryAgain}
+          color={rightWrong === 'right' ? 'blue' : 'red'}
+        />
+      )}
       <AppLayout title={t('mathOperations.diff')}>
-        <View>
-          <View style={styles.containerMathOperation}>
-            <Digit title={firstDigit} />
-            <MathOperation title='-' />
-            <Digit title={secondDigit} />
-            <MathOperation title='=' />
+        <Error error={serverError} />
+        <MathExampleLayout>
+          <Digit title={firstDigit} />
+          <MathOperation title='-' />
+          <Digit title={secondDigit} />
+          {thirdDigit && 
+            <>
+              <MathOperation title='-' />
+              <Digit title={thirdDigit} />
+            </>
+          }
+          {fourthDigit && 
+            <>
+              <MathOperation title='-' />
+              <Digit title={fourthDigit} />
+            </>
+          }
+          <MathOperation title='=' />
 
-            <ResultInput 
-              value={answer} 
-              type={'numeric'}
-              onChange={onChangeHandler}
-            />
-          </View>
+          <ResultInput 
+            value={answer} 
+            type={'numeric'}
+            onChange={onChangeHandler}
+          />
+        </MathExampleLayout>
 
-          <View style={styles.buttonsWrapper}>
-            <TouchableOpacity style={styles.button} onPress={onGenerateNewDigits}>
-              <Text style={styles.buttonText}>{t('mathOperations.common.generate')}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.buttonText}>{t('mathOperations.common.check')}</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <AlertResult 
-            title={'Play more)'} 
-            right={right}
-            onPress={onPressPlayMore} 
+        <ButtonsLayout>
+          <MathOperationButton 
+            buttonCallback={onGenerateNewDigits}
+            title={t('mathOperations.common.generate')}
           />
-          <AlertResult 
-            title={'Oh, noooooooo'}
-            wrong={wrong} 
-            onPress={onPressTryAgain} 
+          <MathOperationButton
+            buttonCallback={handleSubmit(onSubmit)}
+            title={t('mathOperations.common.check')}
           />
-          
-          <Score score={score} />
-        </View>
+        </ButtonsLayout>
+        
+        <Score score={score} />
       </AppLayout>
     </>
   )

@@ -15,10 +15,15 @@ export type DefaultButtonProps = {
     PATHS.MULT_DIGIT |
     PATHS.PROFILE |
     PATHS.REGISTER |
-    PATHS.SCORE |
+    PATHS.YOUR_SCORE |
     PATHS.FORGOT_PASSWORD |
     PATHS.CHANGE_EMAIL |
     PATHS.CHANGE_PASSWORD
   onPress?: () => void
   text?: string
+}
+
+export type MathOperationButtonProps = {
+  buttonCallback: () => void
+  title: string
 }

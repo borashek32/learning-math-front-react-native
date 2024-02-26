@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
+import { Keyboard } from 'react-native'
 import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
-import { styles } from './../MathOperations.styles'
 import { Digit } from '../../../common/components/borderedText/borderedText'
 import { ResultInput } from '../../../common/components/inputs/ResultInput'
 import { Score } from '../../../common/components/score/Score'
@@ -18,6 +17,9 @@ import { Modal } from '../../../common/components/modal/Modal'
 import { AnswerType } from './../mathOperations.types'
 import { Error } from '../../../common/components/error/Error'
 import { useFormSchema } from '../validationShema'
+import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
+import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
 
 export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -25,16 +27,13 @@ export const Summ = () => {
   const [thirdDigit, setThirdDigit] = useState<number>(null)
   const [fourthDigit, setFourthDigit] = useState<number>(null)
   const [score, setScore] = useState(0)
-
   const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
-
-  const { t, i18n } = useTranslation('translation')
-
+  const { t } = useTranslation('translation')
   const formSchema = useFormSchema()
 
   const generateNewDigits = (score: number) => {
@@ -73,6 +72,7 @@ export const Summ = () => {
 
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
     const answerToNumber = Number(answer)
+    setServerError('')
     Keyboard.dismiss()
     if (
       (score <= 5) && 
@@ -80,7 +80,6 @@ export const Summ = () => {
       ) {
       setScore(score + 1)
       data = { ...data, score: score}
-      setServerError('')
       setRightWrong('right')
     }
     else if (
@@ -89,7 +88,6 @@ export const Summ = () => {
       ) {
       setScore(score + 1)
       data = { ...data, score: score}
-      setServerError('')
       setRightWrong('right')
     }
     else if (
@@ -98,12 +96,11 @@ export const Summ = () => {
       ) {
       setScore(score + 1)
       data = { ...data, score: score}
-      setServerError('')
       setRightWrong('right')
     }
     else {
-      setOpen(true)
       setScore(score - 1)
+      data = { ...data, score: score}
       setRightWrong('wrong')
     }
 
@@ -157,44 +154,44 @@ export const Summ = () => {
         />
       )}
       <AppLayout title={t('mathOperations.summ')}>
-        <>
-          <Error error={serverError} />
-          <View style={styles.containerMathOperation}>
-            <Digit title={firstDigit} />
-            <MathOperation title='+' />
-            <Digit title={secondDigit} />
-            {thirdDigit && 
-              <>
-                <MathOperation title='+' />
-                <Digit title={thirdDigit} />
-              </>
-            }
-            {fourthDigit && 
-              <>
-                <MathOperation title='+' />
-                <Digit title={fourthDigit} />
-              </>
-            }
-            <MathOperation title='=' />
+        <Error error={serverError} />
+        <MathExampleLayout>
+          <Digit title={firstDigit} />
+          <MathOperation title='+' />
+          <Digit title={secondDigit} />
+          {thirdDigit && 
+            <>
+              <MathOperation title='+' />
+              <Digit title={thirdDigit} />
+            </>
+          }
+          {fourthDigit && 
+            <>
+              <MathOperation title='+' />
+              <Digit title={fourthDigit} />
+            </>
+          }
+          <MathOperation title='=' />
 
-            <ResultInput 
-              value={answer} 
-              type={'numeric'}
-              onChange={onChangeHandler}
-            />
-          </View>
+          <ResultInput 
+            value={answer} 
+            type={'numeric'}
+            onChange={onChangeHandler}
+          />
+        </MathExampleLayout>
 
-          <View style={styles.buttonsWrapper}>
-            <TouchableOpacity style={styles.button} onPress={onGenerateNewDigits}>
-              <Text style={styles.buttonText}>{t('mathOperations.common.generate')}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.buttonText}>{t('mathOperations.common.check')}</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <Score score={score} />
-        </>
+        <ButtonsLayout>
+          <MathOperationButton
+            buttonCallback={onGenerateNewDigits}
+            title={t('mathOperations.common.generate')}
+          />
+          <MathOperationButton
+            buttonCallback={handleSubmit(onSubmit)}
+            title={t('mathOperations.common.check')}
+          />
+        </ButtonsLayout>
+        
+        <Score score={score} />
       </AppLayout>
     </>
   )

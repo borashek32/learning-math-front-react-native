@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Props } from './BaseLayout.types'
+import { Props } from './Layout.types'
 import { Logo } from '../logo/Logo';
 import { SelectLang } from '../selectLang/SelectLang'
 
