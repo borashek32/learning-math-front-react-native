@@ -14,6 +14,7 @@ import { AppLayout } from "../../../common/components/layouts/AppLayout"
 import { useAppSelector } from "../../../common/hooks/useAppSelector"
 import { selectUserId } from "../auth.selectors"
 import { NewPasswordType } from "../auth.api.types"
+import { Error } from "../../../common/components/error/Error"
 
 interface IFormProps {
   password: string
@@ -111,10 +112,9 @@ export const ChangePassword = () => {
           buttonBack={true}
         />
       }
-      <AppLayout>
+      <AppLayout title={t('screens.changePassword')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-          <Text style={styles.title}>{t('screens.changePassword')}</Text>
-          {serverError && <Text style={styles.error}>{serverError}</Text>}
+          {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}> 
             <View style={styles.inputContainer}>
               <Controller
@@ -139,9 +139,7 @@ export const ChangePassword = () => {
                   />
                 )}
               />
-              {errors.password && 
-                <Text style={styles.error}>{errors.password.message}</Text>
-              }
+              {errors.password && <Error error={errors.password.message} />}
             </View>
 
             <View style={styles.inputContainer}>
@@ -167,9 +165,7 @@ export const ChangePassword = () => {
                   />
                 )}
               />
-              {errors.newPassword && 
-                <Text style={styles.error}>{errors.newPassword.message}</Text>
-              }
+              {errors.newPassword && <Error error={errors.newPassword.message} />}
             </View>
             
             <View style={styles.inputContainer}>
@@ -195,9 +191,7 @@ export const ChangePassword = () => {
                   />
                 )}
               />
-              {errors.newPasswordConfirmation && 
-                <Text style={styles.error}>{errors.newPasswordConfirmation.message}</Text>
-              }
+              {errors.newPasswordConfirmation && <Error error={errors.newPasswordConfirmation.message} />}
             </View>
           </View>
 

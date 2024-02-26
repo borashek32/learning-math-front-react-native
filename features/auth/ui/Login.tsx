@@ -21,6 +21,7 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { AlertResult } from "../../../common/components/alerts/AlertResult"
+import { Error } from "../../../common/components/error/Error"
 
 type RouteParams = {
   isVerified: boolean
@@ -86,10 +87,9 @@ export const Login = ({ navigation, route }) => {
   return (
     <>
       {isLoading && <Loader />}
-      <AuthLayout>
+      <AuthLayout title={t('auth.links.login')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-          <Text style={styles.title}>{t('auth.links.login')}</Text>
-          {serverError && <Text style={styles.error}>{serverError}</Text>}
+          {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}>
             <View style={styles.inputContainer}>
               <Controller
@@ -113,9 +113,7 @@ export const Login = ({ navigation, route }) => {
                   />
                 )}
               />
-              {errors.email && 
-                <Text style={styles.error}>{errors.email.message}</Text>
-              }
+              {errors.email && <Error error={errors.email.message} />}
             </View>
 
             <View style={styles.inputContainer}>
@@ -143,9 +141,7 @@ export const Login = ({ navigation, route }) => {
                   </>
                 )}
               />
-              {errors.password && 
-                <Text style={styles.error}>{errors.password.message}</Text>
-              }
+              {errors.password && <Error error={errors.password.message} />}
             </View>
           </View>
 
@@ -165,16 +161,7 @@ export const Login = ({ navigation, route }) => {
             title={t('auth.links.forgotPassword')} 
             text={t('auth.forgotPassword.note')}
             path={PATHS.FORGOT_PASSWORD}
-          />          
-          
-
-          {/* {isVerified &&
-            <AlertResult 
-            title={'Play more)'} 
-            right={isVerified}
-            onPress={() => {}} 
-          />
-          } */}
+          />   
           </KeyboardAvoidingView>
         </AuthLayout>
       </>

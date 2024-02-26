@@ -13,6 +13,7 @@ import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { PATHS } from "../../../common/constants/paths"
+import { Error } from "../../../common/components/error/Error"
 
 const formSchema = yup.object().shape({
   email: yup.string()
@@ -71,10 +72,9 @@ export const ForgotPassword = () => {
           buttonBack={false}
         />
       }
-      <AuthLayout>
+      <AuthLayout title={t('auth.links.forgotPassword')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-          <Text style={styles.title}>{t('auth.links.forgotPassword')}</Text>
-          {serverError && <Text style={styles.error}>{serverError}</Text>}
+          {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}> 
             <View style={styles.inputContainer}>
               <Controller

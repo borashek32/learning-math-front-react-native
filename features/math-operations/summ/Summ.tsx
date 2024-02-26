@@ -3,7 +3,6 @@ import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
 import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
 import { styles } from './../MathOperations.styles'
 import { Digit } from '../../../common/components/borderedText/borderedText'
-import { AlertResult } from '../../../common/components/alerts/AlertResult'
 import { ResultInput } from '../../../common/components/inputs/ResultInput'
 import { Score } from '../../../common/components/score/Score'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
@@ -16,15 +15,21 @@ import { ScoreType } from '../../profile/profile.api.types'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { selectUserId } from '../../auth/auth.selectors'
+import { Modal } from '../../../common/components/modal/Modal'
+import { AnswerType } from './../mathOperations.types'
+import { Error } from '../../../common/components/error/Error'
 
 export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
   const [secondDigit, setSecondDigit] = useState<number>(null)
   const [thirdDigit, setThirdDigit] = useState<number>(null)
   const [fourthDigit, setFourthDigit] = useState<number>(null)
+  const [score, setScore] = useState(0)
 
   const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
+  const [rightWrong, setRightWrong] = useState<AnswerType>(null)
+  const [open, setOpen] = useState(false)
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
 
@@ -43,18 +48,13 @@ export const Summ = () => {
   
   const onGenerateNewDigits = () => {
     setAnswer('')
-    setRight(false)
-    setWrong(false)
+    setOpen(false)
     generateNewDigits(score)
   }
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer)
   }
-
-  const [right, setRight] = useState(false)
-  const [wrong, setWrong] = useState(false)
-  const [score, setScore] = useState(0)
 
   const formSchema = yup.object().shape({
     score: yup.number()
@@ -81,75 +81,44 @@ export const Summ = () => {
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-    if ((score <= 5) && (firstDigit + secondDigit === answerToNumber)) {
-      setRight(true)
+    if (
+      (score <= 5) && 
+      (firstDigit + secondDigit === answerToNumber)
+      ) {
       setScore(score + 1)
       data = { ...data, score: score}
       setServerError('')
-      // updateScore(data)
-      //   .unwrap()
-      //   .then(response => {
-      //     reset()
-      //   })
-      //   .catch((e: any) => {
-      //     const serverE = t('errors.serverError')
-      //     const error400 = t('errors.error400')
-      //     const error401 = t('errors.error401')
-
-      //     if (e.status === 'FETCH_ERROR') setServerError(serverE)
-      //     if (e.status === 400) setServerError(error400)
-      //     if (e.status === 401) setServerError(error401)
-      //   })
+      setRightWrong('right')
       }
-      else if ((score >5 && score <= 10) && (firstDigit + secondDigit + thirdDigit === answerToNumber)) {
-        setRight(true)
+      else if (
+        (score >5 && score <= 10) && 
+        (firstDigit + secondDigit + thirdDigit === answerToNumber)
+        ) {
         setScore(score + 1)
         data = { ...data, score: score}
         setServerError('')
-        // updateScore(data)
-        //   .unwrap()
-        //   .then(response => {
-        //     reset()
-        //   })
-        //   .catch((e: any) => {
-        //     const serverE = t('errors.serverError')
-        //     const error400 = t('errors.error400')
-        //     const error401 = t('errors.error401')
-  
-        //     if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        //     if (e.status === 400) setServerError(error400)
-        //     if (e.status === 401) setServerError(error401)
-        //   })
+        setRightWrong('right')
       }
-      else if ((score > 10) && (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)) {
-        setRight(true)
+      else if (
+        (score > 10) && 
+        (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)
+        ) {
         setScore(score + 1)
         data = { ...data, score: score}
         setServerError('')
-        // updateScore(data)
-        //   .unwrap()
-        //   .then(response => {
-        //     reset()
-        //   })
-        //   .catch((e: any) => {
-        //     const serverE = t('errors.serverError')
-        //     const error400 = t('errors.error400')
-        //     const error401 = t('errors.error401')
-  
-        //     if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        //     if (e.status === 400) setServerError(error400)
-        //     if (e.status === 401) setServerError(error401)
-        //   })
+        setRightWrong('right')
       }
       else {
-        setWrong(true)
+        setOpen(true)
         setScore(score - 1)
+        setRightWrong('wrong')
       }
 
     updateScore(data)
     .unwrap()
     .then(response => {
       reset()
+      setOpen(true)
     })
     .catch((e: any) => {
       const serverE = t('errors.serverError')
@@ -163,13 +132,13 @@ export const Summ = () => {
   }
 
   const onPressPlayMore = () => {
-    setRight(false)
-    setAnswer('')
+    setOpen(false)
     generateNewDigits(score)
+    setAnswer('')
   }
 
   const onPressTryAgain = () => {
-    setWrong(false)
+    setOpen(false)
     setAnswer('')
   }
 
@@ -180,8 +149,23 @@ export const Summ = () => {
   return (
     <>
       {isLoading && <Loader />}
+      {open && (
+        <Modal
+          text={
+            rightWrong === 'right' 
+              ? t('modal.checkMathOperationSuccess') 
+              : t('modal.checkMathOperationFail')
+            }
+          open={open}
+          outlinedButton={false}
+          buttonName={t('modal.button')}
+          buttonCallback={rightWrong === 'right' ? onPressPlayMore : onPressTryAgain}
+          color={rightWrong === 'right' ? 'blue' : 'red'}
+        />
+      )}
       <AppLayout title={t('mathOperations.summ')}>
         <>
+          <Error error={serverError} />
           <View style={styles.containerMathOperation}>
             <Digit title={firstDigit} />
             <MathOperation title='+' />
@@ -215,17 +199,6 @@ export const Summ = () => {
               <Text style={styles.buttonText}>{t('mathOperations.common.check')}</Text>
             </TouchableOpacity>
           </View>
-          
-          {/* <AlertResult 
-            title={'Play more)'} 
-            right={right}
-            onPress={onPressPlayMore} 
-          />
-          <AlertResult 
-            title={'Oh, noooooooo'}
-            wrong={wrong} 
-            onPress={onPressTryAgain} 
-          /> */}
           
           <Score score={score} />
         </>

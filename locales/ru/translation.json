@@ -48,7 +48,10 @@
     "changePasswordSuccess": "Вы успешно поменяли пароль",
     "fail": "Что-то пошло не так. Пожалуйста, попробуйту позже",
     "linkSent": "Пожалуйста, проверьте вашу почту",
-    "forgotPassword": "Пожалуйста, проверьте ваш email"
+    "forgotPassword": "Пожалуйста, проверьте ваш email",
+    "checkMathOperationSuccess": "Верно!",
+    "checkMathOperationFail": "Неверно! Попробуйте еще раз",
+    "button": "Ok"
   },
   "links": {
     "back": "Назад"

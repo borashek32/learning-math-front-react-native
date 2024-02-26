@@ -14,6 +14,7 @@ import { AppLayout } from "../../../common/components/layouts/AppLayout"
 import { useAppSelector } from "../../../common/hooks/useAppSelector"
 import { selectUserId } from "../auth.selectors"
 import { NewEmailType, NewPasswordType } from "../auth.api.types"
+import { Error } from "../../../common/components/error/Error"
 
 interface IFormProps {
   newEmail: string
@@ -86,10 +87,9 @@ export const ChangeEmail = () => {
           buttonBack={false}
         />
       }
-      <AppLayout>
+      <AppLayout title={t('screens.changeEmail')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-          <Text style={styles.title}>{t('screens.changeEmail')}</Text>
-          {serverError && <Text style={styles.error}>{serverError}</Text>}
+          {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}> 
             <View style={styles.inputContainer}>
               <Controller
@@ -113,9 +113,7 @@ export const ChangeEmail = () => {
                   />
                 )}
               />
-              {errors.newEmail && 
-                <Text style={styles.error}>{errors.newEmail.message}</Text>
-              }
+              {errors.newEmail && <Error error={errors.newEmail.message} />}
             </View>
           </View>
 

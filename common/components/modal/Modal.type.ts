@@ -9,6 +9,6 @@ export type Props = {
   outlinedButton?: boolean
   error?: boolean
   color?: string
-  buttonBack: boolean
+  buttonBack?: boolean
   backCallback?: () => void
 }

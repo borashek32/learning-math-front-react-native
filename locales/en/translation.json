@@ -48,7 +48,10 @@
     "changePasswordSuccess": "Your password was changed successfully",
     "fail": "Something went wrong. Please, try later",
     "linkSent": "We've sent you a link to verify your email. Check your mail, please",
-    "forgotPassword": "Please, check your email"
+    "forgotPassword": "Please, check your email",
+    "checkMathOperationSuccess": "Right answer!",
+    "checkMathOperationFail": "Wrong! Please, try again",
+    "button": "Ok"
   },
   "links": {
     "back": "Back"

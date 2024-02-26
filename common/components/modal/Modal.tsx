@@ -24,11 +24,31 @@ export const Modal: React.FC<Props> = ({
   return (
     <ModalLayout>
       {open && 
-        <View style={[styles.modal, error && styles.modalWithError, color && { backgroundColor: color }]}>
-          <Text style={styles.textSmall}>{text}</Text>
+        <View 
+          style={[
+            styles.modal, 
+            error && styles.modalWithError, 
+            color && { backgroundColor: color }
+          ]}
+        >
+          {text &&
+            <Text style={styles.textSmall}>
+              {text}
+            </Text>
+          }
           <View style={styles.buttonWrapper}>
-            {buttonBack && <Button title={t('links.back')} onPress={back} />}
-            <Button title={buttonName ? buttonName : "Ok"} onPress={buttonCallback} />
+            {buttonBack && 
+              <Button 
+                title={t('links.back')} 
+                onPress={back} 
+              />
+            }
+            {buttonCallback && 
+              <Button 
+                title={buttonName ? buttonName : "Ok"} 
+                onPress={buttonCallback} 
+              />
+            }
           </View>
         </View>
       }

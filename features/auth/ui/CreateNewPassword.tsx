@@ -13,6 +13,7 @@ import { AuthLayout } from "../../../common/components/layouts/AuthLayout"
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from './../Auth.styles'
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
+import { Error } from "../../../common/components/error/Error"
 
 interface IFormProps {
   password: string
@@ -104,10 +105,9 @@ export const CreateNewPassword = () => {
           buttonBack={false}
         />
       }
-      <AuthLayout>
+      <AuthLayout title={t('screens.createNewPassword')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-          <Text style={styles.title}>{t('screens.createNewPassword')}</Text>
-          {serverError && <Text style={styles.error}>{serverError}</Text>}
+          {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}> 
             <View style={styles.inputContainer}>
               <Controller
@@ -132,9 +132,7 @@ export const CreateNewPassword = () => {
                   />
                 )}
               />
-              {errors.password && 
-                <Text style={styles.error}>{errors.password.message}</Text>
-              }
+              {errors.password && <Error error={errors.password.message} />}
             </View>
             
             <View style={styles.inputContainer}>
@@ -160,9 +158,7 @@ export const CreateNewPassword = () => {
                   />
                 )}
               />
-              {errors.passwordConfirmation && 
-                <Text style={styles.error}>{errors.passwordConfirmation.message}</Text>
-              }
+              {errors.passwordConfirmation && <Error error={errors.passwordConfirmation.message} />}
             </View>
           </View>
 
