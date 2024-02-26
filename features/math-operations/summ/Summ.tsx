@@ -7,7 +7,6 @@ import { ResultInput } from '../../../common/components/inputs/ResultInput'
 import { Score } from '../../../common/components/score/Score'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { useTranslation } from 'react-i18next'
-import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { useUpdateScoreMutation } from '../../profile/profile.api'
@@ -18,6 +17,7 @@ import { selectUserId } from '../../auth/auth.selectors'
 import { Modal } from '../../../common/components/modal/Modal'
 import { AnswerType } from './../mathOperations.types'
 import { Error } from '../../../common/components/error/Error'
+import { useFormSchema } from '../validationShema'
 
 export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -34,6 +34,8 @@ export const Summ = () => {
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
 
   const { t, i18n } = useTranslation('translation')
+
+  const formSchema = useFormSchema()
 
   const generateNewDigits = (score: number) => {
     if (score > 5) {
@@ -55,15 +57,6 @@ export const Summ = () => {
   const onChangeHandler = (answer: string) => {
     setAnswer(answer)
   }
-
-  const formSchema = yup.object().shape({
-    score: yup.number()
-      .required(i18n.t('errors.required')),
-    userId: yup.string()
-      .required(i18n.t('errors.required')),
-    date: yup.date()
-      .required(i18n.t('errors.required'))
-  })
 
   const {
     handleSubmit,
@@ -89,30 +82,30 @@ export const Summ = () => {
       data = { ...data, score: score}
       setServerError('')
       setRightWrong('right')
-      }
-      else if (
-        (score >5 && score <= 10) && 
-        (firstDigit + secondDigit + thirdDigit === answerToNumber)
-        ) {
-        setScore(score + 1)
-        data = { ...data, score: score}
-        setServerError('')
-        setRightWrong('right')
-      }
-      else if (
-        (score > 10) && 
-        (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)
-        ) {
-        setScore(score + 1)
-        data = { ...data, score: score}
-        setServerError('')
-        setRightWrong('right')
-      }
-      else {
-        setOpen(true)
-        setScore(score - 1)
-        setRightWrong('wrong')
-      }
+    }
+    else if (
+      (score >5 && score <= 10) && 
+      (firstDigit + secondDigit + thirdDigit === answerToNumber)
+      ) {
+      setScore(score + 1)
+      data = { ...data, score: score}
+      setServerError('')
+      setRightWrong('right')
+    }
+    else if (
+      (score > 10) && 
+      (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)
+      ) {
+      setScore(score + 1)
+      data = { ...data, score: score}
+      setServerError('')
+      setRightWrong('right')
+    }
+    else {
+      setOpen(true)
+      setScore(score - 1)
+      setRightWrong('wrong')
+    }
 
     updateScore(data)
     .unwrap()

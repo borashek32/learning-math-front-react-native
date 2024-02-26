@@ -15,6 +15,7 @@ import { ScoreType } from '../../profile/profile.api.types'
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { selectUserId } from '../../auth/auth.selectors'
+import { AnswerType } from '../mathOperations.types'
 
 export const Diff = ({ navigation }) => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -24,6 +25,8 @@ export const Diff = ({ navigation }) => {
 
   const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
+  const [rightWrong, setRightWrong] = useState<AnswerType>(null)
+  const [open, setOpen] = useState(false)
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
 
@@ -41,10 +44,9 @@ export const Diff = ({ navigation }) => {
   }
   
   const onGenerateNewDigits = () => {
-    generateNewDigits(score)
     setAnswer('')
-    setRight(false)
-    setWrong(false)
+    setOpen(false)
+    generateNewDigits(score)
   }
 
   const onChangeHandler = (answer: string) => {

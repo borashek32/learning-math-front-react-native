@@ -83,9 +83,9 @@ export const Nav = () => {
             />
             <NavLinkButton 
               title={t("nav.items.score")} 
-              path={PATHS.SCORE} 
+              path={PATHS.YOUR_SCORE} 
               onPress={() => {
-                navigation.navigate(PATHS.SCORE)
+                navigation.navigate(PATHS.YOUR_SCORE)
                 setMenuOpen(false)
               }} 
             />

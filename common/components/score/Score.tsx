@@ -7,7 +7,7 @@ export const Score: React.FC<Props> = ({ score }) => {
   return (
     <View>
       <Text style={styles.title}>
-        Your score: {score}
+        {score} XP
       </Text>
     </View>
   )
