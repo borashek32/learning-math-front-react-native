@@ -15,7 +15,11 @@
     "verify": "Verify",
     "logout": "Logout",
     "forgotPassword": "Forgot password",
-    "createNewPassword": "Create new password"
+    "createNewPassword": "Create new password",
+    "changeEmail": "Change email",
+    "changePassword": "Change password",
+    "profile": "Profile",
+    "yourScore": "Your score"
   },
   "nav": {
     "select": {
@@ -40,7 +44,8 @@
     "register": "Register"
   },
   "modal": {
-    "success": "Registration was successfull.",
+    "registrationSuccess": "Registration was successfull",
+    "changePasswordSuccess": "Your password was changed successfully",
     "fail": "Something went wrong. Please, try later",
     "linkSent": "We've sent you a link to verify your email. Check your mail, please",
     "forgotPassword": "Please, check your email"
@@ -160,12 +165,20 @@
     "multCheck": "Check mutiplication knowledge"
   },
   "profile": {
-    "title": "Profile",
-    "changePassword": "Change password",
-    "changeEmail": "Change email",
-    "yourScore": "Progress table"
-  },
-  "yourScore": {
-
+    "changePassword": {
+      "inputs": {
+        "oldPassword": {
+          "placeholder": "Enter your old password"
+        }
+      }
+    },
+    "changeEmail": {
+      "inputs": {
+        "oldPassword": {
+          "placeholder": "Enter your new email"
+        }
+      }
+    },
+    "yourScore": "Your total XP"
   }
 }

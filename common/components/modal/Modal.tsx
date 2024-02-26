@@ -1,8 +1,9 @@
 import React from 'react'
 import { Props } from './Modal.type'
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
+import { ModalLayout } from '../layouts/ModalLayout'
 
 export const Modal: React.FC<Props> = ({ 
   text, 
@@ -21,17 +22,17 @@ export const Modal: React.FC<Props> = ({
   const back = () => navigation.goBack()
 
   return (
-    <>
+    <ModalLayout>
       {open && 
         <View style={[styles.modal, error && styles.modalWithError, color && { backgroundColor: color }]}>
           <Text style={styles.textSmall}>{text}</Text>
           <View style={styles.buttonWrapper}>
-            <Button title={t('links.back')} onPress={back} />
+            {buttonBack && <Button title={t('links.back')} onPress={back} />}
             <Button title={buttonName ? buttonName : "Ok"} onPress={buttonCallback} />
           </View>
         </View>
       }
-    </>
+    </ModalLayout>
   )
 }
 

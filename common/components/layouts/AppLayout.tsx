@@ -13,8 +13,8 @@ export const AppLayout = ({ title, children }: Props) => {
         { children }
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

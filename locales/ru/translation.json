@@ -15,7 +15,11 @@
     "verify": "Верификация",
     "logout": "Выход",
     "forgotPassword": "Забыли пароль",
-    "createNewPassword": "Создание нового пароля"
+    "createNewPassword": "Создание нового пароля",
+    "changeEmail": "Изменить email",
+    "changePassword": "Изменить пароль",
+    "profile": "Профайл",
+    "yourScore": "Ваш счет"
   },
   "nav": {
     "select": {
@@ -40,7 +44,8 @@
     "register": "Регистрация"
   },
   "modal": {
-    "success": "Регистрация прошла успешно",
+    "registrationSuccess": "Регистрация прошла успешно",
+    "changePasswordSuccess": "Вы успешно поменяли пароль",
     "fail": "Что-то пошло не так. Пожалуйста, попробуйту позже",
     "linkSent": "Пожалуйста, проверьте вашу почту",
     "forgotPassword": "Пожалуйста, проверьте ваш email"
@@ -160,9 +165,20 @@
     "multCheck": "Проверить знание таблицы умножения"
   },
   "profile": {
-    "title": "Профайл",
-    "changePassword": "Изменить пароль",
-    "changeEmail": "Изменить email",
-    "yourScore": "Таблица прогресса"
+    "changePassword": {
+      "inputs": {
+        "oldPassword": {
+          "placeholder": "Введите ваш старый пароль"
+        }
+      }
+    },
+    "changeEmail": {
+      "inputs": {
+        "oldPassword": {
+          "placeholder": "Введите ваш новый email"
+        }
+      }
+    },
+    "yourScore": "Общий счет XP"
   }
 }

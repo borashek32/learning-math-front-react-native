@@ -2,38 +2,32 @@ import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useEffect, useState } from "react"
-import { useSaveNewPasswordMutation } from "../auth.api"
-import { PasswordRecoveryType, RegisterType } from "../auth.types"
+import { useChangePasswordMutation } from "../auth.api"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { Modal } from "../../../common/components/modal/Modal"
 import { useTranslation } from "react-i18next"
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 import { PATHS } from "../../../common/constants/paths"
-import { AuthLayout } from "../../../common/components/layouts/AuthLayout"
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { styles } from './../Auth.styles'
-import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
+import { styles } from '../Auth.styles'
+import { AppLayout } from "../../../common/components/layouts/AppLayout"
+import { useAppSelector } from "../../../common/hooks/useAppSelector"
+import { selectUserId } from "../auth.selectors"
+import { NewPasswordType } from "../auth.api.types"
 
 interface IFormProps {
   password: string
-  passwordConfirmation: string
+  newPassword: string
+  newPasswordConfirmation: string
 }
 
-type Props = {
-  createNewPasswordLink: string
-  email: string
-}
-
-export const CreateNewPassword = () => {
-  const route = useRoute()
-  const { createNewPasswordLink, email } = route.params as Props
+export const ChangePassword = () => {
   const [success, setSuccess] = useState(false)
   const [open, setOpen] = useState(true)
   const [serverError, setServerError] = useState('')
-  const [saveNewPassword, { isLoading }] = useSaveNewPasswordMutation()
   const navigation = useNavigation()
-
-  console.log(createNewPasswordLink, email)
+  const [changePassword, { isLoading } ] = useChangePasswordMutation()
+  const userId = useAppSelector(selectUserId)
 
   const { t } = useTranslation()
 
@@ -43,38 +37,51 @@ export const CreateNewPassword = () => {
       .matches(/^[A-Za-z]+$/i, t('errors.latinLetters'))
       .min(4, t('errors.min'))
       .max(64, t('errors.max')),
-    passwordConfirmation: yup.string()
+    newPassword: yup.string()
+      .required(t('errors.required'))
+      .matches(/^[A-Za-z]+$/i, t('errors.latinLetters'))
+      .min(4, t('errors.min'))
+      .max(64, t('errors.max')),
+    newPasswordConfirmation: yup.string()
       .required(t('errors.required'))
       .min(4, t('errors.min'))
       .max(64, t('errors.max'))
-      .oneOf([yup.ref("passwordConfirmation")], t('errors.notMatch')),
+      .oneOf([yup.ref("newPasswordConfirmation")], t('errors.notMatch')),
   })
 
   const {
     handleSubmit, 
     formState: { errors },
     clearErrors,
-    watch, 
+    getValues, 
     reset,
     trigger,
+    setValue,
     control,
   } = useForm<IFormProps>({
     mode: "onChange",
     defaultValues: {
       password: '',
-      passwordConfirmation: '',
+      newPassword: '',
+      newPasswordConfirmation: '',
     },
-    resolver: yupResolver<any>(formSchema),
+    resolver: yupResolver(formSchema) as Resolver<IFormProps>,
   })
-  watch('password', '')
+  
+  useEffect(() => {
+    if (getValues("newPassword") && getValues("newPasswordConfirmation")) {
+      setValue("newPassword", "")
+      setValue("newPasswordConfirmation", "")
+    }
+  }, [])
 
-  const onSubmit: SubmitHandler<any> = (data: PasswordRecoveryType) => { 
+  const onSubmit: SubmitHandler<any> = (data: NewPasswordType) => { 
+    data = { ...data, userId }
     if (!data) {
       setServerError('Some error occured123')
     } else {
-      data = { ...data, email }
       setServerError('')
-      saveNewPassword(data)
+      changePassword(data)
         .unwrap()
         .then(() => {
           setSuccess(true)
@@ -101,12 +108,12 @@ export const CreateNewPassword = () => {
           outlinedButton={true}
           buttonName={t('auth.links.login')}
           buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
-          buttonBack={false}
+          buttonBack={true}
         />
       }
-      <AuthLayout>
+      <AppLayout>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-          <Text style={styles.title}>{t('screens.createNewPassword')}</Text>
+          <Text style={styles.title}>{t('screens.changePassword')}</Text>
           {serverError && <Text style={styles.error}>{serverError}</Text>}
           <View style={styles.inputsWrapper}> 
             <View style={styles.inputContainer}>
@@ -116,7 +123,7 @@ export const CreateNewPassword = () => {
                 render={({ field: { ref, onChange, value } }) => (
                   <TextInput
                     placeholderTextColor={'grey'}
-                    placeholder={t('auth.register.inputs.password.placeholder')}
+                    placeholder={t('profile.changePassword.inputs.oldPassword.placeholder')}
                     style={styles.input}
                     secureTextEntry
                     onChangeText={onChange}
@@ -136,12 +143,40 @@ export const CreateNewPassword = () => {
                 <Text style={styles.error}>{errors.password.message}</Text>
               }
             </View>
+
+            <View style={styles.inputContainer}>
+              <Controller
+                control={control}
+                name="newPassword"
+                render={({ field: { ref, onChange, value } }) => (
+                  <TextInput
+                    placeholderTextColor={'grey'}
+                    placeholder={t('auth.register.inputs.password.placeholder')}
+                    style={styles.input}
+                    secureTextEntry
+                    onChangeText={onChange}
+                    ref={ref}
+                    value={value}
+                    onFocus={() => {
+                      clearErrors('newPassword')
+                      setServerError('')
+                    }}
+                    onBlur={() => {
+                      trigger('newPassword')
+                    }}
+                  />
+                )}
+              />
+              {errors.newPassword && 
+                <Text style={styles.error}>{errors.newPassword.message}</Text>
+              }
+            </View>
             
             <View style={styles.inputContainer}>
               <Controller
                 control={control}
-                name="passwordConfirmation"
-                render={({ field: { value, ref, onBlur, onChange } }) => (
+                name="newPasswordConfirmation"
+                render={({ field: { value, ref, onChange } }) => (
                   <TextInput
                     placeholderTextColor={'grey'}
                     placeholder={t('auth.register.inputs.passwordConfirmation.placeholder')}
@@ -151,17 +186,17 @@ export const CreateNewPassword = () => {
                     onChangeText={onChange}
                     value={value}
                     onFocus={() => {
-                      clearErrors('passwordConfirmation')
+                      clearErrors('newPasswordConfirmation')
                       setServerError('')
                     }}
                     onBlur={() => {
-                      trigger('passwordConfirmation')
+                      trigger('newPasswordConfirmation')
                     }}
                   />
                 )}
               />
-              {errors.passwordConfirmation && 
-                <Text style={styles.error}>{errors.passwordConfirmation.message}</Text>
+              {errors.newPasswordConfirmation && 
+                <Text style={styles.error}>{errors.newPasswordConfirmation.message}</Text>
               }
             </View>
           </View>
@@ -171,19 +206,8 @@ export const CreateNewPassword = () => {
               <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
             </TouchableOpacity>
           </View>
-
-          <DefaultButton
-            title={t('auth.links.register')} 
-            text={t('auth.login.note')}
-            path={PATHS.REGISTER}
-          />
-          <DefaultButton
-            title={t('auth.links.login')} 
-            text={t('auth.register.note')}
-            path={PATHS.LOGIN}
-          />
         </KeyboardAvoidingView>
-      </AuthLayout>
+      </AppLayout>
     </>
   )
 }

@@ -20,11 +20,15 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
     ? [styles.buttonLink]
     : path === PATHS.HOME
     ? [styles.buttonLink]
-    : path === PATHS.SCORE
+    : path === PATHS.YOUR_SCORE
     ? [styles.buttonLink]
     : path === PATHS.INSTRUCTIONS
     ? [styles.buttonLink]
     : path === PATHS.FORGOT_PASSWORD
+    ? [styles.buttonLink]
+    : path === PATHS.CHANGE_EMAIL
+    ? [styles.buttonLink]
+    : path === PATHS.CHANGE_PASSWORD
     ? [styles.buttonLink]
     : [styles.button, styles.buttonBorder]
 

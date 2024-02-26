@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { StyleSheet, View, TouchableOpacity, Dimensions } from "react-native"
+import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-native"
 import { LogoSmall } from "../logo/LogoSmall"
 import { DefaultButton } from "../buttons/DefaultButton"
 import { useAppSelector } from "../../hooks/useAppSelector"
@@ -26,7 +26,11 @@ export const Nav = () => {
       <View style={styles.header}>
         <LogoSmall />
         <View style={userEmail ? styles.headerWithUser : {}}>
-          <DefaultButton title={userEmail} path={PATHS.PROFILE} />
+          {userEmail && 
+            <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE)}>
+              <Text style={styles.buttonTextSmall}>{userEmail}</Text>
+            </TouchableOpacity>
+          }
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
             <Animatable.View 
               style={[styles.line, menuOpen && styles.lineActive]} 
@@ -181,4 +185,10 @@ const styles = StyleSheet.create({
     width: 250,
     backgroundColor: "#61dafb",
   },
+  buttonTextSmall: {
+    fontSize: 12,
+    color: '#fff',
+    textDecorationColor: '#fff',
+    textDecorationLine: 'underline'
+  }
 })

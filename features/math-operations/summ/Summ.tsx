@@ -86,65 +86,80 @@ export const Summ = () => {
       setScore(score + 1)
       data = { ...data, score: score}
       setServerError('')
-      updateScore(data)
-        .unwrap()
-        .then(response => {
-          reset()
-        })
-        .catch((e: any) => {
-          const serverE = t('errors.serverError')
-          const error400 = t('errors.error400')
-          const error401 = t('errors.error401')
+      // updateScore(data)
+      //   .unwrap()
+      //   .then(response => {
+      //     reset()
+      //   })
+      //   .catch((e: any) => {
+      //     const serverE = t('errors.serverError')
+      //     const error400 = t('errors.error400')
+      //     const error401 = t('errors.error401')
 
-          if (e.status === 'FETCH_ERROR') setServerError(serverE)
-          if (e.status === 400) setServerError(error400)
-          if (e.status === 401) setServerError(error401)
-        })
+      //     if (e.status === 'FETCH_ERROR') setServerError(serverE)
+      //     if (e.status === 400) setServerError(error400)
+      //     if (e.status === 401) setServerError(error401)
+      //   })
       }
       else if ((score >5 && score <= 10) && (firstDigit + secondDigit + thirdDigit === answerToNumber)) {
         setRight(true)
         setScore(score + 1)
         data = { ...data, score: score}
         setServerError('')
-        updateScore(data)
-          .unwrap()
-          .then(response => {
-            reset()
-          })
-          .catch((e: any) => {
-            const serverE = t('errors.serverError')
-            const error400 = t('errors.error400')
-            const error401 = t('errors.error401')
+        // updateScore(data)
+        //   .unwrap()
+        //   .then(response => {
+        //     reset()
+        //   })
+        //   .catch((e: any) => {
+        //     const serverE = t('errors.serverError')
+        //     const error400 = t('errors.error400')
+        //     const error401 = t('errors.error401')
   
-            if (e.status === 'FETCH_ERROR') setServerError(serverE)
-            if (e.status === 400) setServerError(error400)
-            if (e.status === 401) setServerError(error401)
-          })
+        //     if (e.status === 'FETCH_ERROR') setServerError(serverE)
+        //     if (e.status === 400) setServerError(error400)
+        //     if (e.status === 401) setServerError(error401)
+        //   })
       }
       else if ((score > 10) && (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)) {
         setRight(true)
         setScore(score + 1)
         data = { ...data, score: score}
         setServerError('')
-        updateScore(data)
-          .unwrap()
-          .then(response => {
-            reset()
-          })
-          .catch((e: any) => {
-            const serverE = t('errors.serverError')
-            const error400 = t('errors.error400')
-            const error401 = t('errors.error401')
+        // updateScore(data)
+        //   .unwrap()
+        //   .then(response => {
+        //     reset()
+        //   })
+        //   .catch((e: any) => {
+        //     const serverE = t('errors.serverError')
+        //     const error400 = t('errors.error400')
+        //     const error401 = t('errors.error401')
   
-            if (e.status === 'FETCH_ERROR') setServerError(serverE)
-            if (e.status === 400) setServerError(error400)
-            if (e.status === 401) setServerError(error401)
-          })
+        //     if (e.status === 'FETCH_ERROR') setServerError(serverE)
+        //     if (e.status === 400) setServerError(error400)
+        //     if (e.status === 401) setServerError(error401)
+        //   })
       }
       else {
         setWrong(true)
         setScore(score - 1)
       }
+
+    updateScore(data)
+    .unwrap()
+    .then(response => {
+      reset()
+    })
+    .catch((e: any) => {
+      const serverE = t('errors.serverError')
+      const error400 = t('errors.error400')
+      const error401 = t('errors.error401')
+
+      if (e.status === 'FETCH_ERROR') setServerError(serverE)
+      if (e.status === 400) setServerError(error400)
+      if (e.status === 401) setServerError(error401)
+    })
   }
 
   const onPressPlayMore = () => {
@@ -201,7 +216,7 @@ export const Summ = () => {
             </TouchableOpacity>
           </View>
           
-          <AlertResult 
+          {/* <AlertResult 
             title={'Play more)'} 
             right={right}
             onPress={onPressPlayMore} 
@@ -210,7 +225,7 @@ export const Summ = () => {
             title={'Oh, noooooooo'}
             wrong={wrong} 
             onPress={onPressTryAgain} 
-          />
+          /> */}
           
           <Score score={score} />
         </>

@@ -20,6 +20,9 @@ import { useTranslation } from 'react-i18next'
 import { Loader } from '../loaders/CircularLoader'
 import { ForgotPassword } from '../../../features/auth/ui/ForgotPassword'
 import { CreateNewPassword } from '../../../features/auth/ui/CreateNewPassword'
+import { ChangePassword } from '../../../features/auth/ui/ChangePassword'
+import { ChangeEmail } from '../../../features/auth/ui/ChangeEmail'
+import { YourScore } from '../../../features/profile/ui/YourScore'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -44,19 +47,22 @@ export const Navigation = () => {
         [PATHS.LOGIN]: PATHS.LOGIN,
         [PATHS.REGISTER]: PATHS.REGISTER,
         [PATHS.VERIFY]: {
-          path: PATHS.VERIFY,
+          path: `${PATHS.VERIFY}/:verificationLink`,
           parse: {
             verificationLink: (verificationLink: string) => verificationLink,
           },
         },
         [PATHS.FORGOT_PASSWORD]: PATHS.FORGOT_PASSWORD,
         [PATHS.CREATE_NEW_PASSWORD]: {
-          path: 'create-new-password/:createNewPasswordLink/:email',
+          path: `${PATHS.CREATE_NEW_PASSWORD}/:createNewPasswordLink/:email`,
           parse: {
             createNewPasswordLink: (createNewPasswordLink: string) => createNewPasswordLink,
             email: (email: string) => email,
           },
         },
+        [PATHS.CHANGE_EMAIL]: PATHS.CHANGE_EMAIL,
+        [PATHS.CHANGE_PASSWORD]: PATHS.CHANGE_PASSWORD,
+        [PATHS.YOUR_SCORE]: PATHS.YOUR_SCORE
       },
     },
   }
@@ -67,9 +73,9 @@ export const Navigation = () => {
         {/* common */}
         <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
         <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home') }}/>
-        <Stack.Screen name={PATHS.INSTRUCTIONS} component={Instructions} options={{ headerTitle: t('screens.instructions') }} />
         {/* private */}
         <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
+        <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
         <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
         {/* math-operations */}
         <Stack.Screen name={PATHS.SUMM} component={Summ} options={{ headerTitle: t('screens.summ') }} />
@@ -84,6 +90,8 @@ export const Navigation = () => {
         <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
         <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />
         <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
+        <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />
+        <Stack.Screen name={PATHS.CHANGE_PASSWORD} component={ChangePassword} options={{ headerTitle: t('screens.changePassword') }} />
       </Stack.Navigator>
     </NavigationContainer>
   )

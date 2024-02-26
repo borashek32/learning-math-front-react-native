@@ -13,6 +13,7 @@ import { PATHS } from "../../../common/constants/paths"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { styles } from './../Auth.styles'
 import { AlertResult } from "../../../common/components/alerts/AlertResult"
+import { Modal } from "../../../common/components/modal/Modal"
 
 interface IFormProps {
   email: string
@@ -42,7 +43,16 @@ export const Register = ({ navigation }) => {
       .oneOf([yup.ref("password"), null], i18n.t('errors.notMatch')),
   })
 
-  const { handleSubmit, formState: { errors }, clearErrors, reset, control, trigger, setValue, getValues } = useForm<IFormProps>({
+  const { 
+    handleSubmit, 
+    formState: { errors }, 
+    clearErrors, 
+    reset, 
+    control, 
+    trigger, 
+    setValue, 
+    getValues 
+  } = useForm<IFormProps>({
     mode: "onBlur",
     defaultValues: {
       email: '',
@@ -84,6 +94,17 @@ export const Register = ({ navigation }) => {
   return (
     <>
       {isLoading && <Loader />}
+      {open && 
+        <Modal
+          text={t('modal.registrationSuccess')}
+          open={open}
+          setOpen={setOpen}
+          outlinedButton={true}
+          buttonName={t('auth.links.login')}
+          buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
+          buttonBack={true}
+        />
+      }
       <AuthLayout title={i18n.t('auth.links.register')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
           {serverError && <Text style={styles.error}>{serverError}</Text>}
@@ -186,12 +207,6 @@ export const Register = ({ navigation }) => {
             text={t('auth.register.note')}
             path={PATHS.LOGIN}
           />
-
-          {open && <AlertResult
-            title={t('auth.register.alerts.success')} 
-            right={open}
-            onPress={() => setOpen(false)} 
-          />}
         </KeyboardAvoidingView>
       </AuthLayout>
     </>

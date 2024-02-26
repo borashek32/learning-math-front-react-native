@@ -62,13 +62,22 @@ export const ForgotPassword = () => {
   return (
     <>
       {isLoading && <Loader />}
+      {success && 
+        <Modal
+          text={`Please, check ${email}`}
+          open={open}
+          setOpen={setOpen}
+          outlinedButton={true}
+          buttonBack={false}
+        />
+      }
       <AuthLayout>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
           <Text style={styles.title}>{t('auth.links.forgotPassword')}</Text>
           {serverError && <Text style={styles.error}>{serverError}</Text>}
           <View style={styles.inputsWrapper}> 
             <View style={styles.inputContainer}>
-            <Controller
+              <Controller
                 control={control}
                 name="email"
                 render={({ field: { ref, value, onChange } }) => (
@@ -93,23 +102,13 @@ export const ForgotPassword = () => {
                 <Text style={styles.error}>{errors.email.message}</Text>
               }
             </View>
- 
-            <View style={styles.buttonsWrapper}>
-              <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
-                <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
-              </TouchableOpacity>
-            </View>
           </View>
 
-          {success && 
-            <Modal
-              text={`Please, check ${email}`}
-              open={open}
-              setOpen={setOpen}
-              outlinedButton={true}
-              buttonBack={true}
-            />
-          }
+          <View style={styles.buttonsWrapper}>
+            <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
+              <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
       </AuthLayout>
     </>

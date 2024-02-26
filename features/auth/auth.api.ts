@@ -86,7 +86,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   return result
 }
 
-
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: baseQueryWithReauth,
@@ -163,7 +162,7 @@ export const authApi = createApi({
         providesTags: ['me'],
       }),
       changePassword: build.mutation<UserType, NewPasswordType>({
-        query: (data: NewPasswordType) => {
+        query: (data: NewPasswordType) => { 
           return {
             method: 'POST',
             url: 'change-password',
@@ -177,7 +176,7 @@ export const authApi = createApi({
       }),
       changeEmail: build.mutation<UserType, NewEmailType>({
         query: (data: NewEmailType) => {
-          console.log(data)
+          console.log('api', data)
           return {
             method: 'POST',
             url: 'change-email',

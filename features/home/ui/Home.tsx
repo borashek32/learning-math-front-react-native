@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { DefaultButton } from '../../../common/components/buttons/DefaultButton'
 import { PATHS } from '../../../common/constants/paths'
@@ -18,7 +18,7 @@ export const Home = ({ navigation }) => {
           <DefaultButton title={t('nav.items.mathOperations')} path={PATHS.MATH_OPERATIONS}/>
           <DefaultButton title={t('nav.items.instructions')} path={PATHS.INSTRUCTIONS}/>
           <DevideLine />
-          <DefaultButton title={t('profile.title')} path={PATHS.PROFILE} />
+          <DefaultButton title={t('screens.profile')} path={PATHS.PROFILE} />
           <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
         </View>
         <StatusBar style="auto" />

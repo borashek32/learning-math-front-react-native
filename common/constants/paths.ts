@@ -3,7 +3,7 @@ export const enum PATHS {
   HOME = "home",
   INSTRUCTIONS = "instructions",
   PROFILE = "profile",
-  SCORE = "score",
+  YOUR_SCORE = "score",
   
   MATH_OPERATIONS = 'math-operations',
   SUMM = "summ",
@@ -17,5 +17,7 @@ export const enum PATHS {
   VERIFY = "verify",
   LOGOUT = "logout",
   FORGOT_PASSWORD = "forgor-password",
-  CREATE_NEW_PASSWORD = "create-new-password"
+  CREATE_NEW_PASSWORD = "create-new-password",
+  CHANGE_EMAIL = "change-email",
+  CHANGE_PASSWORD = "change-password"
 }
