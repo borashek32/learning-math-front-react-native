@@ -20,17 +20,15 @@ import { PATHS } from "../../../common/constants/paths"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
-import { AlertResult } from "../../../common/components/alerts/AlertResult"
 import { Error } from "../../../common/components/error/Error"
+import { Checkbox } from "../../../common/components/checkbox/Checkbox"
 
-type RouteParams = {
-  isVerified: boolean
-}
 
-export const Login = ({ navigation, route }) => {
+export const Login = ({ navigation }) => {
   const [login, { isLoading }] = useLoginMutation()
   const [serverError, setServerError] = useState('')
   const dispatch = useDispatch()
+  const [isChecked, setIsChecked] = useState(false)
 
   const { t, i18n } = useTranslation('translation')
   
@@ -145,6 +143,12 @@ export const Login = ({ navigation, route }) => {
             </View>
           </View>
 
+          <Checkbox
+            label={t('auth.login.inputs.rememberMe')}
+            isChecked={isChecked}
+            onChange={() => setIsChecked(true)}
+          /> 
+
           <View style={styles.buttonsWrapper}>
             <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
               <Text style={styles.buttonText}>{i18n.t('buttons.login')}</Text>
@@ -161,7 +165,7 @@ export const Login = ({ navigation, route }) => {
             title={t('auth.links.forgotPassword')} 
             text={t('auth.forgotPassword.note')}
             path={PATHS.FORGOT_PASSWORD}
-          />   
+          />  
           </KeyboardAvoidingView>
         </AuthLayout>
       </>

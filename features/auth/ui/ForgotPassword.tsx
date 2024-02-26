@@ -11,15 +11,7 @@ import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "r
 import { styles } from './../Auth.styles'
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
-import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
-import { PATHS } from "../../../common/constants/paths"
 import { Error } from "../../../common/components/error/Error"
-
-const formSchema = yup.object().shape({
-  email: yup.string()
-    .required("Email is required")
-    .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Email must be an email"),
-})
 
 export const ForgotPassword = () => {
   const [success, setSuccess] = useState(false)
@@ -29,6 +21,12 @@ export const ForgotPassword = () => {
   const [open, setOpen] = useState(true)
   
   const { t } = useTranslation()
+
+  const formSchema = yup.object().shape({
+    email: yup.string()
+      .required(t('errors.required'))
+      .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, t('errors.mustBeEmail')),
+  })
 
   const {
     handleSubmit,

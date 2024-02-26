@@ -109,7 +109,8 @@
         "password": {
           "label": "Password",
           "placeholder": "Enter your password"
-        }
+        },
+        "rememberMe": "Remember me"
       },
       "note": "If you don't have an account, go to registration page"
     },
