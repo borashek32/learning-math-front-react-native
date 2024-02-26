@@ -79,7 +79,6 @@ export const Summ = () => {
       (firstDigit + secondDigit === answerToNumber)
       ) {
       setScore(score + 1)
-      data = { ...data, score: score}
       setRightWrong('right')
     }
     else if (
@@ -87,7 +86,6 @@ export const Summ = () => {
       (firstDigit + secondDigit + thirdDigit === answerToNumber)
       ) {
       setScore(score + 1)
-      data = { ...data, score: score}
       setRightWrong('right')
     }
     else if (
@@ -95,30 +93,29 @@ export const Summ = () => {
       (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)
       ) {
       setScore(score + 1)
-      data = { ...data, score: score}
       setRightWrong('right')
     }
     else {
       setScore(score - 1)
-      data = { ...data, score: score}
       setRightWrong('wrong')
     }
 
+    data = { ...data, score: score}
     updateScore(data)
-    .unwrap()
-    .then(response => {
-      reset()
-      setOpen(true)
-    })
-    .catch((e: any) => {
-      const serverE = t('errors.serverError')
-      const error400 = t('errors.error400')
-      const error401 = t('errors.error401')
+      .unwrap()
+      .then(response => {
+        reset()
+        setOpen(true)
+      })
+      .catch((e: any) => {
+        const serverE = t('errors.serverError')
+        const error400 = t('errors.error400')
+        const error401 = t('errors.error401')
 
-      if (e.status === 'FETCH_ERROR') setServerError(serverE)
-      if (e.status === 400) setServerError(error400)
-      if (e.status === 401) setServerError(error401)
-    })
+        if (e.status === 'FETCH_ERROR') setServerError(serverE)
+        if (e.status === 400) setServerError(error400)
+        if (e.status === 401) setServerError(error401)
+      })
   }
 
   const onPressPlayMore = () => {
@@ -154,7 +151,7 @@ export const Summ = () => {
         />
       )}
       <AppLayout title={t('mathOperations.summ')}>
-        <Error error={serverError} />
+        {serverError && <Error error={serverError} />}
         <MathExampleLayout>
           <Digit title={firstDigit} />
           <MathOperation title='+' />

@@ -5,6 +5,8 @@ import { DefaultButton } from '../../../common/components/buttons/DefaultButton'
 import { PATHS } from '../../../common/constants/paths'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
+import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
 
 export const Mult = ({ navigation }) => {
   const { t } = useTranslation('translation')
@@ -13,22 +15,20 @@ export const Mult = ({ navigation }) => {
 
   return (
     <AppLayout title={t('mathOperations.multTable')}>
-      <View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(PATHS.MULT_CHECK)}>
-          <Text style={styles.buttonText}>{t('mathOperations.multCheck')}</Text>
-        </TouchableOpacity>
-        <View style={styles.digitsWrapper}>
+      <ButtonsLayout>
+        <MathOperationButton
+          title={t('mathOperations.multCheck')}
+          buttonCallback={() => navigation.navigate(PATHS.MULT_CHECK)}
+        />
+        <>
           {digits.map(digit => (
-            <TouchableOpacity
-              key={digit}
-              style={styles.button} 
-              onPress={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: digit })}
-            >
-              <Text style={styles.digit}>{digit}</Text>
-            </TouchableOpacity>
+            <MathOperationButton
+              title={digit.toString()}
+              buttonCallback={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: digit })}
+            />
           ))}
-        </View>
-      </View>
+        </>
+      </ButtonsLayout>
     </AppLayout>
   )
 }
