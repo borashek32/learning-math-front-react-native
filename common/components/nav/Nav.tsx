@@ -9,16 +9,13 @@ import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
 import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
+import { useMeQuery } from "../../../features/auth/auth.api"
 
 export const Nav = ({ navigation }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
-  const user = useAppSelector(selectUser)
 
   const { t } = useTranslation()
-
-  console.log('nav', userEmail, user)
-  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)

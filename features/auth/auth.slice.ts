@@ -17,14 +17,10 @@ const userInfoSlice = createSlice({
   reducers: {
     setUserInfo(state, action: PayloadAction<UserType>) {
       state.user = action.payload
-      console.log('action set', action.payload)
-      
       state.isLoggedIn = true
     },
     removeUserInfo(state) {
       state.user = null
-      console.log('action remove', state.user)
-
       state.isLoggedIn = false
     }
   },

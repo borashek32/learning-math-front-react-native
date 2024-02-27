@@ -1,5 +1,5 @@
 import { Modal } from "../../../common/components/modal/Modal"
-import { useLogoutMutation } from "../auth.api"
+import { useLogoutMutation, useMeQuery } from "../auth.api"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { removeUserInfo } from "../auth.slice"
@@ -17,18 +17,18 @@ export const Logout = ({ navigation }) => {
   const [logout, { isLoading }] = useLogoutMutation()
   const [serverError, setServerError] = useState('')
   const dispatch = useDispatch()
-  
-  let refresh: string
-  AsyncStorage.getItem('refreshToken').then((refreshToken) => {
-    console.log('refreshToken', refreshToken)
-    refresh = refreshToken
-  })
-  
 
   const { t } = useTranslation()
 
   const handleOpenModal = () => setOpen(false)
   const handleOpenModalWithError = () => setModalWithErrorOpen(false)
+
+  let refresh: string
+  AsyncStorage
+    .getItem('refreshToken')
+    .then((refreshToken) => {
+      refresh = refreshToken
+    })
 
   const logoutHandler = () => {
     logout(refresh)
@@ -37,7 +37,6 @@ export const Logout = ({ navigation }) => {
         navigation.navigate(PATHS.MAIN)
         setOpen(false)
         dispatch(removeUserInfo())
-        console.log('logout')
       })
       .catch(e => {
         if (e) {

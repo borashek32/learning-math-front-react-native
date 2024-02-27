@@ -47,8 +47,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   extraOptions
 ) => {
   const token = await AsyncStorage.getItem('accessToken')
-  console.log('token', token);
-  
+
   if (token) {
     const tokenString = token as string
     const decodedToken = await algByDecodingToken(tokenString)
@@ -139,8 +138,8 @@ export const authApi = createApi({
       verify: build.query<string, string | undefined>({
         query: verificationLink => `verify/${verificationLink}`,
       }),
-      logout: build.mutation<any, any>({
-        query: (refreshToken: any) => {
+      logout: build.mutation<void, string>({
+        query: (refreshToken: string) => {
           return {
             method: 'POST',
             url: 'logout',
@@ -174,7 +173,7 @@ export const authApi = createApi({
           }
         },
       }),
-      me: build.query<UserType, void>({
+      me: build.query<RegistedUserType, void>({
         query: () => {
           return {
             method: 'GET',

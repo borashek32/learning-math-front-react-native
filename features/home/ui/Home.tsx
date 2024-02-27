@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { DefaultButton } from '../../../common/components/buttons/DefaultButton'

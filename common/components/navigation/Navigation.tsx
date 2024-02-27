@@ -72,7 +72,7 @@ export const Navigation = () => {
       <Stack.Navigator>
         {/* common */}
         <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
-        <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home') }}/>
+        <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home'), headerBackVisible: false }} />
         {/* private */}
         <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
         <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
