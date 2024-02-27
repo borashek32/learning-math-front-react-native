@@ -28,7 +28,6 @@ export const Login = ({ navigation }) => {
   const [login, { isLoading }] = useLoginMutation()
   const [serverError, setServerError] = useState('')
   const dispatch = useDispatch()
-  const [isChecked, setIsChecked] = useState(false)
 
   const { t, i18n } = useTranslation('translation')
   
@@ -38,9 +37,10 @@ export const Login = ({ navigation }) => {
       .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, i18n.t('errors.mustBeEmail')),
     password: yup.string()
       .required(i18n.t('errors.required'))
-      // .matches(/^[A-Za-z]+$/i, i18n.t('errors.latinLetters'))
+      .matches(/^[A-Za-z]+$/i, i18n.t('errors.latinLetters'))
       .min(4, i18n.t('errors.min'))
       .max(164, i18n.t('errors.max')),
+    rememberMe: yup.boolean()
   })
 
   const {
@@ -53,6 +53,7 @@ export const Login = ({ navigation }) => {
     defaultValues: {
       email: '',
       password: '',
+      rememberMe: false
     },
     mode: 'onChange',
     resolver: yupResolver(formSchema) as Resolver<RegisterType>,
@@ -70,15 +71,9 @@ export const Login = ({ navigation }) => {
         }
       })
       .catch((e: any) => {
-        console.log(e)
-        setServerError('Ошибку смотри в консоли')
-        // const serverE = t('errors.serverError')
-        // const error400 = t('errors.error400')
-        // const error401 = t('errors.error401')
-
-        // if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        // if (e.status === 400) setServerError(error400)
-        // if (e.status === 401) setServerError(error401)
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
+        if (e.data.message === 'User password not correct') setServerError(t('errors.error400login'))
+        if (e.data.message === 'User not found') setServerError(t('errors.error401login'))
       })
   }
 
@@ -143,11 +138,17 @@ export const Login = ({ navigation }) => {
             </View>
           </View>
 
-          <Checkbox
-            label={t('auth.login.inputs.rememberMe')}
-            isChecked={isChecked}
-            onChange={() => setIsChecked(true)}
-          /> 
+          <Controller
+            control={control}
+            name="rememberMe"
+            render={({ field: { value, onChange } }) => (
+              <Checkbox
+                label={t('auth.login.inputs.rememberMe')}
+                isChecked={value}
+                onChange={onChange}
+              />
+            )}
+          />
 
           <View style={styles.buttonsWrapper}>
             <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>

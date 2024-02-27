@@ -1,13 +1,13 @@
 import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSaveNewPasswordMutation } from "../auth.api"
-import { PasswordRecoveryType, RegisterType } from "../auth.types"
+import { PasswordRecoveryType } from "../auth.types"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { Modal } from "../../../common/components/modal/Modal"
 import { useTranslation } from "react-i18next"
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useRoute } from "@react-navigation/native"
 import { PATHS } from "../../../common/constants/paths"
 import { AuthLayout } from "../../../common/components/layouts/AuthLayout"
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
@@ -25,14 +25,13 @@ type Props = {
   email: string
 }
 
-export const CreateNewPassword = () => {
+export const CreateNewPassword = ({ navigation }) => {
   const route = useRoute()
   const { createNewPasswordLink, email } = route.params as Props
   const [success, setSuccess] = useState(false)
   const [open, setOpen] = useState(true)
   const [serverError, setServerError] = useState('')
   const [saveNewPassword, { isLoading }] = useSaveNewPasswordMutation()
-  const navigation = useNavigation()
 
   console.log(createNewPasswordLink, email)
 
@@ -82,11 +81,7 @@ export const CreateNewPassword = () => {
           reset()
         })
         .catch(e => {
-          const serverE = t('errors.serverError')
-          if (e.status === 'FETCH_ERROR') setServerError(serverE)
-          const error400 = t('errors.error400')
-          if (e.status === 400) setServerError(error400)
-          if (e.status === 401) setServerError(error400)
+          if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
         })
     }
   }

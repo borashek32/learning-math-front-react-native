@@ -1,4 +1,10 @@
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { 
+  BaseQueryFn, 
+  FetchArgs, 
+  FetchBaseQueryError, 
+  createApi, 
+  fetchBaseQuery 
+} from '@reduxjs/toolkit/query/react'
 import { baseURL } from '../../common/components/baseUrl/baseUrl'
 import { 
   ForgotPasswordType, 
@@ -20,14 +26,18 @@ const baseQuery = fetchBaseQuery({
     'Content-Type': 'application/json',
   },
   prepareHeaders: async (headers) => {
-    const token = await AsyncStorage.getItem('accessToken')
-  
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
-      algByDecodingToken(token)
+    try {
+      const token = await AsyncStorage.getItem('accessToken')
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`)
+        algByDecodingToken(token)
+      }
+      return headers
+
+    } catch (error) {
+      console.log('Ошибка при чтении токена доступа:', error)
+      return headers
     }
-  
-    return headers
   }
 })
 
@@ -37,14 +47,14 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   extraOptions
 ) => {
   const token = await AsyncStorage.getItem('accessToken')
-
+  console.log('token', token);
+  
   if (token) {
     const tokenString = token as string
     const decodedToken = await algByDecodingToken(tokenString)
 
     if (!decodedToken.isExpirationTimeLongerThanCurrent) {
-      const refreshResult = await baseQuery(
-        {
+      const refreshResult = await baseQuery({
           method: 'GET',
           url: `${baseURL}refresh`,
         },
@@ -59,6 +69,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         'refreshToken' in refreshResult.data
       ) {
         await AsyncStorage.setItem('accessToken', refreshResult.data.accessToken as string)
+        await AsyncStorage.setItem('refreshToken', refreshResult.data.accessToken as string)
       }
     }
   }
@@ -73,14 +84,21 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
     'refreshToken' in result.data
   ) {
     await AsyncStorage.setItem('accessToken', result.data.accessToken as string)
+    await AsyncStorage.setItem('refreshToken', result.data.accessToken as string)
   }
 
-  if (api.endpoint === 'me' && result.data && typeof result.data === 'object' && 'accessToken' in result.data) {
+  if (
+    api.endpoint === 'me' && 
+    result.data && 
+    typeof result.data === 'object' && 
+    'accessToken' in result.data
+  ) {
     await AsyncStorage.getItem('accessToken')
   }
 
   if (api.endpoint === 'logout') {
     await AsyncStorage.removeItem('accessToken')
+    await AsyncStorage.removeItem('refreshToken')
   }
 
   return result
@@ -93,13 +111,14 @@ export const authApi = createApi({
   endpoints: build => {
     return {
       login: build.mutation<RegistedUserType, RegisterType>({
-        query: ({ email, password }: RegisterType) => {
+        query: ({ email, password, rememberMe }: RegisterType) => {
           return {
             method: 'POST',
             url: 'login',
             body: {
               email,
               password,
+              rememberMe,
             },
           }
         },
@@ -120,11 +139,14 @@ export const authApi = createApi({
       verify: build.query<string, string | undefined>({
         query: verificationLink => `verify/${verificationLink}`,
       }),
-      logout: build.mutation<any, void>({
-        query: () => {
+      logout: build.mutation<any, any>({
+        query: (refreshToken: any) => {
           return {
             method: 'POST',
             url: 'logout',
+            body: {
+              refreshToken
+            }
           }
         },  
         invalidatesTags: ['me'],
@@ -152,7 +174,7 @@ export const authApi = createApi({
           }
         },
       }),
-      me: build.query<RegistedUserType, void>({
+      me: build.query<UserType, void>({
         query: () => {
           return {
             method: 'GET',

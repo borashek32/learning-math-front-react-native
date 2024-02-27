@@ -16,6 +16,7 @@ export type RegistedUserType = {
 export type RegisterType = {
   email: string
   password: string
+  rememberMe?: boolean
 }
 
 export type ForgotPasswordType = {

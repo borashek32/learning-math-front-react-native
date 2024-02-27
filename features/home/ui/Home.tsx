@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { DefaultButton } from '../../../common/components/buttons/DefaultButton'
@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { styles } from './../Home.styles'
 import { DevideLine } from '../../../common/components/devideLine/DevideLine'
 
-export const Home = ({ navigation }) => {
-  const { t, i18n } = useTranslation('translation')
+export const Home = () => {
+  const { t } = useTranslation('translation')
 
   return (
     <AppLayout>

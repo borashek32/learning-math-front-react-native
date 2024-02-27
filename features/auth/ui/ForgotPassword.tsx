@@ -53,8 +53,7 @@ export const ForgotPassword = () => {
         reset()
       })
       .catch(error => {
-        const serverE = t('errors.serverError')
-        if (error.status === 'FETCH_ERROR') setServerError(serverE)
+        if (error.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
       })
   }
 

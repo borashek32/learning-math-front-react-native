@@ -3,19 +3,22 @@ import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-nati
 import { LogoSmall } from "../logo/LogoSmall"
 import { DefaultButton } from "../buttons/DefaultButton"
 import { useAppSelector } from "../../hooks/useAppSelector"
-import { selectUserEmail } from "../../../features/auth/auth.selectors"
+import { selectUser, selectUserEmail } from "../../../features/auth/auth.selectors"
 import { useTranslation } from "react-i18next"
 import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
 import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
-import { useNavigation } from "@react-navigation/native"
 
-export const Nav = () => {
+export const Nav = ({ navigation }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
-  const navigation = useNavigation()
+  const user = useAppSelector(selectUser)
+
   const { t } = useTranslation()
+
+  console.log('nav', userEmail, user)
+  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)

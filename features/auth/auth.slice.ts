@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserType } from './auth.types'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface UserInfoState {
   user: UserType | null
+  isLoggedIn: boolean
 }
 
 const initialState: UserInfoState = {
   user: null,
+  isLoggedIn: false
 } as UserInfoState
 
 const userInfoSlice = createSlice({
@@ -16,15 +17,15 @@ const userInfoSlice = createSlice({
   reducers: {
     setUserInfo(state, action: PayloadAction<UserType>) {
       state.user = action.payload
-      const userEmail = action.payload.email
-      const userId = action.payload.id
-      AsyncStorage.setItem('userEmail', userEmail)
-      AsyncStorage.setItem('userId', userId)
+      console.log('action set', action.payload)
+      
+      state.isLoggedIn = true
     },
     removeUserInfo(state) {
       state.user = null
-      AsyncStorage.removeItem('userEmail')
-      AsyncStorage.removeItem('userId')
+      console.log('action remove', state.user)
+
+      state.isLoggedIn = false
     }
   },
 })

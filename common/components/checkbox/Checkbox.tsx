@@ -4,7 +4,7 @@ import { Props } from './Checkbox.types'
 
 export const Checkbox = ({ label, isChecked, onChange }: Props) => {
   const toggleCheckbox = () => {
-    onChange()
+    onChange(!isChecked)
   }
 
   return (

@@ -1,30 +1,28 @@
 import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useEffect, useState } from "react"
-import { useChangeEmailMutation, useChangePasswordMutation } from "../auth.api"
+import { useState } from "react"
+import { useChangeEmailMutation } from "../auth.api"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { Modal } from "../../../common/components/modal/Modal"
 import { useTranslation } from "react-i18next"
-import { useNavigation } from "@react-navigation/native"
 import { PATHS } from "../../../common/constants/paths"
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from '../Auth.styles'
 import { AppLayout } from "../../../common/components/layouts/AppLayout"
 import { useAppSelector } from "../../../common/hooks/useAppSelector"
 import { selectUserId } from "../auth.selectors"
-import { NewEmailType, NewPasswordType } from "../auth.api.types"
+import { NewEmailType } from "../auth.api.types"
 import { Error } from "../../../common/components/error/Error"
 
 interface IFormProps {
   newEmail: string
 }
 
-export const ChangeEmail = () => {
+export const ChangeEmail = ({ navigation }) => {
   const [success, setSuccess] = useState(false)
   const [open, setOpen] = useState(true)
   const [serverError, setServerError] = useState('')
-  const navigation = useNavigation()
   const [changeEmail, { isLoading } ] = useChangeEmailMutation()
   const userId = useAppSelector(selectUserId)
 
@@ -64,11 +62,7 @@ export const ChangeEmail = () => {
           reset()
         })
         .catch(e => {
-          const serverE = t('errors.serverError')
-          if (e.status === 'FETCH_ERROR') setServerError(serverE)
-          const error400 = t('errors.error400')
-          if (e.status === 400) setServerError(error400)
-          if (e.status === 401) setServerError(error400)
+          if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
         })
     }
   }

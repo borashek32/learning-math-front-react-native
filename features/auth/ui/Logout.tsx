@@ -9,6 +9,7 @@ import { PATHS } from "../../../common/constants/paths"
 import { AppLayout } from "../../../common/components/layouts/AppLayout"
 import { View } from "react-native"
 import { styles } from './../Auth.styles'
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const Logout = ({ navigation }) => {
   const [open, setOpen] = useState(true)
@@ -16,6 +17,13 @@ export const Logout = ({ navigation }) => {
   const [logout, { isLoading }] = useLogoutMutation()
   const [serverError, setServerError] = useState('')
   const dispatch = useDispatch()
+  
+  let refresh: string
+  AsyncStorage.getItem('refreshToken').then((refreshToken) => {
+    console.log('refreshToken', refreshToken)
+    refresh = refreshToken
+  })
+  
 
   const { t } = useTranslation()
 
@@ -23,12 +31,13 @@ export const Logout = ({ navigation }) => {
   const handleOpenModalWithError = () => setModalWithErrorOpen(false)
 
   const logoutHandler = () => {
-    logout()
+    logout(refresh)
       .unwrap()
       .then(() => {
         navigation.navigate(PATHS.MAIN)
         setOpen(false)
         dispatch(removeUserInfo())
+        console.log('logout')
       })
       .catch(e => {
         if (e) {

@@ -6,7 +6,6 @@ import { useChangePasswordMutation } from "../auth.api"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { Modal } from "../../../common/components/modal/Modal"
 import { useTranslation } from "react-i18next"
-import { useNavigation } from "@react-navigation/native"
 import { PATHS } from "../../../common/constants/paths"
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from '../Auth.styles'
@@ -22,11 +21,10 @@ interface IFormProps {
   newPasswordConfirmation: string
 }
 
-export const ChangePassword = () => {
+export const ChangePassword = ({ navigation }) => {
   const [success, setSuccess] = useState(false)
   const [open, setOpen] = useState(true)
   const [serverError, setServerError] = useState('')
-  const navigation = useNavigation()
   const [changePassword, { isLoading } ] = useChangePasswordMutation()
   const userId = useAppSelector(selectUserId)
 
@@ -89,11 +87,7 @@ export const ChangePassword = () => {
           reset()
         })
         .catch(e => {
-          const serverE = t('errors.serverError')
-          if (e.status === 'FETCH_ERROR') setServerError(serverE)
-          const error400 = t('errors.error400')
-          if (e.status === 400) setServerError(error400)
-          if (e.status === 401) setServerError(error400)
+          if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
         })
     }
   }

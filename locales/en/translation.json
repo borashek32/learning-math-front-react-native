@@ -59,8 +59,9 @@
   "errors": {
     "serverError": "There is no connection to the server. Please, try later",
     "someError": "Some error occured",
-    "error401": "User with this email already exists",
-    "error400": "User not found",
+    "error400register": "User with this email already exists",
+    "error400login": "User password not correct",
+    "error401login": "User not found",
     "required": "Field required",
     "latinLetters": "Only latin letters are supported",
     "min": "Field length should be at least 4 characters",

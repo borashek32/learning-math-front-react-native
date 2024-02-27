@@ -12,7 +12,6 @@ import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirs
 import { PATHS } from "../../../common/constants/paths"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { styles } from './../Auth.styles'
-import { AlertResult } from "../../../common/components/alerts/AlertResult"
 import { Modal } from "../../../common/components/modal/Modal"
 
 interface IFormProps {
@@ -22,7 +21,7 @@ interface IFormProps {
 }
 
 export const Register = ({ navigation }) => {
-  const [signUp, { isLoading, isError }] = useSignUpMutation()
+  const [signUp, { isLoading }] = useSignUpMutation()
   const [serverError, setServerError] = useState('')
   const [open, setOpen] = useState(false)
 
@@ -80,14 +79,8 @@ export const Register = ({ navigation }) => {
         setOpen(true)
       })
       .catch(e => {
-        console.log(e)
-        setServerError('Ошибку смотри в консоли')
-        // const serverE = i18n.t('errors.serverError')
-        // const error400 = i18n.t('errors.error400')
-        // const error401 = i18n.t('errors.error401')
-        // if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        // if (e.status === 400) setServerError(error400)
-        // if (e.status === 401) setServerError(error401)
+        if (e.status === 'FETCH_ERROR') setServerError(i18n.t('errors.serverError'))
+        if (e.status === 400) setServerError(i18n.t('errors.error400register'))
       })
   }
 
