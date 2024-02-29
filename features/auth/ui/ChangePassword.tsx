@@ -77,7 +77,7 @@ export const ChangePassword = ({ navigation }) => {
   const onSubmit: SubmitHandler<any> = (data: NewPasswordType) => { 
     data = { ...data, userId }
     if (!data) {
-      setServerError('Some error occured123')
+      setServerError('Some error occured')
     } else {
       setServerError('')
       changePassword(data)
@@ -87,7 +87,9 @@ export const ChangePassword = ({ navigation }) => {
           reset()
         })
         .catch(e => {
+          console.log(e)
           if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
+          if (e.data.message === 'User password not correct') setServerError(t('errors.error400login'))
         })
     }
   }

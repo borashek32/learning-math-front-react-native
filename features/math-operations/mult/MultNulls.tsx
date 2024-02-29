@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
-import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
-import { Digit } from '../../../common/components/borderedText/borderedText'
-import { ResultInput } from '../../../common/components/inputs/ResultInput'
+import { Keyboard } from 'react-native'
 import { Score } from '../../../common/components/score/Score'
-import { AppLayout } from '../../../common/components/layouts/AppLayout'
+import { ResultInput } from '../../../common/components/inputs/ResultInput'
+import { Digit } from '../../../common/components/borderedText/borderedText'
+import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
 import { useTranslation } from 'react-i18next'
-import { useUpdateScoreMutation } from '../../profile/profile.api'
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { ScoreType } from '../../profile/profile.api.types'
-import { yupResolver } from "@hookform/resolvers/yup"
-import { selectUserId } from '../../auth/auth.selectors'
-import { AnswerType } from '../mathOperations.types'
-import { useFormSchema } from '../validationShema'
-import { Error } from '../../../common/components/error/Error'
-import { Modal } from '../../../common/components/modal/Modal'
-import { Loader } from '../../../common/components/loaders/CircularLoader'
-import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
+import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
 import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
+import { AnswerType } from './../mathOperations.types'
+import { useUpdateScoreMutation } from '../../profile/profile.api'
+import { useFormSchema } from '../validationShema'
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
+import { ScoreType } from '../../profile/profile.api.types'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { selectUserId } from '../../auth/auth.selectors'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Loader } from '../../../common/components/loaders/CircularLoader'
+import { Modal } from '../../../common/components/modal/Modal'
+import { Error } from '../../../common/components/error/Error'
 
-export const Diff = () => {
-  const [firstDigit, setFirstDigit] = useState<number>(null)
-  const [secondDigit, setSecondDigit] = useState<number>(null)
-  const [thirdDigit, setThirdDigit] = useState<number>(null)
-  const [fourthDigit, setFourthDigit] = useState<number>(null)
+export const MultNulls = () => {
+  const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
+  const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
+  const [check, setCheck] = useState<number>(null)
   const [score, setScore] = useState(0)
-  const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
+  const [serverError, setServerError] = useState('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
 
@@ -36,22 +35,20 @@ export const Diff = () => {
   const { t } = useTranslation('translation')
   const formSchema = useFormSchema()
 
-  const generateNewDigits = (score: number) => {
-    if (score > 5) {
-      setThirdDigit(Math.floor(Math.random() * 11) + 1)
-    }
-    if (score > 10) {
-      setFourthDigit(Math.floor(Math.random() * 11) + 1)
-    }
-    setFirstDigit(Math.floor(Math.random() * 11) + 100)
-    setSecondDigit(Math.floor(Math.random() * 11) + 1)
+  const generateNewDigits = () => {
+    setFirstMultiplier(Math.floor(Math.random() * 80) + 2)
+    setSecondMultiplier(Math.floor(Math.random() * 80) + 2)
   }
-  
+
   const onGenerateNewDigits = () => {
+    generateNewDigits()
     setAnswer('')
     setOpen(false)
-    generateNewDigits(score)
   }
+
+  useEffect(() => {
+    setCheck(firstMultiplier * secondMultiplier)
+  }, [firstMultiplier, secondMultiplier])
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer)
@@ -74,33 +71,16 @@ export const Diff = () => {
     const answerToNumber = Number(answer)
     setServerError('')
     Keyboard.dismiss()
-    if (
-      (score <= 5) && 
-      (firstDigit - secondDigit === answerToNumber)
-      ) {
+
+    if (firstMultiplier * answerToNumber === check) {
       setScore(score + 1)
       setRightWrong('right')
+    } else {
+      setScore(score - 1)
+      setRightWrong('wrong')
     }
-    else if (
-      (score >5 && score <= 10) && 
-      (firstDigit - secondDigit - thirdDigit === answerToNumber)
-      ) {
-        setScore(score + 1)
-        setRightWrong('right')
-      }
-      else if (
-        (score > 10) && 
-        (firstDigit - secondDigit - thirdDigit - fourthDigit === answerToNumber)
-      ) {
-        setScore(score + 1)
-        setRightWrong('right')
-      }
-      else {
-        setScore(score - 1)
-        setRightWrong('wrong')
-      }
-    
-    data = { ...data, score: score} 
+
+    data = { ...data, score: score}
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -112,11 +92,10 @@ export const Diff = () => {
       })
   }
 
-
   const onPressPlayMore = () => {
     setOpen(false)
-    generateNewDigits(score)
     setAnswer('')
+    generateNewDigits()
   }
 
   const onPressTryAgain = () => {
@@ -125,7 +104,7 @@ export const Diff = () => {
   }
 
   useEffect(() => {
-    generateNewDigits(score)
+    generateNewDigits()
   }, [])
 
   return (
@@ -145,24 +124,12 @@ export const Diff = () => {
           color={rightWrong === 'right' ? 'blue' : 'red'}
         />
       )}
-      <AppLayout title={t('mathOperations.diff')}>
-        <Error error={serverError} />
+      <AppLayout title={t('mathOperations.multCheck')}>
+        {serverError && <Error error={serverError} />}
         <MathExampleLayout>
-          <Digit title={firstDigit} />
-          <MathOperation title='-' />
-          <Digit title={secondDigit} />
-          {thirdDigit && 
-            <>
-              <MathOperation title='-' />
-              <Digit title={thirdDigit} />
-            </>
-          }
-          {fourthDigit && 
-            <>
-              <MathOperation title='-' />
-              <Digit title={fourthDigit} />
-            </>
-          }
+          <Digit title={check} />
+          <MathOperation title=':' />
+          <Digit title={firstMultiplier} />
           <MathOperation title='=' />
 
           <ResultInput 
@@ -173,7 +140,7 @@ export const Diff = () => {
         </MathExampleLayout>
 
         <ButtonsLayout>
-          <MathOperationButton 
+          <MathOperationButton
             buttonCallback={onGenerateNewDigits}
             title={t('mathOperations.common.generate')}
           />

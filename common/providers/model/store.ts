@@ -3,12 +3,14 @@ import { authApi } from '../../../features/auth/auth.api'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { profileApi } from '../../../features/profile/profile.api'
 import { userInfoReducer } from '../../../features/auth/auth.slice'
+import { profileReducer } from '../../../features/profile/profile.slice'
  
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
-    profile: userInfoReducer
+    userInfo: userInfoReducer,
+    profile: profileReducer
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(
     profileApi.middleware,

@@ -23,6 +23,7 @@ import { CreateNewPassword } from '../../../features/auth/ui/CreateNewPassword'
 import { ChangePassword } from '../../../features/auth/ui/ChangePassword'
 import { ChangeEmail } from '../../../features/auth/ui/ChangeEmail'
 import { YourScore } from '../../../features/profile/ui/YourScore'
+import { MultNulls } from '../../../features/math-operations/mult/MultNulls'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -42,6 +43,7 @@ export const Navigation = () => {
         [PATHS.SUMM]: PATHS.SUMM,
         [PATHS.DIFF]: PATHS.DIFF,
         [PATHS.MULT]: PATHS.MULT,
+        [PATHS.MULT_NULLS]: PATHS.MULT_NULLS,
         [PATHS.MULT_DIGIT]: PATHS.MULT_DIGIT,
         [PATHS.MULT_CHECK]: PATHS.MULT_CHECK,
         [PATHS.LOGIN]: PATHS.LOGIN,
@@ -83,6 +85,7 @@ export const Navigation = () => {
         <Stack.Screen name={PATHS.MULT} component={Mult} options={{ headerTitle: t('screens.mult') }} />
         <Stack.Screen name={PATHS.MULT_DIGIT} component={MultDigit} options={{ headerTitle: t('screens.multDigit') }} />
         <Stack.Screen name={PATHS.MULT_CHECK} component={MultCheck} options={{ headerTitle: t('screens.multCheck') }} />
+        <Stack.Screen name={PATHS.MULT_NULLS} component={MultNulls} options={{ headerTitle: t('screens.multNulls') }} />
         {/* auth  */}
         <Stack.Screen name={PATHS.LOGIN} component={Login} options={{ headerTitle: t('screens.login') }} />
         <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />

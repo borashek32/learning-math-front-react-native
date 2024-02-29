@@ -13,6 +13,7 @@ export type DefaultButtonProps = {
     PATHS.MULT |
     PATHS.MULT_CHECK |
     PATHS.MULT_DIGIT |
+    PATHS.MULT_NULLS |
     PATHS.PROFILE |
     PATHS.REGISTER |
     PATHS.YOUR_SCORE |

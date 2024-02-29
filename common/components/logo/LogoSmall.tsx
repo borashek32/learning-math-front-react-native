@@ -1,9 +1,16 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { PATHS } from '../../constants/paths'
+import { Props } from './Logo.type'
 
-export const LogoSmall = () => {
+export const LogoSmall = ({ path }: Props) => {
+  const navigation = useNavigation()
+
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity 
+      onPress={() => navigation.navigate(path === PATHS.MAIN ? PATHS.MAIN : PATHS.HOME)}
+      >
       <View style={styles.logoWrapperSmall}>
         <View style={styles.learnMathComWrapperSmall}>
           <Text style={styles.learnSmall}>Learn</Text>

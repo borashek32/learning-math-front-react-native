@@ -1,12 +1,10 @@
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import { styles } from './../MathOperations.styles'
-import { DefaultButton } from '../../../common/components/buttons/DefaultButton'
+import { FlatList, ScrollView } from 'react-native'
 import { PATHS } from '../../../common/constants/paths'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
-import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
+import { BlueButton } from '../../../common/components/buttons/BlueButton'
 
 export const Mult = ({ navigation }) => {
   const { t } = useTranslation('translation')
@@ -15,20 +13,27 @@ export const Mult = ({ navigation }) => {
 
   return (
     <AppLayout title={t('mathOperations.multTable')}>
-      <ButtonsLayout>
-        <MathOperationButton
-          title={t('mathOperations.multCheck')}
-          buttonCallback={() => navigation.navigate(PATHS.MULT_CHECK)}
-        />
-        <>
-          {digits.map(digit => (
-            <MathOperationButton
-              title={digit.toString()}
-              buttonCallback={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: digit })}
-            />
-          ))}
-        </>
-      </ButtonsLayout>
+      <ScrollView>
+        <ButtonsLayout>
+          <BlueButton
+            title={t('mathOperations.multCheck')}
+            path={PATHS.MULT_CHECK}
+          />
+          <BlueButton
+            title={t('mathOperations.multNulls')}
+            path={PATHS.MULT_NULLS}
+          />
+          <FlatList
+            data={digits}
+            renderItem={({ item }) => (
+              <BlueButton
+                title={item.toString()}
+                onPress={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: item })}
+              />
+            )}
+          />
+        </ButtonsLayout>
+      </ScrollView>
     </AppLayout>
   )
 }

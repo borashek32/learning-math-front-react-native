@@ -26,7 +26,7 @@ export const Summ = () => {
   const [secondDigit, setSecondDigit] = useState<number>(null)
   const [thirdDigit, setThirdDigit] = useState<number>(null)
   const [fourthDigit, setFourthDigit] = useState<number>(null)
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0) 
   const [serverError, setServerError] = useState('')
   const [answer, setAnswer] = useState<string>('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
@@ -84,14 +84,14 @@ export const Summ = () => {
     else if (
       (score >5 && score <= 10) && 
       (firstDigit + secondDigit + thirdDigit === answerToNumber)
-      ) {
+    ) {
       setScore(score + 1)
       setRightWrong('right')
     }
     else if (
       (score > 10) && 
       (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)
-      ) {
+    ) {
       setScore(score + 1)
       setRightWrong('right')
     }
@@ -100,7 +100,7 @@ export const Summ = () => {
       setRightWrong('wrong')
     }
 
-    data = { ...data, score: score}
+    data = { ...data, score: score + 1}
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -108,13 +108,7 @@ export const Summ = () => {
         setOpen(true)
       })
       .catch((e: any) => {
-        const serverE = t('errors.serverError')
-        const error400 = t('errors.error400')
-        const error401 = t('errors.error401')
-
-        if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        if (e.status === 400) setServerError(error400)
-        if (e.status === 401) setServerError(error401)
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
       })
   }
 

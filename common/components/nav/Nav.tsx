@@ -3,17 +3,21 @@ import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-nati
 import { LogoSmall } from "../logo/LogoSmall"
 import { DefaultButton } from "../buttons/DefaultButton"
 import { useAppSelector } from "../../hooks/useAppSelector"
-import { selectUser, selectUserEmail } from "../../../features/auth/auth.selectors"
+import { selectUserEmail, selectUserId } from "../../../features/auth/auth.selectors"
 import { useTranslation } from "react-i18next"
 import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
 import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
-import { useMeQuery } from "../../../features/auth/auth.api"
+import { useNavigation } from "@react-navigation/native"
+import { useGetTotalUserScoreQuery } from "../../../features/profile/profile.api"
 
-export const Nav = ({ navigation }) => {
+export const Nav = () => {
+  const navigation = useNavigation()
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
+  const userId = useAppSelector(selectUserId)
+  const { data, isLoading } = useGetTotalUserScoreQuery(userId)
 
   const { t } = useTranslation()
 
@@ -24,11 +28,12 @@ export const Nav = ({ navigation }) => {
   return (
     <>
       <View style={styles.header}>
-        <LogoSmall />
+        <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN} />
         <View style={userEmail ? styles.headerWithUser : {}}>
           {userEmail && 
             <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE)}>
               <Text style={styles.buttonTextSmall}>{userEmail}</Text>
+              {/* <Text style={styles.buttonTextSmall}>{data.score}</Text> */}
             </TouchableOpacity>
           }
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>

@@ -1,9 +1,9 @@
 import { RootState } from "../../common/providers/model/store"
 
-const selectUserEmail = (state: RootState) => state.profile.user.email
-const selectUserId = (state: RootState) => state.profile.user.id
-const selectIsLoggedIn = (state: RootState) => state.profile.isLoggedIn
-const selectUser = (state: RootState) => state.profile.user
+const selectUserEmail = (state: RootState) => state.userInfo.user.email
+const selectUserId = (state: RootState) => state.userInfo.user.id
+const selectIsLoggedIn = (state: RootState) => state.userInfo.isLoggedIn
+const selectUser = (state: RootState) => state.userInfo.user
 
 export {
   selectUserEmail,

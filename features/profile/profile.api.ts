@@ -44,6 +44,8 @@ export const profileApi = createApi({
       }),
       getTotalUserScore: build.query<ScoreType, string>({
         query: (userId) => {
+          console.log(userId);
+          
           return {
             method: 'GET',
             url: `get-total-user-score/${userId}`,

@@ -88,13 +88,7 @@ export const MultCheck = () => {
         setOpen(true)
       })
       .catch((e: any) => {
-        const serverE = t('errors.serverError')
-        const error400 = t('errors.error400')
-        const error401 = t('errors.error401')
-
-        if (e.status === 'FETCH_ERROR') setServerError(serverE)
-        if (e.status === 400) setServerError(error400)
-        if (e.status === 401) setServerError(error401)
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
       })
   }
 

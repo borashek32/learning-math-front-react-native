@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, View } from 'react-native'
+import { Button } from 'react-native'
 import { BaseLayout } from '../../../common/components/layouts/BaseLayout'
 import { useTranslation } from 'react-i18next'
 import { PATHS } from '../../../common/constants/paths'

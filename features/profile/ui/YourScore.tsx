@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
@@ -8,12 +8,20 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { selectUserId } from '../../auth/auth.selectors'
 import { Score } from '../../../common/components/score/Score'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
+import { selectUserScore } from '../../profile/profile.selectors'
+import { useDispatch } from 'react-redux'
+import { setUserScore } from '../../profile/profile.slice'
 
 export const YourScore = () => {
   const userId = useAppSelector(selectUserId)
-  const { data, isLoading } = useGetTotalUserScoreQuery(userId)
+  const { data, isLoading, refetch } = useGetTotalUserScoreQuery(userId, { skip: false })
+  const userScore = useAppSelector(selectUserScore)
 
   const { t } = useTranslation()
+
+  useEffect(() => {
+    refetch()
+  }, [userScore])
 
   return (
     <>

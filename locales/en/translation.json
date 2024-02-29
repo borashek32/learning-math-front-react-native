@@ -167,7 +167,8 @@
     "multiplication": "Multiplication",
     "multTable": "Multiplication table",
     "multBy": "Multiplication by",
-    "multCheck": "Check mutiplication knowledge"
+    "multCheck": "Check mutiplication knowledge",
+    "multNulls": "Multiplication of numbers with nulls"
   },
   "profile": {
     "changePassword": {
