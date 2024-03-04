@@ -33,7 +33,6 @@ const prefixes = [prefix]
 
 export const Navigation = () => {
   const isAuthenticated = useAuthentication()
-  console.log('isAunteficated navigation', isAuthenticated)
 
   const { t } = useTranslation('translation')
 

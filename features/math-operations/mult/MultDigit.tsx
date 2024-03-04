@@ -61,23 +61,21 @@ export const MultDigit = ({ route }) => {
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
   })
 
-  const check = () => {
+  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+    setServerError('')
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
     if (digit * firstDigit === answerToNumber) {
       setScore(score + 1)
       setRightWrong('right')
+      data = { ...data, score: 1 }
     }
     else {
       setScore(score - 1)
       setRightWrong('wrong')
+      data = { ...data, score: -1 }
     }
-    handleSubmit(onSubmit)()
-  }
-
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('')
-    data = { ...data, score }
+    
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -142,7 +140,7 @@ export const MultDigit = ({ route }) => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            buttonCallback={check}
+            buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>

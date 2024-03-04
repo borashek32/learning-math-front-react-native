@@ -69,8 +69,9 @@ export const Summ = () => {
     mode: 'onChange',
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
   })
-
-  const check = () => {
+  
+  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+    setServerError('')
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
     if (
@@ -79,6 +80,7 @@ export const Summ = () => {
     ) {
       setScore(score + 1)
       setRightWrong('right')
+      data = { ...data, score: 1 }
     }
     else if (
       (score >5 && score <= 10) && 
@@ -86,6 +88,7 @@ export const Summ = () => {
     ) {
       setScore(score + 1)
       setRightWrong('right')
+      data = { ...data, score: 1 }
     }
     else if (
       (score > 10) && 
@@ -93,20 +96,13 @@ export const Summ = () => {
     ) {
       setScore(score + 1)
       setRightWrong('right')
+      data = { ...data, score: 1 }
     }
     else {
       setScore(score - 1)
       setRightWrong('wrong')
+      data = { ...data, score: -1 }
     }
-    handleSubmit(onSubmit)()
-  }
-
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('')
-    console.log(data);
-    
-    data = { ...data, score: score }
-    console.log(data);
     
     updateScore(data)
       .unwrap()
@@ -184,7 +180,7 @@ export const Summ = () => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            buttonCallback={check}
+            buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>
