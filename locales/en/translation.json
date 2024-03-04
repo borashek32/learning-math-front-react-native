@@ -10,6 +10,7 @@
     "mult": "Multiplication",
     "multDigit": "Multiplication by",
     "multCheck": "Check mutiplication knowledge",
+    "multNulls": "Multiplication of numbers with nulls",
     "login": "Login",
     "register": "Registration",
     "verify": "Verify",
@@ -18,6 +19,7 @@
     "createNewPassword": "Create new password",
     "changeEmail": "Change email",
     "changePassword": "Change password",
+    "changeAvatar": "Change avatar",
     "profile": "Profile",
     "yourScore": "Your score"
   },
@@ -185,6 +187,9 @@
         }
       }
     },
-    "yourScore": "Your total XP"
+    "yourScore": "Your total XP",
+    "changeAvatar": {
+      "title": "Who you are from Rick & Morty?"
+    }
   }
 }

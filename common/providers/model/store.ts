@@ -4,17 +4,22 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { profileApi } from '../../../features/profile/profile.api'
 import { userInfoReducer } from '../../../features/auth/auth.slice'
 import { profileReducer } from '../../../features/profile/profile.slice'
+import { rickMortyApi } from '../../../features/profile/rickMorty/rickMorty.api'
+import { appReducer } from '../../../app/app.slice'
  
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
+    [rickMortyApi.reducerPath]: rickMortyApi.reducer,
     userInfo: userInfoReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    app: appReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(
     profileApi.middleware,
     authApi.middleware,
+    rickMortyApi.middleware,
   ),
 })
 

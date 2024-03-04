@@ -24,7 +24,6 @@ import { Error } from '../../../common/components/error/Error'
 export const MultCheck = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
   const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
-  const [check, setCheck] = useState<number>(null)
   const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState<string>('')
   const [serverError, setServerError] = useState('')
@@ -46,10 +45,6 @@ export const MultCheck = () => {
     setOpen(false)
   }
 
-  useEffect(() => {
-    setCheck(firstMultiplier * secondMultiplier)
-  }, [firstMultiplier, secondMultiplier])
-
   const onChangeHandler = (answer: string) => {
     setAnswer(answer)
   }
@@ -67,20 +62,22 @@ export const MultCheck = () => {
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
   })
 
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+  const check = () => {
     const answerToNumber = Number(answer)
-    setServerError('')
     Keyboard.dismiss()
-
-    if (firstMultiplier * answerToNumber === check) {
+    if (firstMultiplier * answerToNumber === firstMultiplier * secondMultiplier) {
       setScore(score + 1)
       setRightWrong('right')
     } else {
       setScore(score - 1)
       setRightWrong('wrong')
     }
+    handleSubmit(onSubmit)()
+  }
 
-    data = { ...data, score: score}
+  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+    setServerError('')
+    data = { ...data, score }
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -127,7 +124,7 @@ export const MultCheck = () => {
       <AppLayout title={t('mathOperations.multCheck')}>
         {serverError && <Error error={serverError} />}
         <MathExampleLayout>
-          <Digit title={check} />
+          <Digit title={firstMultiplier * secondMultiplier} />
           <MathOperation title=':' />
           <Digit title={firstMultiplier} />
           <MathOperation title='=' />
@@ -145,7 +142,7 @@ export const MultCheck = () => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+            buttonCallback={check}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>

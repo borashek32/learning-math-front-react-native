@@ -15,7 +15,7 @@ export const BlueButton: React.FC<DefaultButtonProps> = ({
   return (
     <TouchableOpacity 
       style={styles.button} 
-      onPress={() => path ? navigation.navigate(path) : onPress}
+      onPress={path ? () => navigation.navigate(path) : onPress}
     >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>

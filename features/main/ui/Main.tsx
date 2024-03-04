@@ -7,6 +7,7 @@ import { useMeQuery } from '../../auth/auth.api'
 import { useDispatch } from 'react-redux'
 import { setUserInfo } from '../../auth/auth.slice'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
+import { BlueButton } from '../../../common/components/buttons/BlueButton'
 
 export const Main = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -30,11 +31,11 @@ export const Main = ({ navigation }) => {
     <>
       {isLoading && <Loader />}
       <BaseLayout>
-        <Button
+        <BlueButton
           title={t('auth.links.register')}
-          onPress={() => navigation.push(PATHS.REGISTER)}
+          onPress={() => navigation.navigate(PATHS.REGISTER)}
         />
-        <Button
+        <BlueButton
           title={t('auth.links.login')}
           onPress={() => navigation.push(PATHS.LOGIN)}
         />

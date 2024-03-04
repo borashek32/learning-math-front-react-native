@@ -10,6 +10,7 @@
     "mult": "Умножение",
     "multDigit": "Умножение на",
     "multCheck": "Проверка знаний умножения",
+    "multNulls": "Умножение чисел с нулями",
     "login": "Вход",
     "register": "Регистрация",
     "verify": "Верификация",
@@ -18,6 +19,7 @@
     "createNewPassword": "Создание нового пароля",
     "changeEmail": "Изменить email",
     "changePassword": "Изменить пароль",
+    "changeAvatar": "Изменить аватар",
     "profile": "Профайл",
     "yourScore": "Ваш счет"
   },
@@ -185,6 +187,9 @@
         }
       }
     },
-    "yourScore": "Общий счет XP"
+    "yourScore": "Общий счет XP",
+    "changeAvatar": {
+      "title": "Кто ты из Rick & Morty?"
+    }
   }
 }

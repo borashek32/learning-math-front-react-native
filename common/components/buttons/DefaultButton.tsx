@@ -30,6 +30,8 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
     ? [styles.buttonLink]
     : path === PATHS.CHANGE_PASSWORD
     ? [styles.buttonLink]
+    : path === PATHS.CHANGE_AVATAR
+    ? [styles.buttonLink]
     : [styles.button, styles.buttonBorder]
 
   return (

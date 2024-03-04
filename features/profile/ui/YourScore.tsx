@@ -9,8 +9,6 @@ import { selectUserId } from '../../auth/auth.selectors'
 import { Score } from '../../../common/components/score/Score'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { selectUserScore } from '../../profile/profile.selectors'
-import { useDispatch } from 'react-redux'
-import { setUserScore } from '../../profile/profile.slice'
 
 export const YourScore = () => {
   const userId = useAppSelector(selectUserId)

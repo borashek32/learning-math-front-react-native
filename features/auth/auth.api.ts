@@ -47,7 +47,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   extraOptions
 ) => {
   const token = await AsyncStorage.getItem('accessToken')
-
   if (token) {
     const tokenString = token as string
     const decodedToken = await algByDecodingToken(tokenString)

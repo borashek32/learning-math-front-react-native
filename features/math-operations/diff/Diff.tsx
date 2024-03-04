@@ -70,37 +70,40 @@ export const Diff = () => {
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
   })
 
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+  const check = () => {
     const answerToNumber = Number(answer)
-    setServerError('')
     Keyboard.dismiss()
     if (
       (score <= 5) && 
       (firstDigit - secondDigit === answerToNumber)
-      ) {
+    ) {
       setScore(score + 1)
       setRightWrong('right')
     }
     else if (
       (score >5 && score <= 10) && 
       (firstDigit - secondDigit - thirdDigit === answerToNumber)
-      ) {
+    ) {
         setScore(score + 1)
         setRightWrong('right')
-      }
+    }
       else if (
         (score > 10) && 
         (firstDigit - secondDigit - thirdDigit - fourthDigit === answerToNumber)
-      ) {
+    ) {
         setScore(score + 1)
         setRightWrong('right')
-      }
+    }
       else {
         setScore(score - 1)
         setRightWrong('wrong')
       }
-    
-    data = { ...data, score: score} 
+    handleSubmit(onSubmit)()
+  }
+
+  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+    setServerError('')
+    data = { ...data, score } 
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -178,7 +181,7 @@ export const Diff = () => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+            buttonCallback={check}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>

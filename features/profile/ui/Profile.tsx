@@ -15,6 +15,7 @@ export const Profile = () => {
       <View style={styles.menuContainer}>
         <DefaultButton title={t('profile.yourScore')} path={PATHS.YOUR_SCORE} />
         <DevideLine />
+        <DefaultButton title={t('screens.changeAvatar')} path={PATHS.CHANGE_AVATAR} />
         <DefaultButton title={t('screens.changeEmail')} path={PATHS.CHANGE_EMAIL} />
         <DefaultButton title={t('screens.changePassword')} path={PATHS.CHANGE_PASSWORD} />
         <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
