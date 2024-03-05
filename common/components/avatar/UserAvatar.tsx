@@ -2,22 +2,22 @@ import { Image, StyleSheet, Text, View } from "react-native"
 import { UserAvatarProps } from './Avatar.type'
 import { useTranslation } from "react-i18next"
 
-export const UserAvatar = ({ source, name }: UserAvatarProps) => {
+export const UserAvatar = ({ source, name, small }: UserAvatarProps) => {
   const { t } = useTranslation()
 
   return (
-    <View style={styles.imageContainer}>
+    <View style={small ? {} : styles.imageContainer}>
       <Image
         source={{ uri: source }}
-        style={styles.characterImage}
+        style={small ? styles.characterImageSmall : styles.characterImage}
       />
-      <View style={styles.textWrapper}>
+      {name &&  <View style={styles.textWrapper}>
         <Text style={styles.descText}>
           {t('profile.changeAvatar.youAre')} 
           {name} 
           {t('profile.changeAvatar.fromRickMorty')}
         </Text>
-      </View>
+      </View>}
     </View>
   )
 }
@@ -32,6 +32,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 100,
     height: 100,
+    margin: 5,
+    resizeMode: 'cover',
+  },
+  characterImageSmall: {
+    borderRadius: 25,
+    width: 50,
+    height: 50,
     margin: 5,
     resizeMode: 'cover',
   },
