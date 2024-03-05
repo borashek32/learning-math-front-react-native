@@ -1,5 +1,4 @@
 import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
-import { ForgotPasswordType } from "../auth.types"
 import { useState } from "react"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -12,6 +11,7 @@ import { styles } from './../Auth.styles'
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
 import { Error } from "../../../common/components/error/Error"
+import { ForgotPasswordType } from "../auth.api.types"
 
 export const ForgotPassword = () => {
   const [success, setSuccess] = useState(false)

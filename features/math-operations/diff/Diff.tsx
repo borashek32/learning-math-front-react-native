@@ -75,24 +75,12 @@ export const Diff = () => {
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
     if (
-      (score <= 5) && 
-      (firstDigit - secondDigit === answerToNumber)
-    ) {
-      setScore(score + 1)
-      setRightWrong('right')
-      data = { ...data, score: 1 }
-    }
-    else if (
-      (score >5 && score <= 10) && 
-      (firstDigit - secondDigit - thirdDigit === answerToNumber)
-    ) {
-      setScore(score + 1)
-      setRightWrong('right')
-      data = { ...data, score: 1 }
-    }
-    else if (
-      (score > 10) && 
-      (firstDigit - secondDigit - thirdDigit - fourthDigit === answerToNumber)
+      ((score <= 5) && 
+      (firstDigit - secondDigit === answerToNumber)) ||
+      ((score >5 && score <= 10) && 
+      (firstDigit - secondDigit - thirdDigit === answerToNumber)) ||
+      ((score > 10) && 
+      (firstDigit - secondDigit - thirdDigit - fourthDigit === answerToNumber))
     ) {
       setScore(score + 1)
       setRightWrong('right')

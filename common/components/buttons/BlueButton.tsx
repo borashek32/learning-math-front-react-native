@@ -8,14 +8,27 @@ export const BlueButton: React.FC<DefaultButtonProps> = ({
   path,
   text,
   onPress,
+  onPressWithValue,
+  source,
+  avatarName,
 }: DefaultButtonProps) => {
   const navigation = useNavigation()
   const { t } = useTranslation('translation')
 
+  const handlePress = () => {
+    if (path) {
+      navigation.navigate(path)
+    } else if (onPressWithValue) {
+      onPressWithValue(source, avatarName)
+    } else if (onPress) {
+      onPress()
+    }
+  }
+
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={styles.button} 
-      onPress={path ? () => navigation.navigate(path) : onPress}
+      onPress={handlePress}
     >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>

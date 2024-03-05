@@ -19,7 +19,7 @@
     "createNewPassword": "Create new password",
     "changeEmail": "Change email",
     "changePassword": "Change password",
-    "changeAvatar": "Change avatar",
+    "changeAvatar": "Choose avatar",
     "profile": "Profile",
     "yourScore": "Your score"
   },
@@ -53,6 +53,7 @@
     "forgotPassword": "Please, check your email",
     "checkMathOperationSuccess": "Right answer!",
     "checkMathOperationFail": "Wrong! Please, try again",
+    "changeAvatarSuccess": "Your avatar was changed successfully",
     "button": "Ok"
   },
   "links": {
@@ -189,7 +190,15 @@
     },
     "yourScore": "Your total XP",
     "changeAvatar": {
-      "title": "Who you are from Rick & Morty?"
+      "title": "Who are you from Rick & Morty?",
+      "button": "Choose",
+      "name": "Name",
+      "location": "Location",
+      "status": "Status",
+      "species": "Species",
+      "changeAvatar": "Choose your avatar",
+      "youAre": "You are ",
+      "fromRickMorty": " from Rick and Morty"
     }
   }
 }

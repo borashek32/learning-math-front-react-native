@@ -76,41 +76,33 @@ export const Navigation = () => {
 
   return (
     <NavigationContainer linking={linking} fallback={<Loader />}>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={isAuthenticated ? PATHS.HOME : PATHS.MAIN}>
         {/* common */}
-        {!isAuthenticated &&
-          <>
-            <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
-            {/* auth */}
-            <Stack.Screen name={PATHS.LOGIN} component={Login} options={{ headerTitle: t('screens.login') }} />
-            <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />
-            <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
-            <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />
-          </>
-        }
+        <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
+        {/* auth */}
+        <Stack.Screen name={PATHS.LOGIN} component={Login} options={{ headerTitle: t('screens.login') }} />
+        <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />
+        <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
+        <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />
         {/* private */}
-        {isAuthenticated &&
-          <>
-            <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home'), headerBackVisible: false }} />
-            <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
-            <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
-            <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
-            <Stack.Screen name={PATHS.SUMM} component={Summ} options={{ headerTitle: t('screens.summ') }} />
-            <Stack.Screen name={PATHS.DIFF} component={Diff} options={{ headerTitle: t('screens.diff') }} />
-            <Stack.Screen name={PATHS.MULT} component={Mult} options={{ headerTitle: t('screens.mult') }} />
-            <Stack.Screen name={PATHS.MULT_DIGIT} component={MultDigit} options={{ headerTitle: t('screens.multDigit') }} />
-            <Stack.Screen name={PATHS.MULT_CHECK} component={MultCheck} options={{ headerTitle: t('screens.multCheck') }} />
-            <Stack.Screen name={PATHS.MULT_NULLS} component={MultNulls} options={{ headerTitle: t('screens.multNulls') }} />
-            {/* profile */}
-            <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
-            <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />
-            <Stack.Screen name={PATHS.CHANGE_PASSWORD} component={ChangePassword} options={{ headerTitle: t('screens.changePassword') }} />
-            <Stack.Screen name={PATHS.CHANGE_AVATAR} component={ChangeAvatar} options={{ headerTitle: t('screens.changeAvatar') }} />
-            {/* auth */}
-            <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
-          </>
-        }
-        </Stack.Navigator>
+        <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home'), headerBackVisible: false }} />
+        <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
+        <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
+        <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
+        <Stack.Screen name={PATHS.SUMM} component={Summ} options={{ headerTitle: t('screens.summ') }} />
+        <Stack.Screen name={PATHS.DIFF} component={Diff} options={{ headerTitle: t('screens.diff') }} />
+        <Stack.Screen name={PATHS.MULT} component={Mult} options={{ headerTitle: t('screens.mult') }} />
+        <Stack.Screen name={PATHS.MULT_DIGIT} component={MultDigit} options={{ headerTitle: t('screens.multDigit') }} />
+        <Stack.Screen name={PATHS.MULT_CHECK} component={MultCheck} options={{ headerTitle: t('screens.multCheck') }} />
+        <Stack.Screen name={PATHS.MULT_NULLS} component={MultNulls} options={{ headerTitle: t('screens.multNulls') }} />
+        {/* profile */}
+        <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
+        <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />
+        <Stack.Screen name={PATHS.CHANGE_PASSWORD} component={ChangePassword} options={{ headerTitle: t('screens.changePassword') }} />
+        <Stack.Screen name={PATHS.CHANGE_AVATAR} component={ChangeAvatar} options={{ headerTitle: t('screens.changeAvatar') }} />
+        {/* auth */}
+        <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }

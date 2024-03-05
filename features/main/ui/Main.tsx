@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Button } from 'react-native'
 import { BaseLayout } from '../../../common/components/layouts/BaseLayout'
 import { useTranslation } from 'react-i18next'
 import { PATHS } from '../../../common/constants/paths'
@@ -12,11 +11,12 @@ import { BlueButton } from '../../../common/components/buttons/BlueButton'
 export const Main = ({ navigation }) => {
   const dispatch = useDispatch()
   const { data, isLoading } = useMeQuery()
-
+  
   const { t } = useTranslation('translation')
 
   useEffect(() => {
     if (data) {
+      console.log('maim', data)
       dispatch(setUserInfo(data.user))
     }
   }, [data, dispatch])
@@ -24,7 +24,7 @@ export const Main = ({ navigation }) => {
   useEffect(() => {
     if (data) {
       navigation.navigate(PATHS.HOME)
-    }
+    } 
   }, [data, navigation])
 
   return (

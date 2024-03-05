@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard } from 'react-native'
+import { Keyboard, Text } from 'react-native'
 import { MathOperation } from '../../../common/components/mathOperation/MathOperation'
 import { Digit } from '../../../common/components/borderedText/borderedText'
 import { ResultInput } from '../../../common/components/inputs/ResultInput'
@@ -20,6 +20,9 @@ import { useFormSchema } from '../validationShema'
 import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
 import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
 import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
+import { selectUserScore } from '../../profile/profile.selectors'
+import { useDispatch } from 'react-redux'
+import { setUserScore } from '../../profile/profile.slice'
 
 export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -75,24 +78,12 @@ export const Summ = () => {
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
     if (
-      (score <= 5) && 
-      (firstDigit + secondDigit === answerToNumber)
-    ) {
-      setScore(score + 1)
-      setRightWrong('right')
-      data = { ...data, score: 1 }
-    }
-    else if (
-      (score >5 && score <= 10) && 
-      (firstDigit + secondDigit + thirdDigit === answerToNumber)
-    ) {
-      setScore(score + 1)
-      setRightWrong('right')
-      data = { ...data, score: 1 }
-    }
-    else if (
-      (score > 10) && 
-      (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber)
+      ((score <= 5) && 
+      (firstDigit + secondDigit === answerToNumber)) ||
+      ((score > 5 && score <= 10) && 
+      (firstDigit + secondDigit + thirdDigit === answerToNumber)) ||
+      ((score > 10) && 
+      (firstDigit + secondDigit + thirdDigit + fourthDigit === answerToNumber))
     ) {
       setScore(score + 1)
       setRightWrong('right')
@@ -128,6 +119,7 @@ export const Summ = () => {
 
   useEffect(() => {
     generateNewDigits(score)
+
   }, [])
 
   return (

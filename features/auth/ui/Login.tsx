@@ -66,6 +66,8 @@ export const Login = ({ navigation }) => {
       .unwrap()
       .then(response => {
         if (response.user) {
+          console.log('login', response);
+          
           dispatch(setUserInfo(response.user))
           navigation.navigate(PATHS.HOME)
         }

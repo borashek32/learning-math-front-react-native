@@ -14,6 +14,7 @@ import { useAppSelector } from "../../../common/hooks/useAppSelector"
 import { selectUserId } from "../auth.selectors"
 import { NewEmailType } from "../auth.api.types"
 import { Error } from "../../../common/components/error/Error"
+import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
 
 interface IFormProps {
   newEmail: string
@@ -50,7 +51,7 @@ export const ChangeEmail = ({ navigation }) => {
   })
 
   const onSubmit: SubmitHandler<any> = (data: NewEmailType) => { 
-    data = { ...data, userId }
+    data = { ...data, userId, newEmail: convertFirstLetterToLowerCase(data.newEmail) }
     if (!data) {
       setServerError('Some error occured123')
     } else {

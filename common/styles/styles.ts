@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   digitsText: {
-    fontSize: 24,
+    fontSize: 34,
     color: '#fff'
   },
   digitInput: {

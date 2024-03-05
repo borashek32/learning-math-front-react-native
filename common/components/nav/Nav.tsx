@@ -15,7 +15,7 @@ export const Nav = () => {
   const navigation = useNavigation()
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
-
+  
   const { t } = useTranslation()
 
   const toggleMenu = () => {

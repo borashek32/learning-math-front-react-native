@@ -22,6 +22,10 @@ export type DefaultButtonProps = {
     PATHS.CHANGE_PASSWORD |
     PATHS.CHANGE_AVATAR
   onPress?: () => void
+  onPressWithValue?: (value: string, avatarName: string) => void
+  name?: string
+  source?: string
+  avatarName?: string
   text?: string
 }
 

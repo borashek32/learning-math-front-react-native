@@ -3,7 +3,6 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useState } from "react"
 import { useSaveNewPasswordMutation } from "../auth.api"
-import { PasswordRecoveryType } from "../auth.types"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { Modal } from "../../../common/components/modal/Modal"
 import { useTranslation } from "react-i18next"
@@ -14,6 +13,7 @@ import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "r
 import { styles } from './../Auth.styles'
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { Error } from "../../../common/components/error/Error"
+import { PasswordRecoveryType } from "../auth.api.types"
 
 interface IFormProps {
   password: string
@@ -70,7 +70,7 @@ export const CreateNewPassword = ({ navigation }) => {
 
   const onSubmit: SubmitHandler<any> = (data: PasswordRecoveryType) => { 
     if (!data) {
-      setServerError('Some error occured123')
+      setServerError('Some error occured')
     } else {
       data = { ...data, email }
       setServerError('')

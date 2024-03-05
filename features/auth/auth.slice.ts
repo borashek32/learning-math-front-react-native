@@ -1,19 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UserType } from './auth.types'
+import { UserType } from './auth.api.types'
 
 interface UserInfoState {
-  user: UserType | null
+  user: UserType
   isLoggedIn: boolean
 }
 
-const initialState: UserInfoState = {
-  user: null,
-  isLoggedIn: false
-} as UserInfoState
-
 const userInfoSlice = createSlice({
   name: 'userInfo',
-  initialState,
+  initialState: <UserInfoState>{ 
+    user: null,
+    isLoggedIn: false
+   },
   reducers: {
     setUserInfo(state, action: PayloadAction<UserType>) {
       state.user = action.payload

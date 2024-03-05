@@ -19,7 +19,7 @@
     "createNewPassword": "Создание нового пароля",
     "changeEmail": "Изменить email",
     "changePassword": "Изменить пароль",
-    "changeAvatar": "Изменить аватар",
+    "changeAvatar": "Выбрать аватар",
     "profile": "Профайл",
     "yourScore": "Ваш счет"
   },
@@ -53,6 +53,7 @@
     "forgotPassword": "Пожалуйста, проверьте ваш email",
     "checkMathOperationSuccess": "Верно!",
     "checkMathOperationFail": "Неверно! Попробуйте еще раз",
+    "changeAvatarSuccess": "Вы успешно поменяли аватар",
     "button": "Ok"
   },
   "links": {
@@ -189,7 +190,15 @@
     },
     "yourScore": "Общий счет XP",
     "changeAvatar": {
-      "title": "Кто ты из Rick & Morty?"
+      "title": "Кто ты из Rick & Morty?",
+      "button": "Выбрать",
+      "name": "Имя",
+      "location": "Местоположение",
+      "status": "Статус",
+      "species": "Вид",
+      "changeAvatar": "Выбери свой аватар",
+      "youAre": "Вы ",
+      "fromRickMorty": " из Рика и Морти"
     }
   }
 }

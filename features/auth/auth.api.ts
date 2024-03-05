@@ -14,6 +14,7 @@ import {
   UserType,
   NewPasswordType,
   NewEmailType,
+  LogoutType,
 } from './auth.api.types'
 import { algByDecodingToken } from '../../common/utils/algByDecodingToken'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -137,13 +138,14 @@ export const authApi = createApi({
       verify: build.query<string, string | undefined>({
         query: verificationLink => `verify/${verificationLink}`,
       }),
-      logout: build.mutation<void, string>({
-        query: (refreshToken: string) => {
+      logout: build.mutation<void, LogoutType>({
+        query: (data: LogoutType) => {
           return {
             method: 'POST',
             url: 'logout',
             body: {
-              refreshToken
+              refreshToken: data.refreshToken,
+              accessToken: data.accessToken
             }
           }
         },  
@@ -196,7 +198,6 @@ export const authApi = createApi({
       }),
       changeEmail: build.mutation<UserType, NewEmailType>({
         query: (data: NewEmailType) => {
-          console.log('api', data)
           return {
             method: 'POST',
             url: 'change-email',

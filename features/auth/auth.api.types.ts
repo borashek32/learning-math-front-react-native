@@ -1,10 +1,12 @@
 export type UserType = {
-  id: string
+  _id: string
   email: string
   password: string
   isVerified: boolean
   role: "USER" | "ADMIN"
   score: number
+  avatarPath: string
+  avatarName: string
 }
 
 export type RegistedUserType = {
@@ -39,4 +41,9 @@ export type NewPasswordType = {
 export type NewEmailType = {
   userId: string | undefined
   newEmail: string
+}
+
+export type LogoutType = {
+  accessToken: string
+  refreshToken: string
 }

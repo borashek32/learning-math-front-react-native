@@ -8,18 +8,16 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { selectUserId } from '../../auth/auth.selectors'
 import { Score } from '../../../common/components/score/Score'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
-import { selectUserScore } from '../../profile/profile.selectors'
 
 export const YourScore = () => {
   const userId = useAppSelector(selectUserId)
   const { data, isLoading, refetch } = useGetTotalUserScoreQuery(userId, { skip: false })
-  const userScore = useAppSelector(selectUserScore)
 
   const { t } = useTranslation()
 
   useEffect(() => {
     refetch()
-  }, [userScore])
+  }, [data.score])
 
   return (
     <>

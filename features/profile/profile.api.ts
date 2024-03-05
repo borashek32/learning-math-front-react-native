@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { baseURL } from '../../common/components/baseUrl/baseUrl'
 import { algByDecodingToken } from '../../common/utils/algByDecodingToken'
-import { ScoreType } from './profile.api.types'
+import { AvatarType, ScoreType } from './profile.api.types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { UserType } from '../auth/auth.api.types'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
@@ -29,11 +30,11 @@ export const profileApi = createApi({
   tagTypes: [],
   endpoints: build => {
     return {
-      updateScore: build.mutation<{ message: string }, ScoreType>({
+      updateScore: build.mutation<ScoreType, ScoreType>({
         query: (data: ScoreType) => {
           return {
             method: 'POST',
-            url: '/update-score',
+            url: '/update-user-score',
             body: {
               score: data.score,
               userId: data.userId,
@@ -49,7 +50,20 @@ export const profileApi = createApi({
             url: `get-total-user-score/${userId}`,
           }
         }
-      })
+      }),
+      updateAvatar: build.mutation<UserType, AvatarType>({
+        query: (data: AvatarType) => {
+          return {
+            method: 'POST',
+            url: 'update-user-avatar',
+            body: {
+              userId: data.userId,
+              avatarPath: data.avatarPath,
+              avatarName: data.avatarName
+            }
+          }
+        }
+      }),
     }
   },
 })
@@ -57,4 +71,5 @@ export const profileApi = createApi({
 export const {
   useUpdateScoreMutation,
   useGetTotalUserScoreQuery,
+  useUpdateAvatarMutation,
 } = profileApi
