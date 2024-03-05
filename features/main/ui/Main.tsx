@@ -7,16 +7,21 @@ import { useDispatch } from 'react-redux'
 import { setUserInfo } from '../../auth/auth.slice'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { BlueButton } from '../../../common/components/buttons/BlueButton'
+import { useGetTotalUserScoreQuery } from '../../profile/profile.api'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { selectUserId } from '../../auth/auth.selectors'
+import { setTotalUserScore } from '../../profile/profile.slice'
 
 export const Main = ({ navigation }) => {
   const dispatch = useDispatch()
   const { data, isLoading } = useMeQuery()
+  const userId = useAppSelector(selectUserId)
+  const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
   
   const { t } = useTranslation('translation')
 
   useEffect(() => {
     if (data) {
-      console.log('maim', data)
       dispatch(setUserInfo(data.user))
     }
   }, [data, dispatch])
@@ -26,6 +31,10 @@ export const Main = ({ navigation }) => {
       navigation.navigate(PATHS.HOME)
     } 
   }, [data, navigation])
+
+  useEffect(() => {
+    dispatch(setTotalUserScore(userScoreData?.score))
+  }, [userScoreData])
 
   return (
     <>

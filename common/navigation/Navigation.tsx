@@ -26,6 +26,7 @@ import { YourScore } from '../../features/profile/ui/YourScore'
 import { MultNulls } from '../../features/math-operations/mult/MultNulls'
 import { ChangeAvatar } from '../../features/profile/ui/ChangeAvatar'
 import { useAuthentication } from '../hooks/useAuthentication'
+import { Equations } from '../../features/math-operations/equations/Equations'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -50,6 +51,10 @@ export const Navigation = () => {
         [PATHS.MULT_NULLS]: PATHS.MULT_NULLS,
         [PATHS.MULT_DIGIT]: PATHS.MULT_DIGIT,
         [PATHS.MULT_CHECK]: PATHS.MULT_CHECK,
+        [PATHS.EQUATIONS]: PATHS.EQUATIONS,
+        [PATHS.EQUATIONS_X]: PATHS.EQUATIONS_X,
+        [PATHS.EQUATIONS_XY]: PATHS.EQUATIONS_XY,
+
         [PATHS.LOGIN]: PATHS.LOGIN,
         [PATHS.REGISTER]: PATHS.REGISTER,
         [PATHS.VERIFY]: {
@@ -95,6 +100,7 @@ export const Navigation = () => {
         <Stack.Screen name={PATHS.MULT_DIGIT} component={MultDigit} options={{ headerTitle: t('screens.multDigit') }} />
         <Stack.Screen name={PATHS.MULT_CHECK} component={MultCheck} options={{ headerTitle: t('screens.multCheck') }} />
         <Stack.Screen name={PATHS.MULT_NULLS} component={MultNulls} options={{ headerTitle: t('screens.multNulls') }} />
+        <Stack.Screen name={PATHS.EQUATIONS} component={Equations} options={{ headerTitle: t('screens.equations') }} />
         {/* profile */}
         <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
         <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />

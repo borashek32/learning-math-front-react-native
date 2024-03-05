@@ -20,6 +20,8 @@ import { ScoreType } from '../../profile/profile.api.types'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { selectUserId } from '../../auth/auth.selectors'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { setTotalUserScore } from '../../profile/profile.slice'
+import { useDispatch } from 'react-redux'
 
 export const MultDigit = ({ route }) => {
   const { digit } = route.params
@@ -29,6 +31,7 @@ export const MultDigit = ({ route }) => {
   const [answer, setAnswer] = useState(null)
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
@@ -81,6 +84,7 @@ export const MultDigit = ({ route }) => {
       .then(response => {
         reset()
         setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
       })
       .catch((e: any) => {
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))

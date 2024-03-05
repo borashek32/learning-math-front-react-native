@@ -20,6 +20,8 @@ import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
 import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
 import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
+import { useDispatch } from 'react-redux'
+import { setTotalUserScore } from '../../profile/profile.slice'
 
 export const Diff = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -31,6 +33,7 @@ export const Diff = () => {
   const [answer, setAnswer] = useState<string>('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
@@ -97,6 +100,7 @@ export const Diff = () => {
       .then(response => {
         reset()
         setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
       })
       .catch((e: any) => {
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))

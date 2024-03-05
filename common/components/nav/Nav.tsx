@@ -10,11 +10,13 @@ import { SelectLang } from "../selectLang/SelectLang"
 import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
 import { useNavigation } from "@react-navigation/native"
+import { selectTotalUserScore } from "../../../features/profile/profile.selectors"
 
 export const Nav = () => {
   const navigation = useNavigation()
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
+  const totalUserScore = useAppSelector(selectTotalUserScore)
   
   const { t } = useTranslation()
 
@@ -30,6 +32,7 @@ export const Nav = () => {
           {userEmail && 
             <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE)}>
               <Text style={styles.buttonTextSmall}>{userEmail}</Text>
+              <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text>
             </TouchableOpacity>
           }
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
@@ -119,9 +122,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     width: Dimensions.get("window").width - 56,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: 'baseline',
     justifyContent: "flex-end",
     position: "relative",
+    gap: 10
   },
   userEmail: {
     color: "#fff",
@@ -191,5 +195,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     textDecorationColor: '#fff',
     textDecorationLine: 'underline'
+  },
+  score: {
+    fontSize: 20,
+    color: '#fff',
+    textAlign: 'right'
   }
 })

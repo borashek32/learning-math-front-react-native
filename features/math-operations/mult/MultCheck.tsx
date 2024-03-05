@@ -20,6 +20,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { Modal } from '../../../common/components/modal/Modal'
 import { Error } from '../../../common/components/error/Error'
+import { useDispatch } from 'react-redux'
+import { setTotalUserScore } from '../../profile/profile.slice'
 
 export const MultCheck = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
@@ -29,6 +31,7 @@ export const MultCheck = () => {
   const [serverError, setServerError] = useState('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
@@ -81,6 +84,7 @@ export const MultCheck = () => {
       .then(response => {
         reset()
         setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
       })
       .catch((e: any) => {
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))

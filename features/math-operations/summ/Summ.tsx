@@ -20,9 +20,9 @@ import { useFormSchema } from '../validationShema'
 import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
 import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
 import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
-import { selectUserScore } from '../../profile/profile.selectors'
 import { useDispatch } from 'react-redux'
-import { setUserScore } from '../../profile/profile.slice'
+import { setTotalUserScore, setUserScore } from '../../profile/profile.slice'
+import { selectTotalUserScore } from '../../profile/profile.selectors'
 
 export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -34,6 +34,8 @@ export const Summ = () => {
   const [answer, setAnswer] = useState<string>('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
+  const totalUserScore = useAppSelector(selectTotalUserScore)
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
@@ -100,6 +102,7 @@ export const Summ = () => {
       .then(response => {
         reset()
         setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
       })
       .catch((e: any) => {
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))

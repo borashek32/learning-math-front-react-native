@@ -21,7 +21,8 @@
     "changePassword": "Изменить пароль",
     "changeAvatar": "Выбрать аватар",
     "profile": "Профайл",
-    "yourScore": "Ваш счет"
+    "yourScore": "Ваш счет",
+    "equations": "Уравнения"
   },
   "nav": {
     "select": {
@@ -171,7 +172,9 @@
     "multTable": "Таблица умножения",
     "multBy": "Умножение на",
     "multCheck": "Проверить знание таблицы умножения",
-    "multNulls": "Умножение чисел с нулями"
+    "multNulls": "Умножение чисел с нулями",
+    "equationsWithX": "Уравнения с одним неизвестным",
+    "equationsWithXY": "Уравнения с двумя неизвестными"
   },
   "profile": {
     "changePassword": {

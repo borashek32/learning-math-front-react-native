@@ -1,7 +1,5 @@
 import React from 'react'
-import { styles } from './MathOperations.styles'
-import { Text, ScrollView } from 'react-native'
-import { TouchableOpacity } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../../common/components/layouts/AppLayout'
 import { PATHS } from '../../common/constants/paths'
@@ -24,6 +22,10 @@ export const MathOperations = ({ navigation }) => {
         <BlueButton
           title={t('mathOperations.multiplication')}
           path={PATHS.MULT}
+        />
+        <BlueButton
+          title={t('screens.equations')}
+          path={PATHS.EQUATIONS}
         />
       </ScrollView>
     </AppLayout>

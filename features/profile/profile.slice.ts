@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface ScoreState {
   score: number
+  totalUserScore: number
 }
 
 const initialState: ScoreState = {
-  score: 0
+  score: 0,
+  totalUserScore: 0
 } as ScoreState
 
 const profileSlice = createSlice({
@@ -14,9 +16,12 @@ const profileSlice = createSlice({
   reducers: {
     setUserScore(state, action: PayloadAction<number>) {
       state.score = action.payload
+    },
+    setTotalUserScore(state, action: PayloadAction<number>) {
+      state.totalUserScore = action.payload
     }
   },
 })
 
-export const { setUserScore } = profileSlice.actions
+export const { setUserScore, setTotalUserScore } = profileSlice.actions
 export const profileReducer = profileSlice.reducer

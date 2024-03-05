@@ -30,7 +30,7 @@ export const profileApi = createApi({
   tagTypes: [],
   endpoints: build => {
     return {
-      updateScore: build.mutation<ScoreType, ScoreType>({
+      updateScore: build.mutation<{ data: ScoreType }, ScoreType>({
         query: (data: ScoreType) => {
           return {
             method: 'POST',
@@ -44,7 +44,7 @@ export const profileApi = createApi({
         },
       }),
       getTotalUserScore: build.query<ScoreType, string>({
-        query: (userId) => {
+        query: (userId: string) => {
           return {
             method: 'GET',
             url: `get-total-user-score/${userId}`,

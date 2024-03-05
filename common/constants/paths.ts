@@ -12,6 +12,9 @@ export const enum PATHS {
   MULT_DIGIT = "multiplication-by-digit",
   MULT_CHECK = "check-multiplication",
   MULT_NULLS = "multiplication-with-nulls",
+  EQUATIONS = "equations",
+  EQUATIONS_X = "equations-with-x",
+  EQUATIONS_XY = "equations-with-xy",
   
   LOGIN = "login",
   REGISTER = "register",

@@ -20,16 +20,18 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Loader } from '../../../common/components/loaders/CircularLoader'
 import { Modal } from '../../../common/components/modal/Modal'
 import { Error } from '../../../common/components/error/Error'
+import { setTotalUserScore } from '../../profile/profile.slice'
+import { useDispatch } from 'react-redux'
 
 export const MultNulls = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
   const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
-  // const [check, setCheck] = useState<number>(null)
   const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState<string>('')
   const [serverError, setServerError] = useState('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
@@ -45,10 +47,6 @@ export const MultNulls = () => {
     setAnswer('')
     setOpen(false)
   }
-
-  // useEffect(() => {
-  //   setCheck(firstMultiplier * secondMultiplier)
-  // }, [firstMultiplier, secondMultiplier])
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer)
@@ -86,6 +84,7 @@ export const MultNulls = () => {
       .then(response => {
         reset()
         setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
       })
       .catch((e: any) => {
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))

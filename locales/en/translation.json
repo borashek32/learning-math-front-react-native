@@ -21,7 +21,8 @@
     "changePassword": "Change password",
     "changeAvatar": "Choose avatar",
     "profile": "Profile",
-    "yourScore": "Your score"
+    "yourScore": "Your score",
+    "equations": "Equations"
   },
   "nav": {
     "select": {
@@ -171,7 +172,9 @@
     "multTable": "Multiplication table",
     "multBy": "Multiplication by",
     "multCheck": "Check mutiplication knowledge",
-    "multNulls": "Multiplication of numbers with nulls"
+    "multNulls": "Multiplication of numbers with nulls",
+    "equationsWithX": "Equations with one unknown",
+    "equationsWithXY": "Equations with two unknown"
   },
   "profile": {
     "changePassword": {
