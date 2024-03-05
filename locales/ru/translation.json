@@ -22,7 +22,9 @@
     "changeAvatar": "Выбрать аватар",
     "profile": "Профайл",
     "yourScore": "Ваш счет",
-    "equations": "Уравнения"
+    "equations": "Уравнения",
+    "equationsWithX": "Уравнения с одним неизвестным",
+    "equationsWithXY": "Уравнения с двумя неизвестными"
   },
   "nav": {
     "select": {

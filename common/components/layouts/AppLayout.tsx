@@ -1,18 +1,18 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { Props } from './Layout.types'
 import { Nav } from '../nav/Nav'
 
 export const AppLayout = ({ title, children }: Props) => {
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Nav />
       <View style={styles.contentWrapper}>
         <Text style={styles.title}>{title}</Text>
         { children }
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   contentWrapper: {
-    marginTop: 40,
+    marginTop: 20,
     width: 260
   },
   title: {

@@ -13,7 +13,7 @@ export const Equations = () => {
       <ScrollView>
         <BlueButton
           title={t('mathOperations.equationsWithX')}
-          path={PATHS.SUMM}
+          path={PATHS.EQUATIONS_X}
         />
         <BlueButton
           title={t('mathOperations.equationsWithXY')}

@@ -27,6 +27,7 @@ import { MultNulls } from '../../features/math-operations/mult/MultNulls'
 import { ChangeAvatar } from '../../features/profile/ui/ChangeAvatar'
 import { useAuthentication } from '../hooks/useAuthentication'
 import { Equations } from '../../features/math-operations/equations/Equations'
+import { EquationsWithX } from '../../features/math-operations/equations/withX/EquationsWithX'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -101,6 +102,7 @@ export const Navigation = () => {
         <Stack.Screen name={PATHS.MULT_CHECK} component={MultCheck} options={{ headerTitle: t('screens.multCheck') }} />
         <Stack.Screen name={PATHS.MULT_NULLS} component={MultNulls} options={{ headerTitle: t('screens.multNulls') }} />
         <Stack.Screen name={PATHS.EQUATIONS} component={Equations} options={{ headerTitle: t('screens.equations') }} />
+        <Stack.Screen name={PATHS.EQUATIONS_X} component={EquationsWithX} options={{ headerTitle: t('screens.equationsWithX') }} />
         {/* profile */}
         <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
         <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />

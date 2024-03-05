@@ -21,8 +21,7 @@ import { ButtonsLayout } from '../../../common/components/layouts/ButtonsLayout'
 import { MathOperationButton } from '../../../common/components/buttons/MathOperationButton'
 import { MathExampleLayout } from '../../../common/components/layouts/MathExamlpeLayout'
 import { useDispatch } from 'react-redux'
-import { setTotalUserScore, setUserScore } from '../../profile/profile.slice'
-import { selectTotalUserScore } from '../../profile/profile.selectors'
+import { setTotalUserScore } from '../../profile/profile.slice'
 
 export const Summ = () => {
   const [firstDigit, setFirstDigit] = useState<number>(null)
@@ -35,7 +34,6 @@ export const Summ = () => {
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
-  const totalUserScore = useAppSelector(selectTotalUserScore)
 
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
@@ -122,7 +120,6 @@ export const Summ = () => {
 
   useEffect(() => {
     generateNewDigits(score)
-
   }, [])
 
   return (

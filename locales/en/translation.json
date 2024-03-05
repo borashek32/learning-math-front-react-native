@@ -22,7 +22,9 @@
     "changeAvatar": "Choose avatar",
     "profile": "Profile",
     "yourScore": "Your score",
-    "equations": "Equations"
+    "equations": "Equations",
+    "equationsWithX": "Equations with one unknown",
+    "equationsWithXY": "Equations with two unknown"
   },
   "nav": {
     "select": {
