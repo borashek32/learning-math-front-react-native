@@ -1,65 +1,65 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { AnswerType } from '../../mathOperations.types';
-import { useDispatch } from 'react-redux';
-import { Loader } from '../../../../common/components/loaders/CircularLoader';
-import { Modal } from '../../../../common/components/modal/Modal';
-import { useTranslation } from 'react-i18next';
-import { AppLayout } from '../../../../common/components/layouts/AppLayout';
-import { Error } from '../../../../common/components/error/Error';
-import { MathExampleLayout } from '../../../../common/components/layouts/MathExamlpeLayout';
-import { Digit } from '../../../../common/components/borderedText/borderedText';
-import { MathOperation } from '../../../../common/components/mathOperation/MathOperation';
-import { ResultInput } from '../../../../common/components/inputs/ResultInput';
-import { ButtonsLayout } from '../../../../common/components/layouts/ButtonsLayout';
-import { MathOperationButton } from '../../../../common/components/buttons/MathOperationButton';
-import { Score } from '../../../../common/components/score/Score';
-import { useUpdateScoreMutation } from '../../../profile/profile.api';
-import { useFormSchema } from '../../validationShema';
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import { ScoreType } from '../../../profile/profile.api.types';
-import { useAppSelector } from '../../../../common/hooks/useAppSelector';
-import { selectUserId } from '../../../auth/auth.selectors';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { setTotalUserScore } from '../../../profile/profile.slice';
-import { Keyboard } from 'react-native';
-import { MathSignsConstants } from '../../../../common/constants/MathConstants';
-import { getRandomMathOperation } from '../../../../common/utils/getRandomMathOperation';
-import { getCheckMathOperation } from '../../../../common/utils/getCheckMathOperation';
-import { performMathOperation } from '../../../../common/utils/performMathOperation';
+import React, { useEffect, useMemo, useState } from 'react'
+import { AnswerType } from '../../mathOperations.types'
+import { useDispatch } from 'react-redux'
+import { Loader } from '../../../../common/components/loaders/CircularLoader'
+import { Modal } from '../../../../common/components/modal/Modal'
+import { useTranslation } from 'react-i18next'
+import { AppLayout } from '../../../../common/components/layouts/AppLayout'
+import { Error } from '../../../../common/components/error/Error'
+import { MathExampleLayout } from '../../../../common/components/layouts/MathExamlpeLayout'
+import { Digit } from '../../../../common/components/borderedText/borderedText'
+import { MathOperation } from '../../../../common/components/mathOperation/MathOperation'
+import { ResultInput } from '../../../../common/components/inputs/ResultInput'
+import { ButtonsLayout } from '../../../../common/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../../common/components/buttons/MathOperationButton'
+import { Score } from '../../../../common/components/score/Score'
+import { useUpdateScoreMutation } from '../../../profile/profile.api'
+import { useFormSchema } from '../../validationShema'
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
+import { ScoreType } from '../../../profile/profile.api.types'
+import { useAppSelector } from '../../../../common/hooks/useAppSelector'
+import { selectUserId } from '../../../auth/auth.selectors'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { setTotalUserScore } from '../../../profile/profile.slice'
+import { Keyboard } from 'react-native'
+import { MathSignsConstants } from '../../../../common/constants/MathConstants'
+import { getRandomMathOperation } from '../../../../common/utils/getRandomMathOperation'
+import { getCheckMathOperation } from '../../../../common/utils/getCheckMathOperation'
+import { performMathOperation } from '../../../../common/utils/performMathOperation'
 
 export const EquationsWithX = () => {
-  console.log('render');
+  console.log('render')
   
-  const [firstDigit, setFirstDigit] = useState<number>(null);
-  const [secondDigit, setSecondDigit] = useState<number>(null);
-  const [score, setScore] = useState(0); 
-  const [serverError, setServerError] = useState('');
-  const [answer, setAnswer] = useState<string>('');
-  const [rightWrong, setRightWrong] = useState<AnswerType>(null);
-  const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
+  const [firstDigit, setFirstDigit] = useState<number>(null)
+  const [secondDigit, setSecondDigit] = useState<number>(null)
+  const [score, setScore] = useState(0) 
+  const [serverError, setServerError] = useState('')
+  const [answer, setAnswer] = useState<string>('')
+  const [rightWrong, setRightWrong] = useState<AnswerType>(null)
+  const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
 
-  const randomOperation = useMemo(() => getRandomMathOperation(), []);
-  const checkRandomOperation = useMemo(() => getCheckMathOperation(randomOperation), [randomOperation]);
+  const randomOperation = useMemo(() => getRandomMathOperation(), [])
+  const checkRandomOperation = useMemo(() => getCheckMathOperation(randomOperation), [randomOperation])
   
-  const [updateScore, { isLoading }] = useUpdateScoreMutation();
-  const { t } = useTranslation('translation');
-  const formSchema = useFormSchema();
+  const [updateScore, { isLoading }] = useUpdateScoreMutation()
+  const { t } = useTranslation('translation')
+  const formSchema = useFormSchema()
 
   const generateNewDigits = () => {
-    setFirstDigit(Math.floor(Math.random() * 11) + 1);
-    setSecondDigit(Math.floor(Math.random() * 31) + (Math.floor(Math.random() * 11) + 1));
-  };
+    setFirstDigit(Math.floor(Math.random() * 11) + 1)
+    setSecondDigit(Math.floor(Math.random() * 31) + (Math.floor(Math.random() * 11) + 1))
+  }
 
   const onGenerateNewDigits = () => {
-    setAnswer('');
-    setOpen(false);
-    generateNewDigits();
-  };
+    setAnswer('')
+    setOpen(false)
+    generateNewDigits()
+  }
 
   const onChangeHandler = (answer: string) => {
-    setAnswer(answer);
-  };
+    setAnswer(answer)
+  }
 
   const {
     handleSubmit,
@@ -72,50 +72,50 @@ export const EquationsWithX = () => {
     },
     mode: 'onChange',
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  });
+  })
 
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('');
-    const answerToNumber = Number(answer);
-    Keyboard.dismiss();
+    setServerError('')
+    const answerToNumber = Number(answer)
+    Keyboard.dismiss()
 
     if (performMathOperation(checkRandomOperation, secondDigit, firstDigit) === answerToNumber) {
-      setScore(score + 1);
-      setRightWrong('right');
-      data = { ...data, score: 1 };
+      setScore(score + 1)
+      setRightWrong('right')
+      data = { ...data, score: 1 }
     }
     else {
-      setScore(score - 1);
-      setRightWrong('wrong');
-      data = { ...data, score: -1 };
+      setScore(score - 1)
+      setRightWrong('wrong')
+      data = { ...data, score: -1 }
     }
     
     updateScore(data)
       .unwrap()
       .then(response => {
-        reset();
-        setOpen(true);
-        dispatch(setTotalUserScore(response.data.score));
+        reset()
+        setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
       })
       .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
-      });
-  };
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
+      })
+  }
 
   const onPressPlayMore = () => {
-    setOpen(false);
-    generateNewDigits();
-    setAnswer('');
-  };
+    setOpen(false)
+    generateNewDigits()
+    setAnswer('')
+  }
 
   const onPressTryAgain = () => {
-    setOpen(false);
-    setAnswer('');
-  };
+    setOpen(false)
+    setAnswer('')
+  }
 
   useEffect(() => {
-    generateNewDigits();
-  }, []);
+    generateNewDigits()
+  }, [])
 
   return (
     <>
@@ -178,5 +178,5 @@ export const EquationsWithX = () => {
         <Score score={score} />
       </AppLayout>
     </>
-  );
-};
+  )
+}

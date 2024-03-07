@@ -7,10 +7,12 @@ export const UserAvatar = ({ source, name, small }: UserAvatarProps) => {
 
   return (
     <View style={small ? {} : styles.imageContainer}>
-      <Image
-        source={{ uri: source }}
-        style={small ? styles.characterImageSmall : styles.characterImage}
-      />
+      {source && typeof source === 'string' && (
+        <Image
+          source={{ uri: source }}
+          style={small ? styles.characterImageSmall : styles.characterImage}
+        />
+      )}
       {name &&  <View style={styles.textWrapper}>
         <Text style={styles.descText}>
           {t('profile.changeAvatar.youAre')} 

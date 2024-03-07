@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../../../common/components/layouts/AppLayout'
 import { styles } from '../../home/Home.styles'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { selectUserId } from '../../auth/auth.selectors'
 import { Score } from '../../../common/components/score/Score'
 import { selectTotalUserScore } from '../profile.selectors'
 

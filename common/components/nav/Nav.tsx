@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-nati
 import { LogoSmall } from "../logo/LogoSmall"
 import { DefaultButton } from "../buttons/DefaultButton"
 import { useAppSelector } from "../../hooks/useAppSelector"
-import { selectUserEmail } from "../../../features/auth/auth.selectors"
+import { selectUserAvatarPath, selectUserEmail } from "../../../features/auth/auth.selectors"
 import { useTranslation } from "react-i18next"
 import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
@@ -11,12 +11,13 @@ import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
 import { useNavigation } from "@react-navigation/native"
 import { selectTotalUserScore } from "../../../features/profile/profile.selectors"
+import { UserAvatar } from "../avatar/UserAvatar"
 
-export const Nav = () => {
-  const navigation = useNavigation()
+export const Nav = ({ navigation }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
   const totalUserScore = useAppSelector(selectTotalUserScore)
+  const avatarPath = useAppSelector(selectUserAvatarPath)
   
   const { t } = useTranslation()
 
@@ -52,6 +53,12 @@ export const Nav = () => {
       {userEmail && menuOpen && (
         <View style={styles.navigation}>
           <View style={styles.menuItems}>
+            {avatarPath && 
+              <UserAvatar 
+                source={avatarPath}
+                small={true}
+              />
+            }
             <NavLinkButton 
               title={t("nav.items.home")}
               path={PATHS.HOME}
