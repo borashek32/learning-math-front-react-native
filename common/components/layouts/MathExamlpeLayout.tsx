@@ -1,10 +1,12 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, TouchableOpacity, View } from "react-native"
 import { Props } from './Layout.types'
 
-export const MathExampleLayout = ({ children }: Props) => {
+export const MathExampleLayout = ({ title, onPress, children }: Props) => {
 
   return (
-    <View style={styles.containerMathOperation}>{children}</View>
+    <TouchableOpacity onPress={onPress} style={styles.containerMathOperation}>
+      {children}
+    </TouchableOpacity>
   )
 }
 
@@ -13,6 +15,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: "center",
-    gap: 10,
+    gap: 4,
   },
 })

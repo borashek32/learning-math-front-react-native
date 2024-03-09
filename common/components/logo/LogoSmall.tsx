@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { PATHS } from '../../constants/paths'
-import { Props } from './Logo.type'
+import { Props } from './Logo.types'
 
 export const LogoSmall = ({ path }: Props) => {
   const navigation = useNavigation()

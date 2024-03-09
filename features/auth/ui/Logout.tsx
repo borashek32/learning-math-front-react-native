@@ -35,6 +35,8 @@ export const Logout = ({ navigation }) => {
         setOpen(false)
       })
       .catch(e => {
+        console.log(e);
+        
         if (e) {
           setOpen(false)
           setModalWithErrorOpen(true)
@@ -52,13 +54,13 @@ export const Logout = ({ navigation }) => {
         <View style={styles.logoutWrapper}>
           {serverError && 
             <Modal
+              text={t('errors.serverError')}
               open={modalWithErrorOpen}
               setOpen={handleOpenModalWithError}
-              text={serverError}
+              outlinedButton={true}
+              buttonName={t('auth.links.login')}
+              buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
               error={true}
-              buttonBack={false}
-              buttonName={t('screens.main')}
-              backCallback={() => navigation.navigate(PATHS.MAIN)}
             />
           }
           {open &&

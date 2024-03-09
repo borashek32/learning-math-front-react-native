@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native"
-import { Props } from './Avatar.type'
+import { Props } from './Avatar.types'
 import { BlueButton } from "../buttons/BlueButton"
 import { useTranslation } from 'react-i18next'
 

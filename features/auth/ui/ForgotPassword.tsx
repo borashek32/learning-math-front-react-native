@@ -9,7 +9,7 @@ import { AuthLayout } from "../../../common/components/layouts/AuthLayout"
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from './../Auth.styles'
 import { Loader } from "../../../common/components/loaders/CircularLoader"
-import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
+import { convertFirstLetterToLowerCase } from "../../../common/utils/string/convertFirstLetterToLowerCase"
 import { Error } from "../../../common/components/error/Error"
 import { ForgotPasswordType } from "../auth.api.types"
 

@@ -1,5 +1,5 @@
 import { Text } from 'react-native'
-import { Props } from './types.js'
+import { Props } from './MathOperation.types.js'
 
 export const MathOperation = (props: Props) => {
 

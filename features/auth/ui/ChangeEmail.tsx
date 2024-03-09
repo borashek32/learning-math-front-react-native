@@ -14,7 +14,7 @@ import { useAppSelector } from "../../../common/hooks/useAppSelector"
 import { selectUserId } from "../auth.selectors"
 import { NewEmailType } from "../auth.api.types"
 import { Error } from "../../../common/components/error/Error"
-import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
+import { convertFirstLetterToLowerCase } from "../../../common/utils/string/convertFirstLetterToLowerCase"
 
 interface IFormProps {
   newEmail: string

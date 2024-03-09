@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { Props } from './types'
+import { Props } from './Score.types'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { selectUserAvatarPath } from '../../../features/auth/auth.selectors'
 import { UserAvatar } from '../avatar/UserAvatar'

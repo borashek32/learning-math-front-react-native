@@ -1,5 +1,5 @@
 import React from 'react'
-import { Props } from './Modal.type'
+import { Props } from './Modal.types'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -38,16 +38,20 @@ export const Modal: React.FC<Props> = ({
           }
           <View style={styles.buttonWrapper}>
             {buttonBack && 
-              <Button 
-                title={t('links.back')} 
-                onPress={back} 
-              />
+              <View style={outlinedButton ? styles.outlinedStyles : {}}>
+                <Button 
+                  title={t('links.back')} 
+                  onPress={back} 
+                />
+              </View>
             }
             {buttonCallback && 
-              <Button 
-                title={buttonName ? buttonName : "Ok"} 
-                onPress={buttonCallback} 
-              />
+              <View style={outlinedButton ? styles.outlinedStyles : {}}>
+                <Button 
+                  title={buttonName ? buttonName : "Ok"} 
+                  onPress={buttonCallback} 
+                />
+              </View>
             }
           </View>
         </View>
@@ -77,5 +81,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  outlinedStyles: {
+    borderWidth: 1,
+    borderColor: '#fff',
+    color: '#fff',
+    borderRadius: 4
   },
 })

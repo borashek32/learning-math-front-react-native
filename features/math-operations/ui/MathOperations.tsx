@@ -1,9 +1,9 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { AppLayout } from '../../common/components/layouts/AppLayout'
-import { PATHS } from '../../common/constants/paths'
-import { BlueButton } from '../../common/components/buttons/BlueButton'
+import { AppLayout } from '../../../common/components/layouts/AppLayout'
+import { PATHS } from '../../../common/constants/paths'
+import { BlueButton } from '../../../common/components/buttons/BlueButton'
 
 export const MathOperations = ({ navigation }) => {
   const { t } = useTranslation()

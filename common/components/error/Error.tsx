@@ -1,5 +1,5 @@
 import { StyleSheet, Text } from "react-native"
-import { Props } from "./Error.type"
+import { Props } from "./Error.types"
 
 export const Error = ({ error }: Props) => {
 

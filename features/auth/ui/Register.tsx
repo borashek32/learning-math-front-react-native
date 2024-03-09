@@ -8,7 +8,7 @@ import { RegisterType } from "../auth.api.types"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from "../../../common/components/layouts/AuthLayout"
-import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
+import { convertFirstLetterToLowerCase } from "../../../common/utils/string/convertFirstLetterToLowerCase"
 import { PATHS } from "../../../common/constants/paths"
 import { DefaultButton } from "../../../common/components/buttons/DefaultButton"
 import { styles } from './../Auth.styles'

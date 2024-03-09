@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import { Text, StyleSheet, ScrollView, View } from 'react-native'
 import { Props } from './Layout.types'
 import { Nav } from '../nav/Nav'
 
 export const AppLayout = ({ title, children }: Props) => {
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView 
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps={'handled'}
+    >
       <Nav />
       <View style={styles.contentWrapper}>
         <Text style={styles.title}>{title}</Text>

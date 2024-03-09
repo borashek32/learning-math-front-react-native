@@ -2,19 +2,18 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as Linking from 'expo-linking'
 import { PATHS } from '../constants/paths'
-import { Summ } from '../../features/math-operations/summ/Summ'
+import { SummDifference } from '../../features/math-operations/ui/summDifference/SummDifference'
 import { Main } from '../../features/main/ui/Main'
-import { Diff } from '../../features/math-operations/diff/Diff'
 import { Login } from '../../features/auth/ui/Login'
 import { Register } from '../../features/auth/ui/Register'
 import { Verify } from '../../features/auth/ui/Verify'
 import { Home } from '../../features/home/ui/Home'
-import { Mult } from '../../features/math-operations/mult/Mult'
-import { MultDigit } from '../../features/math-operations/mult/MultDigit'
-import { MultCheck } from '../../features/math-operations/mult/MultCheck'
+import { Multiplication } from '../../features/math-operations/ui/multiplicationDivision/Multiplication'
+import { MultiplicationNumber } from '../../features/math-operations/ui/multiplicationDivision/MultiplicationNumber'
+import { MultiplicationCheck } from '../../features/math-operations/ui/multiplicationDivision/MultiplicationCheck'
 import { Instructions } from '../../features/home/ui/Instructions'
 import { Logout } from '../../features/auth/ui/Logout'
-import { MathOperations } from '../../features/math-operations/MathOperations'
+import { MathOperations } from '../../features/math-operations/ui/MathOperations'
 import { Profile } from '../../features/profile/ui/Profile'
 import { useTranslation } from 'react-i18next'
 import { Loader } from '../components/loaders/CircularLoader'
@@ -23,11 +22,12 @@ import { CreateNewPassword } from '../../features/auth/ui/CreateNewPassword'
 import { ChangePassword } from '../../features/auth/ui/ChangePassword'
 import { ChangeEmail } from '../../features/auth/ui/ChangeEmail'
 import { YourScore } from '../../features/profile/ui/YourScore'
-import { MultNulls } from '../../features/math-operations/mult/MultNulls'
+import { MultiplicationNulls } from '../../features/math-operations/ui/multiplicationDivision/MultiplicationNulls'
 import { ChangeAvatar } from '../../features/profile/ui/ChangeAvatar'
 import { useAuthentication } from '../hooks/useAuthentication'
-import { Equations } from '../../features/math-operations/equations/Equations'
-import { EquationsWithX } from '../../features/math-operations/equations/withX/EquationsWithX'
+import { Equations } from '../../features/math-operations/ui/equations/Equations'
+import { EquationsWithX } from '../../features/math-operations/ui/equations/withX/EquationsWithX'
+import { MathOperationsConstants } from '../constants/MathConstants'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -75,7 +75,7 @@ export const Navigation = () => {
         [PATHS.CHANGE_EMAIL]: PATHS.CHANGE_EMAIL,
         [PATHS.CHANGE_PASSWORD]: PATHS.CHANGE_PASSWORD,
         [PATHS.YOUR_SCORE]: PATHS.YOUR_SCORE,
-        [PATHS.CHANGE_AVATAR]: PATHS.CHANGE_AVATAR
+        [PATHS.CHANGE_AVATAR]: PATHS.CHANGE_AVATAR,
       },
     },
   }
@@ -95,14 +95,44 @@ export const Navigation = () => {
         <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
         <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
         <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
-        <Stack.Screen name={PATHS.SUMM} component={Summ} options={{ headerTitle: t('screens.summ') }} />
-        <Stack.Screen name={PATHS.DIFF} component={Diff} options={{ headerTitle: t('screens.diff') }} />
-        <Stack.Screen name={PATHS.MULT} component={Mult} options={{ headerTitle: t('screens.mult') }} />
-        <Stack.Screen name={PATHS.MULT_DIGIT} component={MultDigit} options={{ headerTitle: t('screens.multDigit') }} />
-        <Stack.Screen name={PATHS.MULT_CHECK} component={MultCheck} options={{ headerTitle: t('screens.multCheck') }} />
-        <Stack.Screen name={PATHS.MULT_NULLS} component={MultNulls} options={{ headerTitle: t('screens.multNulls') }} />
-        <Stack.Screen name={PATHS.EQUATIONS} component={Equations} options={{ headerTitle: t('screens.equations') }} />
-        <Stack.Screen name={PATHS.EQUATIONS_X} component={EquationsWithX} options={{ headerTitle: t('screens.equationsWithX') }} />
+        <Stack.Screen
+          name={PATHS.SUMM}
+          component={SummDifference}
+          options={{ headerTitle: t('screens.summ') }}
+          initialParams={{ mathOperation: MathOperationsConstants.SUMM }}
+        />
+        <Stack.Screen
+          name={PATHS.DIFF}
+          component={SummDifference}
+          options={{ headerTitle: t('screens.diff') }}
+          initialParams={{ mathOperation: MathOperationsConstants.DIFF }}
+        />
+        <Stack.Screen
+          name={PATHS.MULT_CHECK}
+          component={MultiplicationCheck}
+          options={{ headerTitle: t('screens.multCheck') }}
+          // initialParams={{ mathOperation: MathOperationsConstants.DIVIDE }}
+        />
+        <Stack.Screen name={PATHS.MULT} 
+          component={Multiplication} 
+          options={{ headerTitle: t('screens.mult') }} 
+        />
+        <Stack.Screen name={PATHS.MULT_DIGIT} 
+          component={MultiplicationNumber} 
+          options={{ headerTitle: t('screens.multDigit') }} 
+        />
+        <Stack.Screen name={PATHS.MULT_NULLS} 
+          component={MultiplicationNulls} 
+          options={{ headerTitle: t('screens.multNulls') }} 
+        />
+        <Stack.Screen name={PATHS.EQUATIONS} 
+          component={Equations} 
+          options={{ headerTitle: t('screens.equations') }} 
+        />
+        <Stack.Screen name={PATHS.EQUATIONS_X} 
+          component={EquationsWithX} 
+          options={{ headerTitle: t('screens.equations') }} 
+        />
         {/* profile */}
         <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
         <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />

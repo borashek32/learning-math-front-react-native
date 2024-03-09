@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native"
-import { UserAvatarProps } from './Avatar.type'
+import { UserAvatarProps } from './Avatar.types'
 import { useTranslation } from "react-i18next"
 
 export const UserAvatar = ({ source, name, small }: UserAvatarProps) => {

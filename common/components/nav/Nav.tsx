@@ -9,11 +9,12 @@ import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
 import * as Animatable from 'react-native-animatable'
 import { NavLinkButton } from "../buttons/NavLinkButton"
-import { useNavigation } from "@react-navigation/native"
 import { selectTotalUserScore } from "../../../features/profile/profile.selectors"
 import { UserAvatar } from "../avatar/UserAvatar"
+import { useNavigation } from "@react-navigation/native"
 
-export const Nav = ({ navigation }) => {
+export const Nav = () => {
+  const navigation = useNavigation()
   const [menuOpen, setMenuOpen] = useState(false)
   const userEmail = useAppSelector(selectUserEmail)
   const totalUserScore = useAppSelector(selectTotalUserScore)

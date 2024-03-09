@@ -1,14 +1,18 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Props } from './Layout.types'
-import { LogoSmall } from '../logo/LogoSmall';
+import { LogoSmall } from '../logo/LogoSmall'
+import { selectUserEmail } from '../../../features/auth/auth.selectors'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { PATHS } from '../../constants/paths'
 
 export const AuthLayout = ({ title, children }: Props) => {
+  const userEmail = useAppSelector(selectUserEmail)
 
   return (
     <>
       <View style={styles.logoSmallWrapper}>
-        <LogoSmall />
+        <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN}  />
       </View>
       <View style={styles.container}>
         {/* <View style={styles.contentWrapper}> */}
@@ -17,8 +21,8 @@ export const AuthLayout = ({ title, children }: Props) => {
         {/* </View> */}
       </View>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

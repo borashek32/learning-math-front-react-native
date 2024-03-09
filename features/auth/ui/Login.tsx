@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from "react-redux"
 import { setUserInfo } from "../auth.slice"
 import { Loader } from "../../../common/components/loaders/CircularLoader"
-import { convertFirstLetterToLowerCase } from "../../../common/utils/convertFirstLetterToLowerCase"
+import { convertFirstLetterToLowerCase } from "../../../common/utils/string/convertFirstLetterToLowerCase"
 import { PATHS } from "../../../common/constants/paths"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"

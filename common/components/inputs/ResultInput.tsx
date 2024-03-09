@@ -1,29 +1,29 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { styles } from '../../styles/styles';
 import { TextInput, View } from 'react-native';
-import { Props } from './types';
+import { Props } from './Input.types';
 
 export const ResultInput: React.FC<Props> = ({ value, onChange, type }) => {
-  const autoFocusRef = useRef<TextInput>(null);
+  const inputRef = useRef<TextInput>(null)
 
-  useEffect(() => {
-    if (autoFocusRef.current) {
-      autoFocusRef.current.focus();
-    }
-  }, []);
+  const handleSubmit = () => {
+    inputRef.current?.focus();
+  }
 
-  const handleChange = useCallback((text: string) => {
-    onChange(text);
-  }, [onChange]);
+  const handleChange = (text: string) => {
+    onChange(text)
+  }
 
   return (
     <View style={styles.firstDigit}>
       <TextInput
+        blurOnSubmit={false}
+        autoFocus={true}
         onChangeText={handleChange}
         value={value}
-        keyboardType={type}
+        keyboardType={'numbers-and-punctuation'}
         style={[styles.digitsText, styles.digitInput]}
-        ref={autoFocusRef}
+        onSubmitEditing={handleSubmit}
       />
     </View>
   );

@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { View } from "react-native-animatable";
-import { Nav } from "../nav/Nav";
-import { ReactElement } from "react";
+import { StyleSheet } from "react-native"
+import { View } from "react-native-animatable"
+import { ReactElement } from "react"
 
 export const ModalLayout = ({ children }: { children: ReactElement }) => {
 

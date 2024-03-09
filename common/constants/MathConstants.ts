@@ -2,10 +2,10 @@ export const MathOperationsConstants = {
   SUMM: '+',
   DIFF: '-',
   MULTIPLY: '*',
-  DIVIDE: '/',
+  DIVIDE: '/'
 }
 
-export const MathSignsConstants = {
-  EQUAL: '=',
-  X: 'x',
+export const enum MathSignsConstants {
+  EQUAL = '=',
+  X = 'x',
 }

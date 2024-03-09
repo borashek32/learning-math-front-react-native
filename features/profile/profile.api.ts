@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { baseURL } from '../../common/components/baseUrl/baseUrl'
-import { algByDecodingToken } from '../../common/utils/algByDecodingToken'
+import { baseURL } from '../../common/baseUrl/baseUrl'
+import { algByDecodingToken } from '../../common/utils/string/algByDecodingToken'
 import { AvatarType, ScoreType } from './profile.api.types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UserType } from '../auth/auth.api.types'

@@ -1,4 +1,4 @@
-import { MathOperationsConstants } from "../constants/MathConstants"
+import { MathOperationsConstants } from "../../constants/MathConstants"
 
 export const getCheckMathOperation = (mathOperation: string) => {
   let checkMathOperation: string

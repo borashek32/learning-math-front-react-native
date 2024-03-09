@@ -1,60 +1,51 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { AnswerType } from '../../mathOperations.types'
-import { useDispatch } from 'react-redux'
-import { Loader } from '../../../../common/components/loaders/CircularLoader'
-import { Modal } from '../../../../common/components/modal/Modal'
+import React, { useEffect, useState } from 'react'
+import { Keyboard } from 'react-native'
+import { Score } from '../../../../common/components/score/Score'
+import { ResultInput } from '../../../../common/components/inputs/ResultInput'
+import { Digit } from '../../../../common/components/digit/Digit'
+import { MathOperation } from '../../../../common/components/mathOperation/MathOperation'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../../../../common/components/layouts/AppLayout'
-import { Error } from '../../../../common/components/error/Error'
-import { MathExampleLayout } from '../../../../common/components/layouts/MathExamlpeLayout'
-import { Digit } from '../../../../common/components/borderedText/borderedText'
-import { MathOperation } from '../../../../common/components/mathOperation/MathOperation'
-import { ResultInput } from '../../../../common/components/inputs/ResultInput'
 import { ButtonsLayout } from '../../../../common/components/layouts/ButtonsLayout'
 import { MathOperationButton } from '../../../../common/components/buttons/MathOperationButton'
-import { Score } from '../../../../common/components/score/Score'
+import { MathExampleLayout } from '../../../../common/components/layouts/MathExamlpeLayout'
+import { AnswerType } from '../../mathOperations.types'
 import { useUpdateScoreMutation } from '../../../profile/profile.api'
-import { useFormSchema } from '../../validationShema'
+import { useFormSchema } from '../../../../common/utils/math/validationShemaMathOperations'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { ScoreType } from '../../../profile/profile.api.types'
 import { useAppSelector } from '../../../../common/hooks/useAppSelector'
 import { selectUserId } from '../../../auth/auth.selectors'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Loader } from '../../../../common/components/loaders/CircularLoader'
+import { Modal } from '../../../../common/components/modal/Modal'
+import { Error } from '../../../../common/components/error/Error'
+import { useDispatch } from 'react-redux'
 import { setTotalUserScore } from '../../../profile/profile.slice'
-import { Keyboard } from 'react-native'
-import { MathSignsConstants } from '../../../../common/constants/MathConstants'
-import { getRandomMathOperation } from '../../../../common/utils/getRandomMathOperation'
-import { getCheckMathOperation } from '../../../../common/utils/getCheckMathOperation'
-import { performMathOperation } from '../../../../common/utils/performMathOperation'
 
-export const EquationsWithX = () => {
-  console.log('render')
-  
-  const [firstDigit, setFirstDigit] = useState<number>(null)
-  const [secondDigit, setSecondDigit] = useState<number>(null)
-  const [score, setScore] = useState(0) 
-  const [serverError, setServerError] = useState('')
+export const MultiplicationCheck = () => {
+  const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
+  const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
+  const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState<string>('')
+  const [serverError, setServerError] = useState('')
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
 
-  const randomOperation = useMemo(() => getRandomMathOperation(), [])
-  const checkRandomOperation = useMemo(() => getCheckMathOperation(randomOperation), [randomOperation])
-  
   const [updateScore, { isLoading }] = useUpdateScoreMutation()
   const { t } = useTranslation('translation')
   const formSchema = useFormSchema()
 
   const generateNewDigits = () => {
-    setFirstDigit(Math.floor(Math.random() * 11) + 1)
-    setSecondDigit(Math.floor(Math.random() * 31) + (Math.floor(Math.random() * 11) + 1))
+    setFirstMultiplier(Math.floor(Math.random() * 8) + 2)
+    setSecondMultiplier(Math.floor(Math.random() * 8) + 2)
   }
 
   const onGenerateNewDigits = () => {
+    generateNewDigits()
     setAnswer('')
     setOpen(false)
-    generateNewDigits()
   }
 
   const onChangeHandler = (answer: string) => {
@@ -78,18 +69,16 @@ export const EquationsWithX = () => {
     setServerError('')
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-
-    if (performMathOperation(checkRandomOperation, secondDigit, firstDigit) === answerToNumber) {
+    if (answerToNumber === secondMultiplier) {
       setScore(score + 1)
       setRightWrong('right')
       data = { ...data, score: 1 }
-    }
-    else {
+    } else {
       setScore(score - 1)
       setRightWrong('wrong')
       data = { ...data, score: -1 }
     }
-    
+
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -104,8 +93,8 @@ export const EquationsWithX = () => {
 
   const onPressPlayMore = () => {
     setOpen(false)
-    generateNewDigits()
     setAnswer('')
+    generateNewDigits()
   }
 
   const onPressTryAgain = () => {
@@ -134,29 +123,14 @@ export const EquationsWithX = () => {
           color={rightWrong === 'right' ? 'blue' : 'red'}
         />
       )}
-      <AppLayout title={t('screens.equations')}>
+      <AppLayout title={t('mathOperations.multCheck')}>
         {serverError && <Error error={serverError} />}
         <MathExampleLayout>
-          <Digit title={MathSignsConstants.X} />
-          <MathOperation title={randomOperation} />
-          <Digit title={firstDigit} />
-          <MathOperation title={MathSignsConstants.EQUAL} />
-          <Digit title={secondDigit} />
-        </MathExampleLayout>
+          <Digit title={firstMultiplier * secondMultiplier} />
+          <MathOperation title=':' />
+          <Digit title={firstMultiplier} />
+          <MathOperation title='=' />
 
-        {score < 5 &&
-          <MathExampleLayout>
-            <Digit title={MathSignsConstants.X} />
-            <MathOperation title={MathSignsConstants.EQUAL} />
-            <Digit title={secondDigit} />
-            <MathOperation title={checkRandomOperation} />
-            <Digit title={firstDigit} />
-          </MathExampleLayout>
-        }
-
-        <MathExampleLayout>
-          <Digit title={MathSignsConstants.X} />
-          <MathOperation title={MathSignsConstants.EQUAL} />
           <ResultInput 
             value={answer} 
             type={'numeric'}
