@@ -39,7 +39,7 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
       {text && <Text style={styles.note}>{text}</Text>}
       <TouchableOpacity style={buttonStyles} onPress={
         path 
-          ? () => navigation.navigate(path)
+          ? () => navigation.navigate(path as never)
           : onPress
         }>
         <Text style={text ? styles.buttonTextSmall : styles.buttonText}>{title}</Text>

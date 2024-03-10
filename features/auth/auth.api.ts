@@ -95,7 +95,11 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
     await AsyncStorage.getItem('accessToken')
   }
 
-  if (api.endpoint === 'logout') {
+  if (
+    api.endpoint === 'logout'&& 
+    result.data&& 
+    typeof result.data === 'object'
+  ) {
     await AsyncStorage.removeItem('accessToken')
     await AsyncStorage.removeItem('refreshToken')
   }
@@ -174,7 +178,7 @@ export const authApi = createApi({
           }
         },
       }),
-      me: build.query<RegistedUserType, void>({
+      me: build.query<UserType | null, void>({
         query: () => {
           return {
             method: 'GET',

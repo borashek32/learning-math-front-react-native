@@ -32,7 +32,7 @@ export const Nav = () => {
         <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN} />
         <View style={userEmail ? styles.headerWithUser : {}}>
           {userEmail && 
-            <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE)}>
+            <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE as never)}>
               <Text style={styles.buttonTextSmall}>{userEmail}</Text>
               <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text>
             </TouchableOpacity>
@@ -64,7 +64,7 @@ export const Nav = () => {
               title={t("nav.items.home")}
               path={PATHS.HOME}
               onPress={() => {
-                navigation.navigate(PATHS.HOME)
+                navigation.navigate(PATHS.HOME as never)
                 setMenuOpen(false)
               }} 
             />
@@ -72,7 +72,7 @@ export const Nav = () => {
               title={t("nav.items.mathOperations")} 
               path={PATHS.MATH_OPERATIONS} 
               onPress={() => {
-                navigation.navigate(PATHS.MATH_OPERATIONS)
+                navigation.navigate(PATHS.MATH_OPERATIONS as never)
                 setMenuOpen(false)
               }} 
             />
@@ -80,7 +80,7 @@ export const Nav = () => {
               title={t("nav.items.instructions")} 
               path={PATHS.INSTRUCTIONS}
               onPress={() => {
-                navigation.navigate(PATHS.INSTRUCTIONS)
+                navigation.navigate(PATHS.INSTRUCTIONS as never)
                 setMenuOpen(false)
               }}  
             />
@@ -89,7 +89,7 @@ export const Nav = () => {
               title={t("nav.items.profile")} 
               path={PATHS.PROFILE} 
               onPress={() => {
-                navigation.navigate(PATHS.PROFILE)
+                navigation.navigate(PATHS.PROFILE as never)
                 setMenuOpen(false)
               }} 
             />
@@ -97,7 +97,7 @@ export const Nav = () => {
               title={t("nav.items.score")} 
               path={PATHS.YOUR_SCORE} 
               onPress={() => {
-                navigation.navigate(PATHS.YOUR_SCORE)
+                navigation.navigate(PATHS.YOUR_SCORE as never)
                 setMenuOpen(false)
               }} 
             />
@@ -105,7 +105,7 @@ export const Nav = () => {
               title={t("buttons.logout")} 
               path={PATHS.LOGOUT} 
               onPress={() => {
-                navigation.navigate(PATHS.LOGOUT)
+                navigation.navigate(PATHS.LOGOUT as never)
                 setMenuOpen(false)
               }} 
             />

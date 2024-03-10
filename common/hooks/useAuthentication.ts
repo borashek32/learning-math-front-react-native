@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useMeQuery } from '../../features/auth/auth.api'
 import { useDispatch } from 'react-redux'
-import { setUserInfo } from '../../features/auth/auth.slice'
+import { removeUserInfo, setUserInfo } from '../../features/auth/auth.slice'
+import { useAppSelector } from './useAppSelector'
+import { selectIsLoggedIn } from '../../features/auth/auth.selectors'
 
 export const useAuthentication = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const { data, isLoading, isError } = useMeQuery()
+  const { data } = useMeQuery()
   const dispatch = useDispatch()
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
   
-  useEffect(() => {
-    if (!isLoading && !isError) {
-      setIsAuthenticated(data !== undefined && data !== null)
-      dispatch(setUserInfo(data.user))
-      setLoading(false)
+  useEffect(() => { 
+    if (data) {
+      dispatch(setUserInfo(data))
+    } else {
+      dispatch(removeUserInfo())
     }
-  }, [data, isLoading, isError, dispatch])
+  }, [data, dispatch])
 
-  return isAuthenticated && !loading
+  return isLoggedIn 
 }

@@ -29,14 +29,12 @@ export const Logout = ({ navigation }) => {
 
     logout({ refreshToken, accessToken })
       .unwrap()
-      .then(() => {
+      .then(response => {
         dispatch(removeUserInfo())
         navigation.navigate(PATHS.MAIN)
         setOpen(false)
       })
       .catch(e => {
-        console.log(e);
-        
         if (e) {
           setOpen(false)
           setModalWithErrorOpen(true)

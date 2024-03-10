@@ -12,8 +12,8 @@ export const Home = () => {
   const { t } = useTranslation('translation')
 
   return (
-    <AppLayout>
-      <>
+    <>
+      <AppLayout>
         <View style={styles.menuContainer}>
           <DefaultButton title={t('nav.items.mathOperations')} path={PATHS.MATH_OPERATIONS}/>
           <DefaultButton title={t('nav.items.instructions')} path={PATHS.INSTRUCTIONS}/>
@@ -22,7 +22,7 @@ export const Home = () => {
           <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
         </View>
         <StatusBar style="auto" />
-      </>
-    </AppLayout>
+      </AppLayout>
+    </>
   )
 }

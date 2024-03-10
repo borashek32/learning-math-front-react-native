@@ -25,4 +25,6 @@ export const enum PATHS {
   CHANGE_EMAIL = "change-email",
   CHANGE_PASSWORD = "change-password",
   CHANGE_AVATAR = "change-avatar",
+
+  NOTIFY = "notify",
 }
