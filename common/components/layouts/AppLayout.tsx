@@ -28,10 +28,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#01143d',
     width: '100%',
+    paddingBottom: 40,
   },
   contentWrapper: {
     marginTop: 20,
-    width: 260
+    width: 260,
+    flex: 1
   },
   title: {
     marginBottom: 30,

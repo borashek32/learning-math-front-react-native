@@ -2,7 +2,6 @@ import { FC } from "react"
 import { MathOperationsConstants } from "../../constants/MathConstants"
 
 type Props = {
-  score: number
   answer: number
   operation: string
   firstOperand: number 
@@ -12,7 +11,6 @@ type Props = {
 }
 
 export const checkMathOperation: FC<Props> = ({
-  score,
   answer,
   operation,
   firstOperand,
@@ -24,11 +22,11 @@ export const checkMathOperation: FC<Props> = ({
   switch (operation) {
     case MathOperationsConstants.SUMM:
       if (
-        ((score <= 5) && 
+        ((firstOperand && secondOperand) && 
         (firstOperand + secondOperand === answer)) ||
-        ((score > 5) && 
+        ((firstOperand && secondOperand && thirdOperand) && 
         (firstOperand + secondOperand + thirdOperand === answer)) ||
-        ((score > 10) && 
+        ((firstOperand && secondOperand && thirdOperand && fourthOperand) && 
         (firstOperand + secondOperand + thirdOperand + fourthOperand === answer))
       ) {
         return true
@@ -38,11 +36,11 @@ export const checkMathOperation: FC<Props> = ({
 
     case MathOperationsConstants.DIFF:
       if (
-        ((score <= 5) && 
+        ((firstOperand && secondOperand) && 
         (firstOperand - secondOperand === answer)) ||
-        ((score > 5 && score <= 10) && 
+        ((firstOperand && secondOperand && thirdOperand) && 
         (firstOperand - secondOperand - thirdOperand === answer)) ||
-        ((score > 10) && 
+        ((firstOperand && secondOperand && thirdOperand && fourthOperand) && 
         (firstOperand - secondOperand - thirdOperand - fourthOperand === answer))
       ) {
         return true

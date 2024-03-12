@@ -165,7 +165,8 @@
       "more": "Play more?",
       "again": "Try again?",
       "choose": "Choose a number:",
-      "saveScore": "Save today score"
+      "saveScore": "Save today score",
+      "getHint": "Get a hint"
     },
     "score": "Your score:",
     "diff": "Calculate difference",

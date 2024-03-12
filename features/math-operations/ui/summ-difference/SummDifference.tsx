@@ -110,7 +110,6 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
     Keyboard.dismiss()
 
     if (( checkMathOperation({
-      score,
       answer: Number(answer),
       operation: MathOperationsConstants.SUMM, 
       firstOperand: firstNumber, 
@@ -119,7 +118,6 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
       fourthOperand: fourthNumber ? fourthNumber : 0,
     }) === true ) ||
     ( checkMathOperation({
-      score: score,
       answer: Number(answer),
       operation: MathOperationsConstants.DIFF, 
       firstOperand: firstNumber, 

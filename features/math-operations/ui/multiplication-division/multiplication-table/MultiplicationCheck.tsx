@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { Score } from '../../../../common/components/score/Score'
-import { ResultInput } from '../../../../common/components/inputs/ResultInput'
-import { Digit } from '../../../../common/components/digit/Digit'
-import { MathOperation } from '../../../../common/components/mathOperation/MathOperation'
+import { Score } from '../../../../../common/components/score/Score'
+import { ResultInput } from '../../../../../common/components/inputs/ResultInput'
+import { Digit } from '../../../../../common/components/digit/Digit'
+import { MathOperation } from '../../../../../common/components/mathOperation/MathOperation'
 import { useTranslation } from 'react-i18next'
-import { AppLayout } from '../../../../common/components/layouts/AppLayout'
-import { ButtonsLayout } from '../../../../common/components/layouts/ButtonsLayout'
-import { MathOperationButton } from '../../../../common/components/buttons/MathOperationButton'
-import { MathExampleLayout } from '../../../../common/components/layouts/MathExamlpeLayout'
-import { Error } from '../../../../common/components/error/Error'
-import { Modal } from '../../../../common/components/modal/Modal'
-import { Loader } from '../../../../common/components/loaders/CircularLoader'
-import { useFormSchema } from '../../../../common/utils/math/validationShemaMathOperations'
-import { useUpdateScoreMutation } from '../../../profile/profile.api'
-import { AnswerType } from '../../mathOperations.types'
+import { AppLayout } from '../../../../../common/components/layouts/AppLayout'
+import { ButtonsLayout } from '../../../../../common/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../../../common/components/buttons/MathOperationButton'
+import { MathExampleLayout } from '../../../../../common/components/layouts/MathExamlpeLayout'
+import { AnswerType } from '../../../mathOperations.types'
+import { useUpdateScoreMutation } from '../../../../profile/profile.api'
+import { useFormSchema } from '../../../../../common/utils/math/validationShemaMathOperations'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { ScoreType } from '../../../profile/profile.api.types'
-import { useAppSelector } from '../../../../common/hooks/useAppSelector'
-import { selectUserId } from '../../../auth/auth.selectors'
+import { ScoreType } from '../../../../profile/profile.api.types'
+import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
+import { selectUserId } from '../../../../auth/auth.selectors'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { setTotalUserScore } from '../../../profile/profile.slice'
+import { Loader } from '../../../../../common/components/loaders/CircularLoader'
+import { Modal } from '../../../../../common/components/modal/Modal'
+import { Error } from '../../../../../common/components/error/Error'
 import { useDispatch } from 'react-redux'
+import { setTotalUserScore } from '../../../../profile/profile.slice'
 
-export const MultiplicationNumber = ({ route }) => {
-  const { digit } = route.params
-  const [firstDigit, setFirstDigit] = useState<number>(null)
+export const MultiplicationCheck = () => {
+  const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
+  const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
   const [score, setScore] = useState(0)
+  const [answer, setAnswer] = useState<string>('')
   const [serverError, setServerError] = useState('')
-  const [answer, setAnswer] = useState(null)
   const [rightWrong, setRightWrong] = useState<AnswerType>(null)
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
@@ -38,13 +38,14 @@ export const MultiplicationNumber = ({ route }) => {
   const formSchema = useFormSchema()
 
   const generateNewDigits = () => {
-    setFirstDigit(Math.floor(Math.random() * (9 - 2 + 1)) + 2)
+    setFirstMultiplier(Math.floor(Math.random() * 8) + 2)
+    setSecondMultiplier(Math.floor(Math.random() * 8) + 2)
   }
 
   const onGenerateNewDigits = () => {
+    generateNewDigits()
     setAnswer('')
     setOpen(false)
-    generateNewDigits()
   }
 
   const onChangeHandler = (answer: string) => {
@@ -68,17 +69,16 @@ export const MultiplicationNumber = ({ route }) => {
     setServerError('')
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-    if (digit * firstDigit === answerToNumber) {
+    if (answerToNumber === secondMultiplier) {
       setScore(score + 1)
       setRightWrong('right')
       data = { ...data, score: 1 }
-    }
-    else {
+    } else {
       setScore(score - 1)
       setRightWrong('wrong')
       data = { ...data, score: -1 }
     }
-    
+
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -94,7 +94,7 @@ export const MultiplicationNumber = ({ route }) => {
   const onPressPlayMore = () => {
     setOpen(false)
     setAnswer('')
-    setFirstDigit(Math.floor(Math.random() * (9 - 2 + 1)) + 2)
+    generateNewDigits()
   }
 
   const onPressTryAgain = () => {
@@ -103,7 +103,7 @@ export const MultiplicationNumber = ({ route }) => {
   }
 
   useEffect(() => {
-    setFirstDigit(Math.floor(Math.random() * (9 - 2 + 1)) + 2)
+    generateNewDigits()
   }, [])
 
   return (
@@ -123,12 +123,12 @@ export const MultiplicationNumber = ({ route }) => {
           color={rightWrong === 'right' ? 'blue' : 'red'}
         />
       )}
-      <AppLayout title={t('mathOperations.multBy') + ' ' + digit}>
+      <AppLayout title={t('mathOperations.multCheck')}>
         {serverError && <Error error={serverError} />}
         <MathExampleLayout>
-          <Digit title={firstDigit} />
-          <MathOperation title='*' />
-          <Digit title={digit} />
+          <Digit title={firstMultiplier * secondMultiplier} />
+          <MathOperation title=':' />
+          <Digit title={firstMultiplier} />
           <MathOperation title='=' />
 
           <ResultInput 

@@ -19,6 +19,8 @@ import { UserAvatar } from '../../../common/components/avatar/UserAvatar'
 import { PATHS } from '../../../common/constants/paths'
 import { useDispatch } from 'react-redux'
 import { setUserInfo } from '../../auth/auth.slice'
+import { BlueButton } from '../../../common/components/buttons/BlueButton'
+import { AppText } from '../../../common/components/text/AppText'
 
 export const ChangeAvatar = ({ navigation }) => {
   const [open, setOpen] = useState(false)
@@ -87,7 +89,7 @@ export const ChangeAvatar = ({ navigation }) => {
               source={user.avatarPath} 
               name={user.avatarName}
             />
-          : <Text>{t('profile.change')}</Text>
+          : <AppText desc={t('profile.changeAvatar')} />
         }
         <DevideLine />
         <ScrollView contentContainerStyle={styles.menuContainer}>

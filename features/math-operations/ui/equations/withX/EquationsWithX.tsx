@@ -163,7 +163,7 @@ export const EquationsWithX = () => {
         </MathExampleLayout>
 
         {!hint
-        ? <AppText onPress={() => setHint(true)} desc='Get a hint' />
+        ? <AppText onPress={() => setHint(true)} desc={t('mathOperations.common.getHint')} />
         : <MathExampleLayout onPress={() => setHint(false)}>
             <Digit title={MathSignsConstants.X} italic={true} />
             <Digit title={MathSignsConstants.EQUAL} italic={true} />

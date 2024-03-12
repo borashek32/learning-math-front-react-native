@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useMeQuery } from '../../features/auth/auth.api'
 import { useDispatch } from 'react-redux'
 import { removeUserInfo, setUserInfo } from '../../features/auth/auth.slice'

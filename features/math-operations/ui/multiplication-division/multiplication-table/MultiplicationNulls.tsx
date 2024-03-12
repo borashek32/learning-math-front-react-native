@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard } from 'react-native'
-import { Score } from '../../../../common/components/score/Score'
-import { ResultInput } from '../../../../common/components/inputs/ResultInput'
-import { Digit } from '../../../../common/components/digit/Digit'
-import { MathOperation } from '../../../../common/components/mathOperation/MathOperation'
+import { Keyboard, SafeAreaView } from 'react-native'
+import { Score } from '../../../../../common/components/score/Score'
+import { ResultInput } from '../../../../../common/components/inputs/ResultInput'
+import { Digit } from '../../../../../common/components/digit/Digit'
+import { MathOperation } from '../../../../../common/components/mathOperation/MathOperation'
 import { useTranslation } from 'react-i18next'
-import { AppLayout } from '../../../../common/components/layouts/AppLayout'
-import { ButtonsLayout } from '../../../../common/components/layouts/ButtonsLayout'
-import { MathOperationButton } from '../../../../common/components/buttons/MathOperationButton'
-import { MathExampleLayout } from '../../../../common/components/layouts/MathExamlpeLayout'
-import { AnswerType } from '../../mathOperations.types'
-import { useUpdateScoreMutation } from '../../../profile/profile.api'
-import { useFormSchema } from '../../../../common/utils/math/validationShemaMathOperations'
+import { AppLayout } from '../../../../../common/components/layouts/AppLayout'
+import { ButtonsLayout } from '../../../../../common/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../../../common/components/buttons/MathOperationButton'
+import { MathExampleLayout } from '../../../../../common/components/layouts/MathExamlpeLayout'
+import { AnswerType } from '../../../mathOperations.types'
+import { useUpdateScoreMutation } from '../../../../profile/profile.api'
+import { useFormSchema } from '../../../../../common/utils/math/validationShemaMathOperations'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { ScoreType } from '../../../profile/profile.api.types'
-import { useAppSelector } from '../../../../common/hooks/useAppSelector'
-import { selectUserId } from '../../../auth/auth.selectors'
+import { ScoreType } from '../../../../profile/profile.api.types'
+import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
+import { selectUserId } from '../../../../auth/auth.selectors'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Loader } from '../../../../common/components/loaders/CircularLoader'
-import { Modal } from '../../../../common/components/modal/Modal'
-import { Error } from '../../../../common/components/error/Error'
+import { Loader } from '../../../../../common/components/loaders/CircularLoader'
+import { Modal } from '../../../../../common/components/modal/Modal'
+import { Error } from '../../../../../common/components/error/Error'
+import { setTotalUserScore } from '../../../../profile/profile.slice'
 import { useDispatch } from 'react-redux'
-import { setTotalUserScore } from '../../../profile/profile.slice'
 
-export const MultiplicationCheck = () => {
+export const MultiplicationNulls = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
   const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
   const [score, setScore] = useState(0)
@@ -38,8 +38,8 @@ export const MultiplicationCheck = () => {
   const formSchema = useFormSchema()
 
   const generateNewDigits = () => {
-    setFirstMultiplier(Math.floor(Math.random() * 8) + 2)
-    setSecondMultiplier(Math.floor(Math.random() * 8) + 2)
+    setFirstMultiplier((Math.floor(Math.random() * 8) + 2) * 10)
+    setSecondMultiplier((Math.floor(Math.random() * 8) + 2) * 10)
   }
 
   const onGenerateNewDigits = () => {
@@ -69,7 +69,7 @@ export const MultiplicationCheck = () => {
     setServerError('')
     const answerToNumber = Number(answer)
     Keyboard.dismiss()
-    if (answerToNumber === secondMultiplier) {
+    if (answerToNumber / firstMultiplier === secondMultiplier) {
       setScore(score + 1)
       setRightWrong('right')
       data = { ...data, score: 1 }
@@ -78,7 +78,7 @@ export const MultiplicationCheck = () => {
       setRightWrong('wrong')
       data = { ...data, score: -1 }
     }
-
+    
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -107,7 +107,7 @@ export const MultiplicationCheck = () => {
   }, [])
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       {isLoading && <Loader />}
       {open && (
         <Modal
@@ -126,9 +126,9 @@ export const MultiplicationCheck = () => {
       <AppLayout title={t('mathOperations.multCheck')}>
         {serverError && <Error error={serverError} />}
         <MathExampleLayout>
-          <Digit title={firstMultiplier * secondMultiplier} />
-          <MathOperation title=':' />
           <Digit title={firstMultiplier} />
+          <MathOperation title='*' />
+          <Digit title={secondMultiplier} />
           <MathOperation title='=' />
 
           <ResultInput 
@@ -151,6 +151,6 @@ export const MultiplicationCheck = () => {
         
         <Score score={score} />
       </AppLayout>
-    </>
+    </SafeAreaView>
   )
 }

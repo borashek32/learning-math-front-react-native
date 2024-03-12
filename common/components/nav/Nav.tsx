@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-native"
 import { LogoSmall } from "../logo/LogoSmall"
 import { DefaultButton } from "../buttons/DefaultButton"
 import { useAppSelector } from "../../hooks/useAppSelector"
-import { selectUserAvatarPath, selectUserEmail } from "../../../features/auth/auth.selectors"
+import { selectUserAvatarPath, selectUserEmail, selectUserId } from "../../../features/auth/auth.selectors"
 import { useTranslation } from "react-i18next"
 import { PATHS } from "../../constants/paths"
 import { SelectLang } from "../selectLang/SelectLang"
@@ -12,6 +12,9 @@ import { NavLinkButton } from "../buttons/NavLinkButton"
 import { selectTotalUserScore } from "../../../features/profile/profile.selectors"
 import { UserAvatar } from "../avatar/UserAvatar"
 import { useNavigation } from "@react-navigation/native"
+import { useGetTotalUserScoreQuery } from "../../../features/profile/profile.api"
+import { useDispatch } from "react-redux"
+import { setTotalUserScore } from "../../../features/profile/profile.slice"
 
 export const Nav = () => {
   const navigation = useNavigation()
@@ -19,6 +22,14 @@ export const Nav = () => {
   const userEmail = useAppSelector(selectUserEmail)
   const totalUserScore = useAppSelector(selectTotalUserScore)
   const avatarPath = useAppSelector(selectUserAvatarPath)
+
+  const dispatch = useDispatch()
+  const userId = useAppSelector(selectUserId)
+  const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
+
+  useEffect(() => {
+    userScoreData && dispatch(setTotalUserScore(userScoreData.score))
+  }, [userScoreData, dispatch])
   
   const { t } = useTranslation()
 

@@ -17,7 +17,7 @@ export const BlueButton: React.FC<DefaultButtonProps> = ({
 
   const handlePress = () => {
     if (path) {
-      navigation.navigate(path)
+      navigation.navigate(path as never)
     } else if (onPressWithValue) {
       onPressWithValue(source, avatarName)
     } else if (onPress) {

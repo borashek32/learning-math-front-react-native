@@ -87,7 +87,6 @@ export const ChangePassword = ({ navigation }) => {
           reset()
         })
         .catch(e => {
-          console.log(e)
           if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
           if (e.data.message === 'User password not correct') setServerError(t('errors.error400login'))
         })

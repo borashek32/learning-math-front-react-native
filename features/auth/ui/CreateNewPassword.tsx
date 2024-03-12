@@ -33,8 +33,6 @@ export const CreateNewPassword = ({ navigation }) => {
   const [serverError, setServerError] = useState('')
   const [saveNewPassword, { isLoading }] = useSaveNewPasswordMutation()
 
-  console.log(createNewPasswordLink, email)
-
   const { t } = useTranslation()
 
   const formSchema = yup.object().shape({

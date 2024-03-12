@@ -13,7 +13,7 @@ export const UserAvatar = ({ source, name, small }: UserAvatarProps) => {
           style={small ? styles.characterImageSmall : styles.characterImage}
         />
       )}
-      {name &&  <View style={styles.textWrapper}>
+      {name && <View style={styles.textWrapper}>
         <Text style={styles.descText}>
           {t('profile.changeAvatar.youAre')} 
           {name} 
