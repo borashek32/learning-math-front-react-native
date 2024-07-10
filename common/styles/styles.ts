@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     color: '#fff'
   },
   digitInput: {
-    width: 40,
+    width: 80,
     height: 40,
   },
   generateButton: {

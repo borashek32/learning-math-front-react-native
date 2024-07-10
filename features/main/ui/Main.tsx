@@ -11,13 +11,21 @@ export const Main = ({ navigation }) => {
     <>
       <BaseLayout>
         <BlueButton
+          title={t('screens.math')}
+          onPress={() => navigation.navigate(PATHS.MATH_OPERATIONS)}
+        />
+        <BlueButton
+          title={t('screens.instructions')}
+          onPress={() => navigation.navigate(PATHS.INSTRUCTIONS)}
+        />
+        {/* <BlueButton
           title={t('auth.links.register')}
           onPress={() => navigation.navigate(PATHS.REGISTER)}
         />
         <BlueButton
           title={t('auth.links.login')}
           onPress={() => navigation.push(PATHS.LOGIN)}
-        />
+        /> */}
       </BaseLayout>
     </>
   )

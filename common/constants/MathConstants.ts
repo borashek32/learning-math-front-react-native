@@ -2,7 +2,7 @@ export const MathOperationsConstants = {
   SUMM: '+',
   DIFF: '-',
   MULTIPLY: '*',
-  DIVIDE: '/'
+  DIVIDE: ':'
 }
 
 export const enum MathSignsConstants {

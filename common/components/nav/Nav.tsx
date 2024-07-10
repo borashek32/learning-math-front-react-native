@@ -25,11 +25,11 @@ export const Nav = () => {
 
   const dispatch = useDispatch()
   const userId = useAppSelector(selectUserId)
-  const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
+  // const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
 
-  useEffect(() => {
-    userScoreData && dispatch(setTotalUserScore(userScoreData.score))
-  }, [userScoreData, dispatch])
+  // useEffect(() => {
+  //   userScoreData && dispatch(setTotalUserScore(userScoreData.score))
+  // }, [userScoreData, dispatch])
   
   const { t } = useTranslation()
 
@@ -42,12 +42,12 @@ export const Nav = () => {
       <View style={styles.header}>
         <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN} />
         <View style={userEmail ? styles.headerWithUser : {}}>
-          {userEmail && 
+          {/* {userEmail && 
             <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE as never)}>
               <Text style={styles.buttonTextSmall}>{userEmail}</Text>
               <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text>
             </TouchableOpacity>
-          }
+          } */}
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
             <Animatable.View 
               style={[styles.line, menuOpen && styles.lineActive]} 
@@ -62,25 +62,25 @@ export const Nav = () => {
           </TouchableOpacity>
         </View>
       </View>
-      {userEmail && menuOpen && (
+      {menuOpen && (
         <View style={styles.navigation}>
           <View style={styles.menuItems}>
-            {avatarPath && 
+            {/* {avatarPath && 
               <UserAvatar 
                 source={avatarPath}
                 small={true}
               />
-            }
+            } */}
             <NavLinkButton 
-              title={t("nav.items.home")}
-              path={PATHS.HOME}
+              title={t("screens.home")}
+              path={PATHS.MAIN}
               onPress={() => {
-                navigation.navigate(PATHS.HOME as never)
+                navigation.navigate(PATHS.MAIN as never)
                 setMenuOpen(false)
               }} 
             />
             <NavLinkButton 
-              title={t("nav.items.mathOperations")} 
+              title={t("screens.math")} 
               path={PATHS.MATH_OPERATIONS} 
               onPress={() => {
                 navigation.navigate(PATHS.MATH_OPERATIONS as never)
@@ -88,7 +88,7 @@ export const Nav = () => {
               }} 
             />
             <NavLinkButton 
-              title={t("nav.items.instructions")} 
+              title={t("screens.instructions")} 
               path={PATHS.INSTRUCTIONS}
               onPress={() => {
                 navigation.navigate(PATHS.INSTRUCTIONS as never)
@@ -96,7 +96,7 @@ export const Nav = () => {
               }}  
             />
             <View style={styles.footerDevideLine}></View>
-            <NavLinkButton 
+            {/* <NavLinkButton 
               title={t("nav.items.profile")} 
               path={PATHS.PROFILE} 
               onPress={() => {
@@ -119,7 +119,7 @@ export const Nav = () => {
                 navigation.navigate(PATHS.LOGOUT as never)
                 setMenuOpen(false)
               }} 
-            />
+            /> */}
             <SelectLang />
           </View>
         </View>

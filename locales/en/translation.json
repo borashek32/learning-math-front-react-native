@@ -4,13 +4,7 @@
     "main": "Welcome",
     "home": "Home",
     "instructions": "Instructions",
-    "math": "Math Operations",
-    "summ": "Summ",
-    "diff": "Difference",
-    "mult": "Multiplication",
-    "multDigit": "Multiplication by",
-    "multCheck": "Check mutiplication knowledge",
-    "multNulls": "Multiplication of numbers with nulls",
+    "math": "Math Examples",
     "login": "Login",
     "register": "Registration",
     "verify": "Verify",
@@ -21,25 +15,13 @@
     "changePassword": "Change password",
     "changeAvatar": "Choose avatar",
     "profile": "Profile",
-    "yourScore": "Your score",
-    "equations": "Equations",
-    "equationsWithX": "Equations with one unknown",
-    "equationsWithXY": "Equations with two unknown"
+    "yourScore": "Your score"
   },
-  "nav": {
-    "select": {
-      "changeLang": "Change language",
-      "options": {
-        "en": "English",
-        "ru": "Russian"
-      }
-    },
-    "items": {
-      "home": "Home",
-      "mathOperations": "Math Operations",
-      "instructions": "Instructions",
-      "profile": "Profile",
-      "score": "Your score"
+  "changeLang": {
+    "select": "Change language",
+    "options": {
+      "en": "English",
+      "ru": "Russian"
     }
   },
   "buttons": {
@@ -49,7 +31,7 @@
     "register": "Register"
   },
   "modal": {
-    "registrationSuccess": "Registration was successfull",
+    "registrationSuccess": "Registration was successfull, check your inbox to verify your email",
     "changePasswordSuccess": "Your password was changed successfully",
     "fail": "Something went wrong. Please, try later",
     "linkSent": "We've sent you a link to verify your email. Check your mail, please",
@@ -77,12 +59,6 @@
     "logout": "User not authorized. First log in and then you can log out"
   },
   "auth": {
-    "links": {
-      "register": "Register",
-      "login": "Login",
-      "forgotPassword": "Forgot password",
-      "instructions": "Instructions"
-    },
     "changePassword": {
       "inputs": {
         "password": {
@@ -123,23 +99,12 @@
     },
     "register": {
       "inputs": {
-        "email": {
-          "label": "Email",
-          "placeholder": "Enter your email"
-        },
-        "password": {
-          "label": "Password",
-          "placeholder": "Enter your password"
-        },
         "passwordConfirmation": {
           "label": "Password confirmation",
           "placeholder": "Enter your password confirmation"
         }
       },
-      "note": "If you already have an account, go to login page",
-      "alerts": {
-        "success": "Registration was successfull, check your inbox to verify your email"
-      }
+      "note": "If you already have an account, go to login page"
     },
     "logout": {
       "sure": "Are you sure?"
@@ -156,28 +121,26 @@
     "hello": "Hello"
   },
   "mathOperations": {
-    "title": "Math operations",
     "common": {
-      "generate": "Generate new digits",
+      "generate": "Generate new numbers",
       "check": "Check",
       "right": "You are right!",
       "notRight": "You are not right",
       "more": "Play more?",
       "again": "Try again?",
       "choose": "Choose a number:",
-      "saveScore": "Save today score",
       "getHint": "Get a hint"
     },
-    "score": "Your score:",
-    "diff": "Calculate difference",
-    "summ": "Calculate summ",
+    "diff": "Difference",
+    "summ": "Summ",
     "multiplication": "Multiplication",
     "multTable": "Multiplication table",
     "multBy": "Multiplication by",
     "multCheck": "Check mutiplication knowledge",
     "multNulls": "Multiplication of numbers with nulls",
-    "equationsWithX": "Equations with one unknown",
-    "equationsWithXY": "Equations with two unknown"
+    "equations": "Equations",
+    "equationsWithX": "Equations with 1 unknown",
+    "equationsWithXY": "Equations with 2 unknown"
   },
   "profile": {
     "changePassword": {
@@ -194,7 +157,6 @@
         }
       }
     },
-    "yourScore": "Your total XP",
     "changeAvatar": {
       "title": "Who are you from Rick & Morty?",
       "button": "Choose",
@@ -206,5 +168,187 @@
       "youAre": "You are ",
       "fromRickMorty": " from Rick and Morty"
     }
-  }
+  },
+  "yourScore": {
+    "total": "Your total score"
+  },
+  "instructions": {
+    "withoutRegister": {
+      "title": "Features available without registration",
+      "allowedTools": {
+        "1": {
+          "title": "Upon launching the application, the user has access to a public math trainer for learning mathematics."
+        },
+        "2": {
+          "title": "Available mathematical operations: addition, subtraction, multiplication, and division."
+        },
+        "3": {
+          "title": "The user can complete exercises without restrictions but does not have access to additional features and personalization."
+        },
+        "4": {
+          "title": "XP points earned in the trainer are reset at the end of each session."
+        }
+      }
+    },
+    "register": {
+      "title": "User Registration",
+      "allowedTools": {
+        "1": {
+          "title": "When choosing registration via email:",
+          "desc": {
+            "1": "The user enters their email address and desired password.",
+            "2": "After entering the information, the user clicks the 'Register' button.",
+            "3": "The application sends an email to the provided email address with a registration confirmation link.",
+            "4": "The user follows the link from the email to confirm the registration.",
+            "5": "After confirming the registration, the user gains access to additional features and app personalization."
+          }
+        },
+        "2": {
+          "title": "When choosing registration via Google provider:",
+          "desc": {
+            "1": "The user clicks on the 'Register with Google' button.",
+            "2": "The application redirects the user to the Google authentication page.",
+            "3": "The user enters their Google credentials and grants access to the application's data.",
+            "4": "After successful authentication, the application gains access to the user's profile and creates a new account.",
+            "5": "The user gains access to additional features and app personalization."
+          }
+        }
+      }
+    },
+    "passwordRecover": {
+      "title": "Password Recovery",
+      "allowedTools": {
+        "1": {
+          "title": "Password recovery request:",
+          "desc": {
+            "1": "The user navigates to the password recovery screen and enters their email address.",
+            "2": "After entering the email address, the user clicks the 'Send' button."
+          }
+        },
+        "2": {
+          "title": "Sending password reset link:",
+          "desc": {
+            "1": "The application sends an email to the provided email address with a password reset link.",
+            "2": "The email contains instructions on how to reset the password, as well as a link for the user to click to reset their password."
+          }
+        },
+        "3": {
+          "title": "Resetting the password:",
+          "desc": {
+            "1": "The user clicks the link from the email.",
+            "2": "Upon clicking the link, a password reset page opens where the user can enter a new password.",
+            "3": "The user enters the new password twice for confirmation.",
+            "4": "After entering the new password, the user clicks the 'Reset Password' button."
+          }
+        },
+        "4": {
+          "title": "Password reset confirmation:",
+          "desc": {
+            "1": "Upon successful password reset, the application redirects the user to the login page.",
+            "2": "The user can use the new password to log into the application."
+          }
+        }
+      }
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "allowedTools": {
+        "1": {
+          "title": "Beginning of password change process:",
+          "desc": {
+            "1": "The user navigates to the password change screen in the account settings.",
+            "2": "The user enters their current password and new password, then clicks the 'Change Password' button."
+          }
+        },
+        "2": {
+          "title": "Checking the current password:",
+          "desc": {
+            "1": "The application checks the current password entered by the user against the one stored in the database.",
+            "2": "If the current password is entered incorrectly, the application displays an error message and prompts the user to re-enter the password."
+          }
+        },
+        "3": {
+          "title": "Entering a new password:",
+          "desc": {
+            "1": "If the current password is entered correctly, the user enters the new password twice for confirmation.",
+            "2": "The user clicks the 'Change Password' button."
+          }
+        },
+        "4": {
+          "title": "Saving the new password:",
+          "desc": {
+            "1": "The application saves the new password in the database, associating it with the user's account.",
+            "2": "The user sees a message indicating successful password change."
+          }
+        },
+        "5": {
+          "title": "Transition to login:",
+          "desc": {
+            "1": "After successfully changing the password, the user can use the new password to log into the application."
+          }
+        }
+      }
+    },
+    "changeEmail": {
+      "title": "Change Email Address",
+      "allowedTools": {
+        "1": {
+          "title": "Beginning of email change process:",
+          "desc": {
+            "1": "The user navigates to the email change screen in the account settings.",
+            "2": "The user enters their current email address and new email address, then clicks the 'Change Email' button."
+          }
+        },
+        "2": {
+          "title": "Checking the current email:",
+          "desc": {
+            "1": "The application checks the current email address entered by the user against the one stored in the database.",
+            "2": "If the current email address is entered incorrectly or does not exist, the application displays an error message and prompts the user to re-enter the address."
+          }
+        },
+        "3": {
+          "title": "Entering a new email address:",
+          "desc": {
+            "1": "If the current email address is entered correctly, the user enters the new email address.",
+            "2": "The user clicks the 'Change Email' button."
+          }
+        },
+        "4": {
+          "title": "Saving the new email address:",
+          "desc": {
+            "1": "The application saves the new email address in the database, associating it with the user's account.",
+            "2": "The user sees a message indicating successful email address change."
+          }
+        }
+      }
+    },
+    "changeAvatar": {
+      "title": "Change Avatar",
+      "allowedTools": {
+        "1": {
+          "title": "Beginning of avatar change process:",
+          "desc": {
+            "1": "The user navigates to the avatar change screen in the account settings.",
+            "2": "The user browses available avatars, which are loaded from the Rick and Morty API.",
+            "3": "The user selects the desired avatar and clicks on it to confirm the selection."
+          }
+        },
+        "2": {
+          "title": "Saving the selected avatar:",
+          "desc": {
+            "1": "The application saves the selected avatar in the database, associating it with the user's account.",
+            "2": "The user sees a message indicating successful avatar change."
+          }
+        }
+      }
+    },
+    "schoolProgram": {
+      "title": "School program",
+      "desc": "After registration, the user gains access to the school program module for grades 1-3. Each class contains educational materials on mathematics for the corresponding grade. The user can navigate through the classes and access the learning materials tailored to their child's grade level. These materials include interactive exercises, examples, and explanations to help children grasp mathematical concepts effectively. Additionally, users can track their child's progress and performance within the app, allowing for personalized learning experiences. As the app continues to evolve, additional school programs for other grade levels will be added, providing a comprehensive educational resource for children of all ages. Users will also be able to earn XP, which will reflect their progress in the app."
+    },
+    "parentalControl": {
+      "title": "Parental Control",
+      "desc": "During registration, the user can indicate that they are a parent by checking a box. This grants them access to the parental control module, where they can register their child. Once registered, parents can monitor their child's progress and XP accumulation within the app. This feature allows parents to actively engage in their child's learning journey and provides them with insights into their child's educational development."
+    }
+  }  
 }

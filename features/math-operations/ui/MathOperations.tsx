@@ -9,7 +9,7 @@ export const MathOperations = ({ navigation }) => {
   const { t } = useTranslation()
 
   return (
-    <AppLayout title={t('mathOperations.title')}>
+    <AppLayout title={t('screens.math')}>
       <ScrollView>
         <BlueButton
           title={t('mathOperations.summ')}
@@ -24,7 +24,7 @@ export const MathOperations = ({ navigation }) => {
           path={PATHS.MULT}
         />
         <BlueButton
-          title={t('screens.equations')}
+          title={t('mathOperations.equations')}
           path={PATHS.EQUATIONS}
         />
       </ScrollView>

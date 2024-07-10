@@ -47,61 +47,47 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   api,
   extraOptions
 ) => {
-  const token = await AsyncStorage.getItem('accessToken')
-  if (token) {
-    const tokenString = token as string
-    const decodedToken = await algByDecodingToken(tokenString)
+  let result = await baseQuery(args, api, extraOptions)
+  if (result.error && result.error.status === 401) {
+    const token = await AsyncStorage.getItem('accessToken')
+    console.log(token);
+  
+    if (token) {
+      const tokenString = token as string
+      const decodedToken = await algByDecodingToken(tokenString)
 
-    if (!decodedToken.isExpirationTimeLongerThanCurrent) {
-      const refreshResult = await baseQuery({
-          method: 'GET',
-          url: `${baseURL}refresh`,
-        },
-        api,
-        extraOptions
-      )
+      if (!decodedToken.isExpirationTimeLongerThanCurrent) {
+        console.log(decodedToken);
+        
+        const refreshResult = await baseQuery({
+            method: 'GET',
+            url: `${baseURL}refresh`,
+          },
+          api,
+          extraOptions
+        )
 
-      if (
-        refreshResult.data &&
-        typeof refreshResult.data === 'object' &&
-        'accessToken' in refreshResult.data &&
-        'refreshToken' in refreshResult.data
-      ) {
-        await AsyncStorage.setItem('accessToken', refreshResult.data.accessToken as string)
-        await AsyncStorage.setItem('refreshToken', refreshResult.data.accessToken as string)
+        if (
+          refreshResult.data &&
+          typeof refreshResult.data === 'object' &&
+          'accessToken' in refreshResult.data
+        ) {
+          await AsyncStorage.setItem('accessToken', refreshResult.data.accessToken as string)
+        }
       }
     }
   }
 
-  let result = await baseQuery(args, api, extraOptions)
-
-  if (
-    (api.endpoint === 'login' || api.endpoint === 'refresh') &&
-    result.data &&
-    typeof result.data === 'object' &&
-    'accessToken' in result.data &&
-    'refreshToken' in result.data
-  ) {
+  if ((api.endpoint === 'login' || api.endpoint === 'refresh') && result.data && typeof result.data === 'object' && 'accessToken' in result.data) {
     await AsyncStorage.setItem('accessToken', result.data.accessToken as string)
-    await AsyncStorage.setItem('refreshToken', result.data.accessToken as string)
   }
 
-  if (
-    api.endpoint === 'me' && 
-    result.data && 
-    typeof result.data === 'object' && 
-    'accessToken' in result.data
-  ) {
+  if (api.endpoint === 'me' && result.data && typeof result.data === 'object' && 'accessToken' in result.data) {
     await AsyncStorage.getItem('accessToken')
   }
 
-  if (
-    api.endpoint === 'logout'&& 
-    result.data&& 
-    typeof result.data === 'object'
-  ) {
+  if (api.endpoint === 'logout'&& result.data&& typeof result.data === 'object') {
     await AsyncStorage.removeItem('accessToken')
-    await AsyncStorage.removeItem('refreshToken')
   }
 
   return result

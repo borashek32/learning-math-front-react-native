@@ -24,7 +24,8 @@ import { setTotalUserScore } from '../../../profile/profile.slice'
 import { MathOperationsConstants, MathSignsConstants } from '../../../../common/constants/MathConstants'
 import { checkMathOperation } from '../../../../common/utils/math/checkMathOperation'
 import { generateRandomNumber } from '../../../../common/utils/math/generateRandomNumber'
-import { Keyboard } from 'react-native'
+import { Keyboard, Vibration } from 'react-native'
+import { VIBRATION_PATTERN } from '../../../../common/patterns/vibration'
 
 type Props = {
   route: {
@@ -64,13 +65,18 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
       if (score <= 5) {
         setFirstNumber(generateRandomNumber(10, 100))
         setSecondNumber(generateRandomNumber(1, 10))
+        setThirdNumber(null)
+        setFourthNumber(null)
       }
       if (score > 5) {
         setFirstNumber(generateRandomNumber(30, 60))
+        setSecondNumber(generateRandomNumber(1, 10))
         setThirdNumber(generateRandomNumber(1, 10))
+        setFourthNumber(null)
       }
       if (score > 10) {
         setFirstNumber(generateRandomNumber(30, 80))
+        setSecondNumber(generateRandomNumber(1, 10))
         setThirdNumber(generateRandomNumber(1, 10))
         setFourthNumber(generateRandomNumber(1, 10))
       }
@@ -92,67 +98,95 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
     setAnswer(answer)
   }
 
-  const {
-    handleSubmit,
-    reset,
-  } = useForm<ScoreType>({
-    defaultValues: {
-      score: score,
-      userId: useAppSelector(selectUserId), 
-      date: new Date()
-    },
-    mode: 'onChange',
-    resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  })
+  // const {
+  //   handleSubmit,
+  //   reset,
+  // } = useForm<ScoreType>({
+  //   defaultValues: {
+  //     score: score,
+  //     userId: useAppSelector(selectUserId), 
+  //     date: new Date()
+  //   },
+  //   mode: 'onChange',
+  //   resolver: yupResolver(formSchema) as Resolver<ScoreType>,
+  // })
   
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('')
-    Keyboard.dismiss()
+  // const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+  //   setServerError('')
+  //   Keyboard.dismiss()
 
+  //   if (( checkMathOperation({
+  //     answer: Number(answer),
+  //     operation: MathOperationsConstants.SUMM, 
+  //     firstOperand: firstNumber, 
+  //     secondOperand: secondNumber,
+  //     thirdOperand: thirdNumber ? thirdNumber : null,
+  //     fourthOperand: fourthNumber ? fourthNumber : null,
+  //   }) === true ) ||
+  //   ( checkMathOperation({
+  //     answer: Number(answer),
+  //     operation: MathOperationsConstants.DIFF, 
+  //     firstOperand: firstNumber, 
+  //     secondOperand: secondNumber,
+  //     thirdOperand: thirdNumber ? thirdNumber : null,
+  //     fourthOperand: fourthNumber ? fourthNumber : null,
+  //   }) === true )) {
+  //   // ||
+  //   // ( checkMathOperation({
+  //   //   score: score,
+  //   //   answer: Number(answer),
+  //   //   operation: MathOperationsConstants.DIVIDE, 
+  //   //   firstOperand: firstMultiplier, 
+  //   //   secondOperand: secondMultiplier,
+  //   // }) === true )) {
+  //     setScore(score + 1)
+  //     setRightWrong('right')
+  //     data = { ...data, score: 1 }
+
+  //   } else {
+  //     setScore(score - 1)
+  //     setRightWrong('wrong')
+  //     data = { ...data, score: -1 }
+  //   }
+    
+  //   updateScore(data)
+  //     .unwrap()
+  //     .then(response => {
+  //       reset()
+  //       setOpen(true)
+  //       dispatch(setTotalUserScore(response.data.score))
+  //     })
+  //     .catch((e: any) => {
+  //       if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
+  //     })
+  // }
+
+  const check = () => {
+    Vibration.vibrate(VIBRATION_PATTERN, false)
+    Keyboard.dismiss()
+    setOpen(true)
     if (( checkMathOperation({
       answer: Number(answer),
       operation: MathOperationsConstants.SUMM, 
       firstOperand: firstNumber, 
       secondOperand: secondNumber,
-      thirdOperand: thirdNumber ? thirdNumber : 0,
-      fourthOperand: fourthNumber ? fourthNumber : 0,
+      thirdOperand: thirdNumber ? thirdNumber : null,
+      fourthOperand: fourthNumber ? fourthNumber : null,
     }) === true ) ||
     ( checkMathOperation({
       answer: Number(answer),
       operation: MathOperationsConstants.DIFF, 
       firstOperand: firstNumber, 
       secondOperand: secondNumber,
-      thirdOperand: thirdNumber ? thirdNumber : 0,
-      fourthOperand: fourthNumber ? fourthNumber : 0,
+      thirdOperand: thirdNumber ? thirdNumber : null,
+      fourthOperand: fourthNumber ? fourthNumber : null,
     }) === true )) {
-    // ||
-    // ( checkMathOperation({
-    //   score: score,
-    //   answer: Number(answer),
-    //   operation: MathOperationsConstants.DIVIDE, 
-    //   firstOperand: firstMultiplier, 
-    //   secondOperand: secondMultiplier,
-    // }) === true )) {
       setScore(score + 1)
       setRightWrong('right')
-      data = { ...data, score: 1 }
-
     } else {
       setScore(score - 1)
       setRightWrong('wrong')
-      data = { ...data, score: -1 }
     }
-    
-    updateScore(data)
-      .unwrap()
-      .then(response => {
-        reset()
-        setOpen(true)
-        dispatch(setTotalUserScore(response.data.score))
-      })
-      .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
-      })
   }
 
   const onPressPlayMore = () => {
@@ -228,7 +262,8 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+            // buttonCallback={handleSubmit(onSubmit)}
+            buttonCallback={check}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>

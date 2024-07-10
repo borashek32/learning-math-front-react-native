@@ -20,6 +20,8 @@ export const NavLinkButton: React.FC<DefaultButtonProps> = ({
     ? [styles.buttonTextSmall]
     : path === PATHS.HOME
     ? [styles.buttonTextSmall]
+    : path === PATHS.MAIN
+    ? [styles.buttonTextSmall]
     : path === PATHS.YOUR_SCORE
     ? [styles.buttonTextSmall]
     : path === PATHS.INSTRUCTIONS

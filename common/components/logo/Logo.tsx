@@ -32,9 +32,9 @@ export const Logo = () => {
     <View style={styles.logo}>
       <View style={styles.logoWrapper}>
         <View style={styles.learnMathComWrapper}>
-          <Text style={styles.learn}>Learn</Text>
-          <Text style={styles.mathCom}>-math</Text>
-          <Text style={styles.mathCom}>.com</Text>
+          <Text style={styles.learn}>Free</Text>
+          <Text style={styles.mathCom}>math</Text>
+          <Text style={styles.mathCom}>trainer</Text>
         </View>
         <View style={styles.digitsWrapper}>
           <Text style={styles.digit}>{firstDigit}</Text>
@@ -90,14 +90,14 @@ const styles = StyleSheet.create({
   },
   learn: {
     textAlign: 'left',
-    fontSize: 60,
+    fontSize: 52,
     fontWeight: '900',
     lineHeight: 50,
     marginLeft: -3,
   },
   mathCom: {
     textAlign: 'left',
-    fontSize: 34,
+    fontSize: 30,
     fontWeight: '500',
     lineHeight: 30,
   },

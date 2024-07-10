@@ -89,7 +89,7 @@ export const ChangeAvatar = ({ navigation }) => {
               source={user.avatarPath} 
               name={user.avatarName}
             />
-          : <AppText desc={t('profile.changeAvatar')} />
+          : <AppText desc={t('profile.changeAvatar')} link={false} />
         }
         <DevideLine />
         <ScrollView contentContainerStyle={styles.menuContainer}>

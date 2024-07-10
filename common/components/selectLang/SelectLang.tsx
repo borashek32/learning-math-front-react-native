@@ -14,7 +14,7 @@ export const SelectLang = () => {
   return (
     <View style={styles.selectWrapper}>
       <View style={styles.select}>
-        <Text style={styles.change}>{t('nav.select.changeLang')}</Text>
+        <Text style={styles.change}>{t('changeLang.select')}</Text>
 
         <RNPickerSelect
           useNativeAndroidPickerStyle={false}
@@ -24,8 +24,8 @@ export const SelectLang = () => {
           onOpen={() => setIsPickerOpen(true)}
           onClose={() => setIsPickerOpen(false)}
           items={[
-            { key: 'ru', label: t('nav.select.options.ru'), value: 'ru', color: 'black' },
-            { key: 'en', label: t('nav.select.options.en'), value: 'en', color: 'black' },
+            { key: 'ru', label: t('changeLang.options.ru'), value: 'ru', color: 'black' },
+            { key: 'en', label: t('changeLang.options.en'), value: 'en', color: 'black' },
           ]}
           Icon={() => {
             return (

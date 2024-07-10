@@ -2,10 +2,14 @@ import { Text, TouchableOpacity } from "react-native"
 import { StyleSheet } from "react-native"
 import { MathOperationButtonProps } from './Buttons.types'
 
-export const MathOperationButton = ({ title, buttonCallback }: MathOperationButtonProps) => {
+export const MathOperationButton = ({ title, buttonCallback, disabled }: MathOperationButtonProps) => {
 
   return (
-    <TouchableOpacity style={styles.button} onPress={buttonCallback}>
+    <TouchableOpacity 
+      style={[styles.button, disabled ? styles.disabledStyle : {}]} 
+      onPress={buttonCallback} 
+      disabled={disabled}
+    >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   )
@@ -24,4 +28,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
+  disabledStyle: {
+    backgroundColor: 'grey'
+  }
 })

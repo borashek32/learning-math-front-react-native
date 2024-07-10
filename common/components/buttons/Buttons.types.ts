@@ -1,7 +1,7 @@
 import { PATHS } from "../../constants/paths"
 
 export type DefaultButtonProps = {
-  title: string
+  title?: string
   path?: PATHS.DIFF | 
     PATHS.SUMM | 
     PATHS.HOME | 
@@ -34,5 +34,6 @@ export type DefaultButtonProps = {
 
 export type MathOperationButtonProps = {
   buttonCallback: () => void
+  disabled?: boolean
   title: string
 }

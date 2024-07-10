@@ -9,7 +9,7 @@ export const Equations = () => {
   const { t } = useTranslation()
 
   return (
-    <AppLayout title={t('screens.equations')}>
+    <AppLayout title={t('mathOperations.equations')}>
       <ScrollView>
         <BlueButton
           title={t('mathOperations.equationsWithX')}

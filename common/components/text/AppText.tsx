@@ -3,7 +3,7 @@ import { Props } from "./AppText.types"
 import { StyleSheet } from 'react-native'
 import { FC } from "react"
 
-export const AppText: FC<Props> = ({ desc, onPress }: Props) => {
+export const AppText: FC<Props> = ({ desc, onPress,link }: Props) => {
 
   return <Text style={styles.digitsText} onPress={onPress}>{desc}</Text>
 }
