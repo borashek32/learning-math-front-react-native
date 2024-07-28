@@ -102,7 +102,7 @@ export const Navigation = () => {
             <Stack.Screen
               name={PATHS.SUMM}
               component={SummDifference}
-              options={{ headerTitle: t('screens.summ') }}
+              options={{ headerTitle: t('screens.sum') }}
               initialParams={{ mathOperation: MathOperationsConstants.SUMM }}
             />
             <Stack.Screen
