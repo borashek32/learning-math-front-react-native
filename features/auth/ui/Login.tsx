@@ -80,7 +80,7 @@ export const Login = ({ navigation }) => {
   return (
     <>
       {isLoading && <Loader />}
-      <AuthLayout title={t('auth.links.login')}>
+      <AuthLayout title={t('screens.login')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
           {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}>
@@ -157,13 +157,13 @@ export const Login = ({ navigation }) => {
           </View>
 
           <DefaultButton 
-            title={t('auth.links.register')} 
+            title={t('screens.register')} 
             text={t('auth.login.note')}
             path={PATHS.REGISTER}
           />
 
           <DefaultButton 
-            title={t('auth.links.forgotPassword')} 
+            title={t('screens.forgotPassword')} 
             text={t('auth.forgotPassword.note')}
             path={PATHS.FORGOT_PASSWORD}
           />  
