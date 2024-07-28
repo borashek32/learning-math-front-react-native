@@ -75,7 +75,7 @@ export const Nav = () => {
               title={t("screens.home")}
               path={PATHS.MAIN}
               onPress={() => {
-                navigation.navigate(PATHS.MAIN as never)
+                navigation.navigate(PATHS.HOME as never)
                 setMenuOpen(false)
               }} 
             />
