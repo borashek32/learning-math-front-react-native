@@ -8,7 +8,6 @@ import { Login } from '../screens/auth/ui/Login'
 import { Register } from '../screens/auth/ui/Register'
 import { Verify } from '../screens/auth/ui/Verify'
 import { Home } from '../screens/home/ui/Home'
-import { Instructions } from '../screens/home/ui/Instructions'
 import { Logout } from '../screens/auth/ui/Logout'
 import { MathOperations } from '../screens/math-operations/ui/MathOperations'
 import { Profile } from '../screens/profile/ui/Profile'
@@ -94,7 +93,9 @@ export const Navigation = () => {
           </>
         ) : (
           <>
+            <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
             <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home'), headerBackVisible: false }} />
+            <Stack.Screen name={PATHS.INSTRUCTIONS} component={Docs} options={{ headerTitle: t('screens.instructions')}} />
             <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
             <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
             <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
@@ -118,11 +119,11 @@ export const Navigation = () => {
             />
             <Stack.Screen name={PATHS.MULT} 
               component={Multiplication} 
-              options={{ headerTitle: t('mathOperations.mult') }} 
+              options={{ headerTitle: t('mathOperations.multiplication') }} 
             />
             <Stack.Screen name={PATHS.MULT_DIGIT} 
               component={MultiplicationNumber} 
-              options={{ headerTitle: t('mathOperations.multDigit') }} 
+              options={{ headerTitle: t('mathOperations.multBy') }} 
             />
             <Stack.Screen name={PATHS.MULT_NULLS} 
               component={MultiplicationNulls} 

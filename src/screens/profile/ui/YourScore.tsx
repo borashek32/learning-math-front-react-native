@@ -24,12 +24,10 @@ export const YourScore = () => {
   const { t } = useTranslation()
 
   return (
-    <>
-      <AppLayout title={t('profile.yourScore')}>
-        <View style={styles.menuContainer}>
-          {totalUserScore && <Score score={totalUserScore} />}
-        </View>
-      </AppLayout>
-    </>
+    <AppLayout title={t('yourScore.total')}>
+      <View style={styles.menuContainer}>
+        {totalUserScore && <Score score={totalUserScore} />}
+      </View>
+    </AppLayout>
   )
 }

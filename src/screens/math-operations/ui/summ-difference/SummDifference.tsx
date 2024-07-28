@@ -161,33 +161,33 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
       })
   }
 
-  const check = () => {
-    Vibration.vibrate(VIBRATION_PATTERN, false)
-    Keyboard.dismiss()
-    setOpen(true)
-    if (( checkMathOperation({
-      answer: Number(answer),
-      operation: MathOperationsConstants.SUMM, 
-      firstOperand: firstNumber, 
-      secondOperand: secondNumber,
-      thirdOperand: thirdNumber ? thirdNumber : null,
-      fourthOperand: fourthNumber ? fourthNumber : null,
-    }) === true ) ||
-    ( checkMathOperation({
-      answer: Number(answer),
-      operation: MathOperationsConstants.DIFF, 
-      firstOperand: firstNumber, 
-      secondOperand: secondNumber,
-      thirdOperand: thirdNumber ? thirdNumber : null,
-      fourthOperand: fourthNumber ? fourthNumber : null,
-    }) === true )) {
-      setScore(score + 1)
-      setRightWrong('right')
-    } else {
-      setScore(score - 1)
-      setRightWrong('wrong')
-    }
-  }
+  // const check = () => {
+  //   Vibration.vibrate(VIBRATION_PATTERN, false)
+  //   Keyboard.dismiss()
+  //   setOpen(true)
+  //   if (( checkMathOperation({
+  //     answer: Number(answer),
+  //     operation: MathOperationsConstants.SUMM, 
+  //     firstOperand: firstNumber, 
+  //     secondOperand: secondNumber,
+  //     thirdOperand: thirdNumber ? thirdNumber : null,
+  //     fourthOperand: fourthNumber ? fourthNumber : null,
+  //   }) === true ) ||
+  //   ( checkMathOperation({
+  //     answer: Number(answer),
+  //     operation: MathOperationsConstants.DIFF, 
+  //     firstOperand: firstNumber, 
+  //     secondOperand: secondNumber,
+  //     thirdOperand: thirdNumber ? thirdNumber : null,
+  //     fourthOperand: fourthNumber ? fourthNumber : null,
+  //   }) === true )) {
+  //     setScore(score + 1)
+  //     setRightWrong('right')
+  //   } else {
+  //     setScore(score - 1)
+  //     setRightWrong('wrong')
+  //   }
+  // }
 
   const onPressPlayMore = () => {
     setOpen(false)
@@ -262,8 +262,7 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            // buttonCallback={handleSubmit(onSubmit)}
-            buttonCallback={check}
+            buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>

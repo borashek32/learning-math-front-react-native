@@ -14,7 +14,7 @@ import { UserAvatar } from "../avatar/UserAvatar"
 import { useNavigation } from "@react-navigation/native"
 import { useGetTotalUserScoreQuery } from "../../api/profile/profile.api"
 import { useDispatch } from "react-redux"
-import { setTotalUserScore } from "../../screens/profile/profile.slice"
+import { setTotalUserScore } from '../../redux/slices/profile.slice'
 
 export const Nav = () => {
   const navigation = useNavigation()
@@ -25,11 +25,11 @@ export const Nav = () => {
 
   const dispatch = useDispatch()
   const userId = useAppSelector(selectUserId)
-  // const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
+  const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
 
-  // useEffect(() => {
-  //   userScoreData && dispatch(setTotalUserScore(userScoreData.score))
-  // }, [userScoreData, dispatch])
+  useEffect(() => {
+    userScoreData && dispatch(setTotalUserScore(userScoreData.score))
+  }, [userScoreData, dispatch])
   
   const { t } = useTranslation()
 
@@ -42,12 +42,12 @@ export const Nav = () => {
       <View style={styles.header}>
         <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN} />
         <View style={userEmail ? styles.headerWithUser : {}}>
-          {/* {userEmail && 
+          {userEmail && 
             <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE as never)}>
               <Text style={styles.buttonTextSmall}>{userEmail}</Text>
-              <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text>
+              {/* <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text> */}
             </TouchableOpacity>
-          } */}
+          }
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
             <Animatable.View 
               style={[styles.line, menuOpen && styles.lineActive]} 
@@ -65,17 +65,17 @@ export const Nav = () => {
       {menuOpen && (
         <View style={styles.navigation}>
           <View style={styles.menuItems}>
-            {/* {avatarPath && 
+            {avatarPath && 
               <UserAvatar 
                 source={avatarPath}
                 small={true}
               />
-            } */}
+            }
             <NavLinkButton 
               title={t("screens.home")}
               path={PATHS.MAIN}
               onPress={() => {
-                navigation.navigate(PATHS.MAIN as never)
+                navigation.navigate(PATHS.HOME as never)
                 setMenuOpen(false)
               }} 
             />
@@ -96,8 +96,8 @@ export const Nav = () => {
               }}  
             />
             <View style={styles.footerDevideLine}></View>
-            {/* <NavLinkButton 
-              title={t("nav.items.profile")} 
+            <NavLinkButton 
+              title={t("screens.profile")} 
               path={PATHS.PROFILE} 
               onPress={() => {
                 navigation.navigate(PATHS.PROFILE as never)
@@ -105,7 +105,7 @@ export const Nav = () => {
               }} 
             />
             <NavLinkButton 
-              title={t("nav.items.score")} 
+              title={t("yourScore.total")} 
               path={PATHS.YOUR_SCORE} 
               onPress={() => {
                 navigation.navigate(PATHS.YOUR_SCORE as never)
@@ -119,7 +119,7 @@ export const Nav = () => {
                 navigation.navigate(PATHS.LOGOUT as never)
                 setMenuOpen(false)
               }} 
-            /> */}
+            />
             <SelectLang />
           </View>
         </View>
