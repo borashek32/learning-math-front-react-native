@@ -118,11 +118,11 @@ export const Navigation = () => {
             />
             <Stack.Screen name={PATHS.MULT} 
               component={Multiplication} 
-              options={{ headerTitle: t('mathOperations.mult') }} 
+              options={{ headerTitle: t('mathOperations.multiplication') }} 
             />
             <Stack.Screen name={PATHS.MULT_DIGIT} 
               component={MultiplicationNumber} 
-              options={{ headerTitle: t('mathOperations.multDigit') }} 
+              options={{ headerTitle: t('mathOperations.multBy') }} 
             />
             <Stack.Screen name={PATHS.MULT_NULLS} 
               component={MultiplicationNulls} 

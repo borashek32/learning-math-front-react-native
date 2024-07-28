@@ -21,7 +21,7 @@ import { Loader } from '../../../../../components/loaders/CircularLoader'
 import { Modal } from '../../../../../components/modal/Modal'
 import { Error } from '../../../../../components/error/Error'
 import { useDispatch } from 'react-redux'
-import { setTotalUserScore } from '../../../../profile/profile.slice'
+import { setTotalUserScore } from '../../../../../redux/slices/profile.slice'
 
 export const MultiplicationCheck = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
@@ -52,44 +52,44 @@ export const MultiplicationCheck = () => {
     setAnswer(answer)
   }
 
-  // const {
-  //   handleSubmit,
-  //   reset,
-  // } = useForm<ScoreType>({
-  //   defaultValues: {
-  //     score: score,
-  //     userId: useAppSelector(selectUserId), 
-  //     date: new Date()
-  //   },
-  //   mode: 'onChange',
-  //   resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  // })
+  const {
+    handleSubmit,
+    reset,
+  } = useForm<ScoreType>({
+    defaultValues: {
+      score: score,
+      userId: useAppSelector(selectUserId), 
+      date: new Date()
+    },
+    mode: 'onChange',
+    resolver: yupResolver(formSchema) as Resolver<ScoreType>,
+  })
 
-  // const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-  //   setServerError('')
-  //   const answerToNumber = Number(answer)
-  //   Keyboard.dismiss()
-  //   if (answerToNumber === secondMultiplier) {
-  //     setScore(score + 1)
-  //     setRightWrong('right')
-  //     data = { ...data, score: 1 }
-  //   } else {
-  //     setScore(score - 1)
-  //     setRightWrong('wrong')
-  //     data = { ...data, score: -1 }
-  //   }
+  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+    setServerError('')
+    const answerToNumber = Number(answer)
+    Keyboard.dismiss()
+    if (answerToNumber === secondMultiplier) {
+      setScore(score + 1)
+      setRightWrong('right')
+      data = { ...data, score: 1 }
+    } else {
+      setScore(score - 1)
+      setRightWrong('wrong')
+      data = { ...data, score: -1 }
+    }
 
-  //   updateScore(data)
-  //     .unwrap()
-  //     .then(response => {
-  //       reset()
-  //       setOpen(true)
-  //       dispatch(setTotalUserScore(response.data.score))
-  //     })
-  //     .catch((e: any) => {
-  //       if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
-  //     })
-  // }
+    updateScore(data)
+      .unwrap()
+      .then(response => {
+        reset()
+        setOpen(true)
+        dispatch(setTotalUserScore(response.data.score))
+      })
+      .catch((e: any) => {
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
+      })
+  }
 
   const check = () => {
     const answerToNumber = Number(answer)
@@ -157,8 +157,7 @@ export const MultiplicationCheck = () => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            // buttonCallback={handleSubmit(onSubmit)}
-            buttonCallback={check}
+            buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
           />
         </ButtonsLayout>
