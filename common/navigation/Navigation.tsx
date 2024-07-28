@@ -36,7 +36,6 @@ const prefixes = [prefix]
 
 export const Navigation = () => {
   const isLoggedIn = useAuthentication()
-  
   const { t } = useTranslation('translation')
 
   const linking = {
@@ -57,26 +56,26 @@ export const Navigation = () => {
         [PATHS.EQUATIONS_XY]: PATHS.EQUATIONS_XY,
 
         [PATHS.MAIN]: PATHS.MAIN,
-        // [PATHS.LOGIN]: PATHS.LOGIN,
-        // [PATHS.REGISTER]: PATHS.REGISTER,
-        // [PATHS.VERIFY]: {
-        //   path: `${PATHS.VERIFY}/:verificationLink`,
-        //   parse: {
-        //     verificationLink: (verificationLink: string) => verificationLink,
-        //   },
-        // },
-        // [PATHS.FORGOT_PASSWORD]: PATHS.FORGOT_PASSWORD,
-        // [PATHS.CREATE_NEW_PASSWORD]: {
-        //   path: `${PATHS.CREATE_NEW_PASSWORD}/:createNewPasswordLink/:email`,
-        //   parse: {
-        //     createNewPasswordLink: (createNewPasswordLink: string) => createNewPasswordLink,
-        //     email: (email: string) => email,
-        //   },
-        // },
-        // [PATHS.CHANGE_EMAIL]: PATHS.CHANGE_EMAIL,
-        // [PATHS.CHANGE_PASSWORD]: PATHS.CHANGE_PASSWORD,
-        // [PATHS.YOUR_SCORE]: PATHS.YOUR_SCORE,
-        // [PATHS.CHANGE_AVATAR]: PATHS.CHANGE_AVATAR,
+        [PATHS.LOGIN]: PATHS.LOGIN,
+        [PATHS.REGISTER]: PATHS.REGISTER,
+        [PATHS.VERIFY]: {
+          path: `${PATHS.VERIFY}/:verificationLink`,
+          parse: {
+            verificationLink: (verificationLink: string) => verificationLink,
+          },
+        },
+        [PATHS.FORGOT_PASSWORD]: PATHS.FORGOT_PASSWORD,
+        [PATHS.CREATE_NEW_PASSWORD]: {
+          path: `${PATHS.CREATE_NEW_PASSWORD}/:createNewPasswordLink/:email`,
+          parse: {
+            createNewPasswordLink: (createNewPasswordLink: string) => createNewPasswordLink,
+            email: (email: string) => email,
+          },
+        },
+        [PATHS.CHANGE_EMAIL]: PATHS.CHANGE_EMAIL,
+        [PATHS.CHANGE_PASSWORD]: PATHS.CHANGE_PASSWORD,
+        [PATHS.YOUR_SCORE]: PATHS.YOUR_SCORE,
+        [PATHS.CHANGE_AVATAR]: PATHS.CHANGE_AVATAR,
       },
     },
   }
@@ -84,70 +83,66 @@ export const Navigation = () => {
   return (
     <NavigationContainer linking={linking} fallback={<Loader />}>
       <Stack.Navigator initialRouteName={isLoggedIn ? PATHS.HOME : PATHS.MAIN}>
-        {/* {!isLoggedIn ?
-          ( */}
-            <>
-              <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
-              <Stack.Screen name={PATHS.INSTRUCTIONS} component={Docs} options={{ headerTitle: t('screens.instructions')}} />
-              {/* <Stack.Screen name={PATHS.LOGIN} component={Login} options={{ headerTitle: t('screens.login') }} />
-              <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />
-              <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
-              <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />          */}
-            </>
-          {/* ) : ( */}
-            <>
-              <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home'), headerBackVisible: false }} />
-              <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
-              <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
-              <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
-              <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
-              <Stack.Screen
-                name={PATHS.SUMM}
-                component={SummDifference}
-                options={{ headerTitle: t('screens.summ') }}
-                initialParams={{ mathOperation: MathOperationsConstants.SUMM }}
-              />
-              <Stack.Screen
-                name={PATHS.DIFF}
-                component={SummDifference}
-                options={{ headerTitle: t('screens.diff') }}
-                initialParams={{ mathOperation: MathOperationsConstants.DIFF }}
-              />
-              <Stack.Screen
-                name={PATHS.MULT_CHECK}
-                component={MultiplicationCheck}
-                options={{ headerTitle: t('screens.multCheck') }}
-                // initialParams={{ mathOperation: MathOperationsConstants.DIVIDE }}
-              />
-              <Stack.Screen name={PATHS.MULT} 
-                component={Multiplication} 
-                options={{ headerTitle: t('screens.mult') }} 
-              />
-              <Stack.Screen name={PATHS.MULT_DIGIT} 
-                component={MultiplicationNumber} 
-                options={{ headerTitle: t('screens.multDigit') }} 
-              />
-              <Stack.Screen name={PATHS.MULT_NULLS} 
-                component={MultiplicationNulls} 
-                options={{ headerTitle: t('screens.multNulls') }} 
-              />
-              <Stack.Screen name={PATHS.EQUATIONS} 
-                component={Equations} 
-                options={{ headerTitle: t('mathOperations.equations') }} 
-              />
-              <Stack.Screen name={PATHS.EQUATIONS_X} 
-                component={EquationsWithX} 
-                options={{ headerTitle: t('mathOperations.equationsWithX') }} 
-              />
-              {/* <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
-              <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />
-              <Stack.Screen name={PATHS.CHANGE_PASSWORD} component={ChangePassword} options={{ headerTitle: t('screens.changePassword') }} />
-              <Stack.Screen name={PATHS.CHANGE_AVATAR} component={ChangeAvatar} options={{ headerTitle: t('screens.changeAvatar') }} /> */}
-            </>
-          {/* )
-        } */}
+        {!isLoggedIn ? (
+          <>
+            <Stack.Screen name={PATHS.MAIN} component={Main} options={{ headerTitle: t('screens.main')}} />
+            <Stack.Screen name={PATHS.INSTRUCTIONS} component={Docs} options={{ headerTitle: t('screens.instructions')}} />
+            <Stack.Screen name={PATHS.LOGIN} component={Login} options={{ headerTitle: t('screens.login') }} />
+            <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />
+            <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
+            <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />         
+          </>
+        ) : (
+          <>
+            <Stack.Screen name={PATHS.HOME} component={Home} options={{ headerTitle: t('screens.home'), headerBackVisible: false }} />
+            <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
+            <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
+            <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
+            <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
+            <Stack.Screen
+              name={PATHS.SUMM}
+              component={SummDifference}
+              options={{ headerTitle: t('screens.summ') }}
+              initialParams={{ mathOperation: MathOperationsConstants.SUMM }}
+            />
+            <Stack.Screen
+              name={PATHS.DIFF}
+              component={SummDifference}
+              options={{ headerTitle: t('screens.diff') }}
+              initialParams={{ mathOperation: MathOperationsConstants.DIFF }}
+            />
+            <Stack.Screen
+              name={PATHS.MULT_CHECK}
+              component={MultiplicationCheck}
+              options={{ headerTitle: t('screens.multCheck') }}
+            />
+            <Stack.Screen name={PATHS.MULT} 
+              component={Multiplication} 
+              options={{ headerTitle: t('screens.mult') }} 
+            />
+            <Stack.Screen name={PATHS.MULT_DIGIT} 
+              component={MultiplicationNumber} 
+              options={{ headerTitle: t('screens.multDigit') }} 
+            />
+            <Stack.Screen name={PATHS.MULT_NULLS} 
+              component={MultiplicationNulls} 
+              options={{ headerTitle: t('screens.multNulls') }} 
+            />
+            <Stack.Screen name={PATHS.EQUATIONS} 
+              component={Equations} 
+              options={{ headerTitle: t('mathOperations.equations') }} 
+            />
+            <Stack.Screen name={PATHS.EQUATIONS_X} 
+              component={EquationsWithX} 
+              options={{ headerTitle: t('mathOperations.equationsWithX') }} 
+            />
+            <Stack.Screen name={PATHS.CREATE_NEW_PASSWORD} component={CreateNewPassword} options={{ headerTitle: t('screens.createNewPassword') }} />
+            <Stack.Screen name={PATHS.CHANGE_EMAIL} component={ChangeEmail} options={{ headerTitle: t('screens.changeEmail') }} />
+            <Stack.Screen name={PATHS.CHANGE_PASSWORD} component={ChangePassword} options={{ headerTitle: t('screens.changePassword') }} />
+            <Stack.Screen name={PATHS.CHANGE_AVATAR} component={ChangeAvatar} options={{ headerTitle: t('screens.changeAvatar') }} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
-

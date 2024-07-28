@@ -18,14 +18,14 @@ export const Main = ({ navigation }) => {
           title={t('screens.instructions')}
           onPress={() => navigation.navigate(PATHS.INSTRUCTIONS)}
         />
-        {/* <BlueButton
-          title={t('auth.links.register')}
+        <BlueButton
+          title={t('screens.register')}
           onPress={() => navigation.navigate(PATHS.REGISTER)}
         />
         <BlueButton
-          title={t('auth.links.login')}
+          title={t('screens.login')}
           onPress={() => navigation.push(PATHS.LOGIN)}
-        /> */}
+        />
       </BaseLayout>
     </>
   )

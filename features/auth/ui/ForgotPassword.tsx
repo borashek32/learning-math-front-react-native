@@ -69,7 +69,7 @@ export const ForgotPassword = () => {
           buttonBack={false}
         />
       }
-      <AuthLayout title={t('auth.links.forgotPassword')}>
+      <AuthLayout title={t('screens.forgotPassword')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
           {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}> 
