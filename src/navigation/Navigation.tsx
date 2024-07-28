@@ -102,31 +102,31 @@ export const Navigation = () => {
             <Stack.Screen
               name={PATHS.SUMM}
               component={SummDifference}
-              options={{ headerTitle: t('screens.sum') }}
+              options={{ headerTitle: t('mathOperations.sum') }}
               initialParams={{ mathOperation: MathOperationsConstants.SUMM }}
             />
             <Stack.Screen
               name={PATHS.DIFF}
               component={SummDifference}
-              options={{ headerTitle: t('screens.diff') }}
+              options={{ headerTitle: t('mathOperations.diff') }}
               initialParams={{ mathOperation: MathOperationsConstants.DIFF }}
             />
             <Stack.Screen
               name={PATHS.MULT_CHECK}
               component={MultiplicationCheck}
-              options={{ headerTitle: t('screens.multCheck') }}
+              options={{ headerTitle: t('mathOperations.multCheck') }}
             />
             <Stack.Screen name={PATHS.MULT} 
               component={Multiplication} 
-              options={{ headerTitle: t('screens.mult') }} 
+              options={{ headerTitle: t('mathOperations.mult') }} 
             />
             <Stack.Screen name={PATHS.MULT_DIGIT} 
               component={MultiplicationNumber} 
-              options={{ headerTitle: t('screens.multDigit') }} 
+              options={{ headerTitle: t('mathOperations.multDigit') }} 
             />
             <Stack.Screen name={PATHS.MULT_NULLS} 
               component={MultiplicationNulls} 
-              options={{ headerTitle: t('screens.multNulls') }} 
+              options={{ headerTitle: t('mathOperations.multNulls') }} 
             />
             <Stack.Screen name={PATHS.EQUATIONS} 
               component={Equations} 
