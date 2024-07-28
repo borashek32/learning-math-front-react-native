@@ -15,8 +15,8 @@ export const Home = () => {
     <>
       <AppLayout>
         <View style={styles.menuContainer}>
-          <DefaultButton title={t('nav.items.mathOperations')} path={PATHS.MATH_OPERATIONS}/>
-          <DefaultButton title={t('nav.items.instructions')} path={PATHS.INSTRUCTIONS}/>
+          <DefaultButton title={t('screens.math')} path={PATHS.MATH_OPERATIONS}/>
+          <DefaultButton title={t('screens.instructions')} path={PATHS.INSTRUCTIONS}/>
           <DevideLine />
           <DefaultButton title={t('screens.profile')} path={PATHS.PROFILE} />
           <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />

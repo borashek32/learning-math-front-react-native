@@ -12,7 +12,7 @@ export const MathOperations = ({ navigation }) => {
     <AppLayout title={t('screens.math')}>
       <ScrollView>
         <BlueButton
-          title={t('mathOperations.summ')}
+          title={t('mathOperations.sum')}
           path={PATHS.SUMM}
         />
         <BlueButton

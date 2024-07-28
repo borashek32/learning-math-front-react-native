@@ -13,7 +13,7 @@ export const Profile = () => {
   return (
     <AppLayout title={t('screens.profile')}>
       <View style={styles.menuContainer}>
-        <DefaultButton title={t('profile.yourScore')} path={PATHS.YOUR_SCORE} />
+        <DefaultButton title={t('yourScore.total')} path={PATHS.YOUR_SCORE} />
         <DevideLine />
         <DefaultButton title={t('screens.changeAvatar')} path={PATHS.CHANGE_AVATAR} />
         <DefaultButton title={t('screens.changeEmail')} path={PATHS.CHANGE_EMAIL} />
