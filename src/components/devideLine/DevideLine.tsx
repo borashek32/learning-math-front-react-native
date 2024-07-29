@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native";
 
 export const DevideLine = () => {
 
@@ -6,18 +6,18 @@ export const DevideLine = () => {
     <View style={styles.footerDevideLineWrapper}>
       <View style={styles.footerDevideLine}></View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  footerDevideLineWrapper: {
-    alignItems: 'center',
-  },
   footerDevideLine: {
+    backgroundColor: "#61dafb",
     height: 2,
-    width: 200,
-    backgroundColor: '#61dafb',
+    marginBottom: 20,
     marginTop: 20,
-    marginBottom: 20
+    width: 200
   },
-})
+  footerDevideLineWrapper: {
+    alignItems: "center",
+  },
+});

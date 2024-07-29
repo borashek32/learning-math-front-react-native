@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next"
-import { StyleSheet, Text, TouchableOpacity } from "react-native"
-import { DefaultButtonProps } from "./Buttons.types"
-import { useNavigation } from "@react-navigation/native"
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { DefaultButtonProps } from "./Buttons.types";
+import { useNavigation } from "@react-navigation/native";
+import { FC } from "react";
 
-export const BlueButton: React.FC<DefaultButtonProps> = ({ 
+export const BlueButton: FC<DefaultButtonProps> = ({ 
   title, 
   path,
   text,
@@ -12,18 +12,17 @@ export const BlueButton: React.FC<DefaultButtonProps> = ({
   source,
   avatarName,
 }: DefaultButtonProps) => {
-  const navigation = useNavigation()
-  const { t } = useTranslation('translation')
+  const navigation = useNavigation();
 
   const handlePress = () => {
     if (path) {
-      navigation.navigate(path as never)
+      navigation.navigate(path as never);
     } else if (onPressWithValue) {
-      onPressWithValue(source, avatarName)
+      onPressWithValue(source, avatarName);
     } else if (onPress) {
-      onPress()
+      onPress();
     }
-  }
+  };
 
   return (
     <TouchableOpacity
@@ -32,22 +31,22 @@ export const BlueButton: React.FC<DefaultButtonProps> = ({
     >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#61dafb',
-    padding: 10,
-    marginBottom: 10,
+    alignItems: "center",
+    backgroundColor: "#61dafb",
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    marginBottom: 10,
+    padding: 10,
   },
   buttonText: {
+    color: "#000",
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
-})
+});

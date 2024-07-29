@@ -1,7 +1,7 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { DefaultButtonProps } from './Buttons.types'
-import { PATHS } from '../../constants/paths'
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { DefaultButtonProps } from "./Buttons.types";
+import { PATHS } from "../../constants/paths";
 
 export const NavLinkButton: React.FC<DefaultButtonProps> = ({ 
   title, 
@@ -25,7 +25,7 @@ export const NavLinkButton: React.FC<DefaultButtonProps> = ({
     ? [styles.buttonTextSmall]
     : path === PATHS.INSTRUCTIONS
     ? [styles.buttonTextSmall]
-    : [styles.button, styles.buttonBorder]
+    : [styles.button, styles.buttonBorder];
 
   return (
     <View style={styles.noteWrapper}>
@@ -37,44 +37,44 @@ export const NavLinkButton: React.FC<DefaultButtonProps> = ({
         <Text style={styles.buttonTextSmall}>{title}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 export const styles = StyleSheet.create({
-  noteWrapper: {
-    width: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  note: {
-    color: '#dfdfdf',
-    fontSize: 14,
-    textAlign: 'center',
-    marginTop: 30,
-    marginBottom: 10
-  },
   button: {
-    paddingVertical: 6,
-    paddingHorizontal: 13,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
+    backgroundColor: "#0D6EFD",
     borderRadius: 4,
-    backgroundColor: '#0D6EFD',
-  },
-  buttonLink: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'inherit',
+    justifyContent: "center",
+    paddingHorizontal: 13,
+    paddingVertical: 6,
   },
   buttonBorder: {
+    borderColor: "#000",
     borderWidth: 1,
-    borderColor: '#000',
+  },
+  buttonLink: {
+    alignItems: "center",
+    backgroundColor: "inherit",
+    justifyContent: "center",
   },
   buttonRed: {
     backgroundColor: "#fb6161",
   },
   buttonTextSmall: {
+    color: "#fff",
     fontSize: 14,
-    color: '#fff',
   },
-})
+  note: {
+    color: "#dfdfdf",
+    fontSize: 14,
+    marginBottom: 10,
+    marginTop: 30,
+    textAlign: "center"
+  },
+  noteWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 200,
+  },
+});

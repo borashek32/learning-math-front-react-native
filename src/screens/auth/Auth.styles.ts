@@ -1,52 +1,20 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "flex-start",
-    gap: 20,
-  },
-  title: {
-    fontSize: 30,
-    color: '#fff'
-  },
-  inputsWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 30,
-  },
-  inputContainer: {
-    position: 'relative',
-  },
-  input: {
-    padding: 5,
-    borderColor: "grey",
-    borderWidth: 1,
-    borderRadius: 10,
-    borderStyle: "solid",
-    width: 350,
-    height: 40,
-    color: '#fff',
-  },
-  buttonsWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-  },
   button: {
+    alignItems: "center",
     backgroundColor: "#0D6EFD",
     borderRadius: 4,
-    width: 250,
-    height: 40,
     display: "flex",
+    height: 40,
     justifyContent: "center",
-    alignItems: "center",
+    width: 250,
   },
   buttonOutlined: {
     backgroundColor: "#fff",
-    color: "#0D6EFD",
-    borderWidth: 1,
     borderColor: "#0D6EFD",
+    borderWidth: 1,
+    color: "#0D6EFD",
   },
   buttonText: {
     color: "#fff",
@@ -55,15 +23,47 @@ export const styles = StyleSheet.create({
   buttonTextOutlined: {
     color: "#0D6EFD",
   },
+  buttonsWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+  },
+  container: {
+    alignItems: "center",
+    gap: 20,
+    justifyContent: "flex-start",
+  },
   error: {
-    position: 'absolute',
-    top: -20,
-    color: 'red'
+    color: "red",
+    position: "absolute",
+    top: -20
+  },
+  input: {
+    borderColor: "grey",
+    borderRadius: 10,
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: "#fff",
+    height: 40,
+    padding: 5,
+    width: 350,
+  },
+  inputContainer: {
+    position: "relative",
+  },
+  inputsWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 30,
   },
   logoutWrapper: {
+    alignItems: "center",
+    backgroundColor: "#01143d",
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#01143d',
+    justifyContent: "flex-start",
+  },
+  title: {
+    color: "#fff",
+    fontSize: 30
   }
-})
+});

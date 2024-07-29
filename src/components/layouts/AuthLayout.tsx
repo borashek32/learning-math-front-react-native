@@ -1,13 +1,13 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Props } from './Layout.types'
-import { LogoSmall } from '../logo/LogoSmall'
-import { selectUserEmail } from '../../redux/selectors/auth.selectors'
-import { useAppSelector } from '../../hooks/useAppSelector'
-import { PATHS } from '../../constants/paths'
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Props } from "./Layout.types";
+import { LogoSmall } from "../logo/LogoSmall";
+import { selectUserEmail } from "../../redux/selectors/auth.selectors";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { PATHS } from "../../constants/paths";
 
 export const AuthLayout = ({ title, children }: Props) => {
-  const userEmail = useAppSelector(selectUserEmail)
+  const userEmail = useAppSelector(selectUserEmail);
 
   return (
     <>
@@ -21,32 +21,32 @@ export const AuthLayout = ({ title, children }: Props) => {
         {/* </View> */}
       </View>
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    backgroundColor: "#01143d",
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#01143d',
-  },
-  logoSmallWrapper: {
-    backgroundColor: '#01143d',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingLeft: 10
+    justifyContent: "flex-start",
   },
   contentWrapper: {
     marginTop: 40,
   },
-  title: {
-    marginBottom: 30,
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center'
+  logoSmallWrapper: {
+    alignItems: "flex-start",
+    backgroundColor: "#01143d",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingLeft: 10,
+    paddingTop: 10
   },
-})
+  title: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 30,
+    textAlign: "center"
+  },
+});

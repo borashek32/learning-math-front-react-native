@@ -5,8 +5,8 @@ export const enum PATHS {
   PROFILE = "profile",
   YOUR_SCORE = "score",
   
-  MATH_OPERATIONS = 'math-operations',
-  SUMM = "summ",
+  MATH_OPERATIONS = "math-operations",
+  SUM = "sum",
   DIFF = "diff",
   MULT = "multiplication",
   MULT_DIGIT = "multiplication-by-digit",

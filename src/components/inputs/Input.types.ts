@@ -1,4 +1,4 @@
-import { KeyboardTypeOptions } from "react-native"
+import { KeyboardTypeOptions } from "react-native";
 
 export type Props = {
   value: string

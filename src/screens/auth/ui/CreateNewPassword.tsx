@@ -1,20 +1,20 @@
-import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form"
-import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { useState } from "react"
-import { useSaveNewPasswordMutation } from "../../../api/auth/auth.api"
-import { Loader } from "../../../components/loaders/CircularLoader"
-import { Modal } from "../../../components/modal/Modal"
-import { useTranslation } from "react-i18next"
-import { useRoute } from "@react-navigation/native"
-import { PATHS } from "../../../constants/paths"
-import { AuthLayout } from "../../../components/layouts/AuthLayout"
-import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { styles } from '../Auth.styles'
-import { DefaultButton } from "../../../components/buttons/DefaultButton"
-import { Error } from "../../../components/error/Error"
-import { PasswordRecoveryType } from "../../../api/auth/auth.api.types"
-
+import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useSaveNewPasswordMutation } from "../../../api/auth/auth.api";
+import { Loader } from "../../../components/loaders/CircularLoader";
+import { Modal } from "../../../components/modal/Modal";
+import { useTranslation } from "react-i18next";
+import { useRoute } from "@react-navigation/native";
+import { PATHS } from "../../../constants/paths";
+import { AuthLayout } from "../../../components/layouts/AuthLayout";
+import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { styles } from "../Auth.styles";
+import { DefaultButton } from "../../../components/buttons/DefaultButton";
+import { Error } from "../../../components/error/Error";
+import { PasswordRecoveryType } from "../../../api/auth/auth.api.types";
+import { NavigationProps } from "../../../types/commonTypes.types";
 interface IFormProps {
   password: string
   passwordConfirmation: string
@@ -25,28 +25,28 @@ type Props = {
   email: string
 }
 
-export const CreateNewPassword = ({ navigation }) => {
-  const route = useRoute()
-  const { createNewPasswordLink, email } = route.params as Props
-  const [success, setSuccess] = useState(false)
-  const [open, setOpen] = useState(true)
-  const [serverError, setServerError] = useState('')
-  const [saveNewPassword, { isLoading }] = useSaveNewPasswordMutation()
+export const CreateNewPassword = ({ navigation }: NavigationProps) => {
+  const route = useRoute();
+  const { createNewPasswordLink, email } = route.params as Props;
+  const [success, setSuccess] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [serverError, setServerError] = useState("");
+  const [saveNewPassword, { isLoading }] = useSaveNewPasswordMutation();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const formSchema = yup.object().shape({
     password: yup.string()
-      .required(t('errors.required'))
-      .matches(/^[A-Za-z]+$/i, t('errors.latinLetters'))
-      .min(4, t('errors.min'))
-      .max(64, t('errors.max')),
+      .required(t("errors.required"))
+      .matches(/^[A-Za-z]+$/i, t("errors.latinLetters"))
+      .min(4, t("errors.min"))
+      .max(64, t("errors.max")),
     passwordConfirmation: yup.string()
-      .required(t('errors.required'))
-      .min(4, t('errors.min'))
-      .max(64, t('errors.max'))
-      .oneOf([yup.ref("passwordConfirmation")], t('errors.notMatch')),
-  })
+      .required(t("errors.required"))
+      .min(4, t("errors.min"))
+      .max(64, t("errors.max"))
+      .oneOf([yup.ref("passwordConfirmation")], t("errors.notMatch")),
+  });
 
   const {
     handleSubmit, 
@@ -59,46 +59,46 @@ export const CreateNewPassword = ({ navigation }) => {
   } = useForm<IFormProps>({
     mode: "onChange",
     defaultValues: {
-      password: '',
-      passwordConfirmation: '',
+      password: "",
+      passwordConfirmation: "",
     },
     resolver: yupResolver<any>(formSchema),
-  })
-  watch('password', '')
+  });
+  watch("password", "");
 
   const onSubmit: SubmitHandler<any> = (data: PasswordRecoveryType) => { 
     if (!data) {
-      setServerError('Some error occured')
+      setServerError("Some error occured");
     } else {
-      data = { ...data, email }
-      setServerError('')
+      data = { ...data, email };
+      setServerError("");
       saveNewPassword(data)
         .unwrap()
         .then(() => {
-          setSuccess(true)
-          reset()
+          setSuccess(true);
+          reset();
         })
         .catch(e => {
-          if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
-        })
+          if (e.status === "FETCH_ERROR") setServerError(t("errors.serverError"));
+        });
     }
-  }
+  };
   
   return (
     <>
       {isLoading && <Loader />}
       {success && 
         <Modal
-          text={t('modal.changePasswordSuccess')}
+          text={t("modal.changePasswordSuccess")}
           open={open}
           setOpen={setOpen}
           outlinedButton={true}
-          buttonName={t('auth.links.login')}
+          buttonName={t("auth.links.login")}
           buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
           buttonBack={false}
         />
       }
-      <AuthLayout title={t('screens.createNewPassword')}>
+      <AuthLayout title={t("screens.createNewPassword")}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
           {serverError && <Error error={serverError} />}
           <View style={styles.inputsWrapper}> 
@@ -108,19 +108,19 @@ export const CreateNewPassword = ({ navigation }) => {
                 name="password"
                 render={({ field: { ref, onChange, value } }) => (
                   <TextInput
-                    placeholderTextColor={'grey'}
-                    placeholder={t('auth.register.inputs.password.placeholder')}
+                    placeholderTextColor={"grey"}
+                    placeholder={t("auth.register.inputs.password.placeholder")}
                     style={styles.input}
                     secureTextEntry
                     onChangeText={onChange}
                     ref={ref}
                     value={value}
                     onFocus={() => {
-                      clearErrors('password')
-                      setServerError('')
+                      clearErrors("password");
+                      setServerError("");
                     }}
                     onBlur={() => {
-                      trigger('password')
+                      trigger("password");
                     }}
                   />
                 )}
@@ -134,19 +134,19 @@ export const CreateNewPassword = ({ navigation }) => {
                 name="passwordConfirmation"
                 render={({ field: { value, ref, onBlur, onChange } }) => (
                   <TextInput
-                    placeholderTextColor={'grey'}
-                    placeholder={t('auth.register.inputs.passwordConfirmation.placeholder')}
+                    placeholderTextColor={"grey"}
+                    placeholder={t("auth.register.inputs.passwordConfirmation.placeholder")}
                     ref={ref}
                     style={styles.input}
                     secureTextEntry
                     onChangeText={onChange}
                     value={value}
                     onFocus={() => {
-                      clearErrors('passwordConfirmation')
-                      setServerError('')
+                      clearErrors("passwordConfirmation");
+                      setServerError("");
                     }}
                     onBlur={() => {
-                      trigger('passwordConfirmation')
+                      trigger("passwordConfirmation");
                     }}
                   />
                 )}
@@ -157,22 +157,22 @@ export const CreateNewPassword = ({ navigation }) => {
 
           <View style={styles.buttonsWrapper}>
             <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
-              <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
+              <Text style={styles.buttonText}>{t("buttons.submit")}</Text>
             </TouchableOpacity>
           </View>
 
           <DefaultButton
-            title={t('auth.links.register')} 
-            text={t('auth.login.note')}
+            title={t("auth.links.register")} 
+            text={t("auth.login.note")}
             path={PATHS.REGISTER}
           />
           <DefaultButton
-            title={t('auth.links.login')} 
-            text={t('auth.register.note')}
+            title={t("auth.links.login")} 
+            text={t("auth.register.note")}
             path={PATHS.LOGIN}
           />
         </KeyboardAvoidingView>
       </AuthLayout>
     </>
-  )
-}
+  );
+};

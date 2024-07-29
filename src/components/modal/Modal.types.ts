@@ -1,5 +1,3 @@
-import { ReactElement, ReactNode } from "react"
-
 export type Props = {
   text: string
   buttonName?: string

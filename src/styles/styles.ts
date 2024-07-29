@@ -1,81 +1,81 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  alertGreen: {
+    backgroundColor: "green",
+    borderColor: "darkgreen",
+    borderWidth: 1,
+  },
+  alertRed: {
+    backgroundColor: "pink",
+    borderColor: "red",
+    borderWidth: 1,
+  },
+  alertText: {
+    color: "#fff",
+    fontSize: 24,
+  },
+  alertWrapper: {
     alignItems: "center",
-    justifyContent: "flex-start",
+    height: 300,
+    justifyContent: "center",
+    marginTop: -150,
+    padding: 10,
+    width: 300,
   },
   button: {
-    width: 200,
+    backgroundColor: "yellow",
+    color: "white",
     height: 60,
-    backgroundColor: 'yellow',
-    color: 'white',
-    justifyContent: 'center',
-  },
-  closeButton: {
-    width: 100,
-    height: 40,
+    justifyContent: "center",
+    width: 200,
   },
   buttonBorder: {
-    borderColor: '#fff',
+    borderColor: "#fff",
     borderWidth: 1,
-    color: '#fff',
+    color: "#fff",
     marginTop: 20,
   },
-  title: {
-    margin: 20,
-    fontSize: 24,
-    color: '#fff',
-    textAlign: 'center'
+  closeButton: {
+    height: 40,
+    width: 100,
   },
-  firstDigit: {
-    padding: 10,
-    borderColor: '#fff',
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  container: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "flex-start",
   },
-  digitsText: {
-    fontSize: 34,
-    color: '#fff'
+  containerMathOperation: {
+    flexDirection: "row",
+    gap: 20,
   },
   digitInput: {
-    width: 80,
     height: 40,
+    width: 80,
+  },
+  digitsText: {
+    color: "#fff",
+    fontSize: 34
+  },
+  firstDigit: {
+    alignItems: "center",
+    borderColor: "#fff",
+    borderWidth: 1,
+    justifyContent: "center",
+    padding: 10,
   },
   generateButton: {
     height: 40,
     width: 200,
   },
-  containerMathOperation: {
-    flexDirection: 'row',
-    gap: 20,
-  },
-  alertText: {
-    fontSize: 24,
-    color: '#fff',
-  },
-  alertWrapper: {
-    marginTop: -150,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 300,
-    height: 300,
-  },
-  alertRed: {
-    backgroundColor: 'pink',
-    borderWidth: 1,
-    borderColor: 'red',
-  },
-  alertGreen: {
-    backgroundColor: 'green',
-    borderWidth: 1,
-    borderColor: 'darkgreen',
-  },
   multDigit: {
     fontSize: 30,
-    fontWeight: '700'
+    fontWeight: "700"
+  },
+  title: {
+    color: "#fff",
+    fontSize: 24,
+    margin: 20,
+    textAlign: "center"
   }
 });

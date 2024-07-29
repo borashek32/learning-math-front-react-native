@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import { Props } from './Score.types'
-import { useAppSelector } from '../../hooks/useAppSelector'
-import { selectUserAvatarPath } from '../../redux/selectors/auth.selectors'
-import { UserAvatar } from '../avatar/UserAvatar'
+import { StyleSheet, Text, View } from "react-native";
+import { Props } from "./Score.types";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { selectUserAvatarPath } from "../../redux/selectors/auth.selectors";
+import { UserAvatar } from "../avatar/UserAvatar";
 
 export const Score = ({ score }: Props) => {
-  const avatarPath = useAppSelector(selectUserAvatarPath)
+  const avatarPath = useAppSelector(selectUserAvatarPath);
 
   return (
     <View style={styles.container}>
@@ -19,24 +19,24 @@ export const Score = ({ score }: Props) => {
         </Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   scoreWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 100,
-    gap: 6
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 6,
+    width: 100
   },
   title: {
+    color: "#fff",
     fontSize: 24,
-    color: '#fff',
-    textAlign: 'center'
+    textAlign: "center"
   }
-})
+});

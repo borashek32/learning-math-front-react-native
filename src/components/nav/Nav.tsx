@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from "react"
-import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-native"
-import { LogoSmall } from "../logo/LogoSmall"
-import { DefaultButton } from "../buttons/DefaultButton"
-import { useAppSelector } from "../../hooks/useAppSelector"
-import { selectUserAvatarPath, selectUserEmail, selectUserId } from "../../redux/selectors/auth.selectors"
-import { useTranslation } from "react-i18next"
-import { PATHS } from "../../constants/paths"
-import { SelectLang } from "../selectLang/SelectLang"
-import * as Animatable from 'react-native-animatable'
-import { NavLinkButton } from "../buttons/NavLinkButton"
-import { selectTotalUserScore } from "../../redux/selectors/profile.selectors"
-import { UserAvatar } from "../avatar/UserAvatar"
-import { useNavigation } from "@react-navigation/native"
-import { useGetTotalUserScoreQuery } from "../../api/profile/profile.api"
-import { useDispatch } from "react-redux"
-import { setTotalUserScore } from '../../redux/slices/profile.slice'
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from "react-native";
+import { LogoSmall } from "../logo/LogoSmall";
+import { DefaultButton } from "../buttons/DefaultButton";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { selectUserAvatarPath, selectUserEmail, selectUserId } from "../../redux/selectors/auth.selectors";
+import { useTranslation } from "react-i18next";
+import { PATHS } from "../../constants/paths";
+import { SelectLang } from "../selectLang/SelectLang";
+import * as Animatable from "react-native-animatable";
+import { NavLinkButton } from "../buttons/NavLinkButton";
+import { selectTotalUserScore } from "../../redux/selectors/profile.selectors";
+import { UserAvatar } from "../avatar/UserAvatar";
+import { useNavigation } from "@react-navigation/native";
+import { useGetTotalUserScoreQuery } from "../../api/profile/profile.api";
+import { useDispatch } from "react-redux";
+import { setTotalUserScore } from "../../redux/slices/profile.slice";
 
 export const Nav = () => {
-  const navigation = useNavigation()
-  const [menuOpen, setMenuOpen] = useState(false)
-  const userEmail = useAppSelector(selectUserEmail)
-  const totalUserScore = useAppSelector(selectTotalUserScore)
-  const avatarPath = useAppSelector(selectUserAvatarPath)
+  const navigation = useNavigation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const userEmail = useAppSelector(selectUserEmail);
+  const totalUserScore = useAppSelector(selectTotalUserScore);
+  const avatarPath = useAppSelector(selectUserAvatarPath);
 
-  const dispatch = useDispatch()
-  const userId = useAppSelector(selectUserId)
-  const { data: userScoreData, refetch } = useGetTotalUserScoreQuery(userId)
+  const dispatch = useDispatch();
+  const userId = useAppSelector(selectUserId);
+  const { data: userScoreData, refetch } = useGetTotalUserScoreQuery(userId);
 
   useEffect(() => {
     if (userScoreData) {
-      refetch()
+      refetch();
     }
-  }, [userScoreData])
+  }, [userScoreData, refetch]);
 
   useEffect(() => {
-    refetch()
-    userScoreData && dispatch(setTotalUserScore(userScoreData.score))
-  }, [userScoreData, dispatch])
+    refetch();
+    userScoreData && dispatch(setTotalUserScore(userScoreData.score));
+  }, [userScoreData, dispatch, refetch]);
   
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <>
@@ -58,7 +58,7 @@ export const Nav = () => {
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
             <Animatable.View 
               style={[styles.line, menuOpen && styles.lineActive]} 
-              animation={menuOpen ? 'rotate' : null} 
+              animation={menuOpen ? "rotate" : undefined} 
               duration={300} 
               easing="ease-in-out"
             >
@@ -82,32 +82,32 @@ export const Nav = () => {
               title={t("screens.home")}
               path={PATHS.MAIN}
               onPress={() => {
-                navigation.navigate(PATHS.HOME as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.HOME as never);
+                setMenuOpen(false);
               }} 
             />
             <NavLinkButton 
               title={t("screens.math")} 
               path={PATHS.MATH_OPERATIONS} 
               onPress={() => {
-                navigation.navigate(PATHS.MATH_OPERATIONS as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.MATH_OPERATIONS as never);
+                setMenuOpen(false);
               }} 
             />
             <NavLinkButton 
               title={t("screens.preSchool")} 
               path={PATHS.PRE_SCHOOL} 
               onPress={() => {
-                navigation.navigate(PATHS.PRE_SCHOOL as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.PRE_SCHOOL as never);
+                setMenuOpen(false);
               }} 
             />
             <NavLinkButton 
               title={t("screens.instructions")} 
               path={PATHS.INSTRUCTIONS}
               onPress={() => {
-                navigation.navigate(PATHS.INSTRUCTIONS as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.INSTRUCTIONS as never);
+                setMenuOpen(false);
               }}  
             />
             <View style={styles.footerDevideLine}></View>
@@ -115,24 +115,24 @@ export const Nav = () => {
               title={t("screens.profile")} 
               path={PATHS.PROFILE} 
               onPress={() => {
-                navigation.navigate(PATHS.PROFILE as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.PROFILE as never);
+                setMenuOpen(false);
               }} 
             />
             <NavLinkButton 
               title={t("yourScore.total")} 
               path={PATHS.YOUR_SCORE} 
               onPress={() => {
-                navigation.navigate(PATHS.YOUR_SCORE as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.YOUR_SCORE as never);
+                setMenuOpen(false);
               }} 
             />
             <DefaultButton 
               title={t("buttons.logout")} 
               path={PATHS.LOGOUT} 
               onPress={() => {
-                navigation.navigate(PATHS.LOGOUT as never)
-                setMenuOpen(false)
+                navigation.navigate(PATHS.LOGOUT as never);
+                setMenuOpen(false);
               }} 
             />
             <SelectLang />
@@ -140,77 +140,45 @@ export const Nav = () => {
         </View>
       )}
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingLeft: 10,
-    height: 80,
-    width: "100%",
-  },
-  headerWithUser: {
-    paddingRight: 20,
-    width: Dimensions.get("window").width - 56,
-    flexDirection: "row",
-    alignItems: 'baseline',
-    justifyContent: "flex-end",
-    position: "relative",
-    gap: 10
-  },
-  userEmail: {
+  buttonTextSmall: {
     color: "#fff",
-    fontSize: 16,
-    marginRight: 10,
-  },
-  menu: {
-    width: 56,
-    height: 56,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  
-  line: {
-    width: 40,
-    height: 2,
-    backgroundColor: "#fff",
-    marginBottom: 10,
-  },
-  lineActive: {
-    transform: [{ rotate: '45deg' }],
-    backgroundColor: "#fff",
+    fontSize: 12,
+    textDecorationColor: "#fff",
+    textDecorationLine: "underline"
   },
   firstLineActive: {
-    transform: [{ rotate: '-45deg' }],
     backgroundColor: "#fff",
+    position: "absolute",
     top: 12,
-    position: 'absolute',
+    transform: [{ rotate: "-45deg" }],
     zIndex: 1000
   },
-  middleLineActive: {
-    backgroundColor: '#01143d'
+  footerDevideLine: {
+    backgroundColor: "#61dafb",
+    height: 2,
+    width: 250,
   },
-
-  navigation: {
-    position: "absolute",
-    zIndex: 2,
+  header: {
+    alignItems: "center",
+    flexDirection: "row",
+    height: 80,
+    justifyContent: "space-between",
+    paddingLeft: 10,
     width: "100%",
-    height: "100%",
-    backgroundColor: "#01143d",
-    justifyContent: "flex-start",
-    marginTop: 70,
-    alignItems: "center",
   },
-  menuItems: {
-    paddingTop: 40,
-    width: 300,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    gap: 20,
+  
+  headerWithUser: {
+    alignItems: "baseline",
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "flex-end",
+    paddingRight: 20,
+    position: "relative",
+    width: Dimensions.get("window").width - 56
   },
   item: {
     marginBottom: 10,
@@ -219,20 +187,52 @@ const styles = StyleSheet.create({
     color: "#fff",
     textDecorationLine: "none",
   },
-  footerDevideLine: {
+  line: {
+    backgroundColor: "#fff",
     height: 2,
-    width: 250,
-    backgroundColor: "#61dafb",
+    marginBottom: 10,
+    width: 40,
   },
-  buttonTextSmall: {
-    fontSize: 12,
-    color: '#fff',
-    textDecorationColor: '#fff',
-    textDecorationLine: 'underline'
+
+  lineActive: {
+    backgroundColor: "#fff",
+    transform: [{ rotate: "45deg" }],
+  },
+  menu: {
+    alignItems: "center",
+    height: 56,
+    justifyContent: "center",
+    width: 56,
+  },
+  menuItems: {
+    alignItems: "center",
+    flexDirection: "column",
+    gap: 20,
+    justifyContent: "center",
+    paddingTop: 40,
+    width: 300,
+  },
+  middleLineActive: {
+    backgroundColor: "#01143d"
+  },
+  navigation: {
+    alignItems: "center",
+    backgroundColor: "#01143d",
+    height: "100%",
+    justifyContent: "flex-start",
+    marginTop: 70,
+    position: "absolute",
+    width: "100%",
+    zIndex: 2,
   },
   score: {
+    color: "#fff",
     fontSize: 20,
-    color: '#fff',
-    textAlign: 'right'
+    textAlign: "right"
+  },
+  userEmail: {
+    color: "#fff",
+    fontSize: 16,
+    marginRight: 10,
   }
-})
+});

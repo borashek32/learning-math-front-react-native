@@ -1,8 +1,8 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { DefaultButtonProps } from './Buttons.types'
-import { PATHS } from '../../constants/paths'
-import { useNavigation } from '@react-navigation/native'
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { DefaultButtonProps } from "./Buttons.types";
+import { PATHS } from "../../constants/paths";
+import { useNavigation } from "@react-navigation/native";
 
 export const DefaultButton: React.FC<DefaultButtonProps> = ({ 
   title, 
@@ -10,7 +10,7 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
   text,
   onPress,
 }: DefaultButtonProps) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const buttonStyles = path === PATHS.LOGOUT
     ? [styles.button, styles.buttonBorder, styles.buttonRed]
@@ -34,7 +34,7 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
     ? [styles.buttonLink]
     : path === PATHS.CHANGE_AVATAR
     ? [styles.buttonLink]
-    : [styles.button, styles.buttonBorder]
+    : [styles.button, styles.buttonBorder];
 
   return (
     <View style={styles.noteWrapper}>
@@ -47,49 +47,49 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
         <Text style={text ? styles.buttonTextSmall : styles.buttonText}>{title}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 export const styles = StyleSheet.create({
-  noteWrapper: {
-    width: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  note: {
-    color: '#dfdfdf',
-    fontSize: 14,
-    textAlign: 'center',
-    marginTop: 30,
-    marginBottom: 10
-  },
   button: {
-    paddingVertical: 6,
-    paddingHorizontal: 13,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
+    backgroundColor: "#0D6EFD",
     borderRadius: 4,
-    backgroundColor: '#0D6EFD',
-  },
-  buttonLink: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'inherit',
+    justifyContent: "center",
+    paddingHorizontal: 13,
+    paddingVertical: 6,
   },
   buttonBorder: {
+    borderColor: "#000",
     borderWidth: 1,
-    borderColor: '#000',
+  },
+  buttonLink: {
+    alignItems: "center",
+    backgroundColor: "inherit",
+    justifyContent: "center",
   },
   buttonRed: {
     backgroundColor: "#fb6161",
   },
   buttonText: {
+    color: "#fff",
     fontSize: 20,
-    color: '#fff',
-    textAlign: 'center'
+    textAlign: "center"
   },
   buttonTextSmall: {
+    color: "#fff",
     fontSize: 14,
-    color: '#fff',
   },
-})
+  note: {
+    color: "#dfdfdf",
+    fontSize: 14,
+    marginBottom: 10,
+    marginTop: 30,
+    textAlign: "center"
+  },
+  noteWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 200,
+  },
+});

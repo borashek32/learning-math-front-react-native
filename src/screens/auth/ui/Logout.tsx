@@ -1,49 +1,52 @@
-import { Modal } from "../../../components/modal/Modal"
-import { useLogoutMutation } from "../../../api/auth/auth.api"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { removeUserInfo } from "../../../redux/slices/auth.slice"
-import { Loader } from "../../../components/loaders/CircularLoader"
-import { useTranslation } from "react-i18next"
-import { PATHS } from "../../../constants/paths"
-import { AppLayout } from "../../../components/layouts/AppLayout"
-import { View } from "react-native"
-import { styles } from '../Auth.styles'
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { Modal } from "../../../components/modal/Modal";
+import { useLogoutMutation } from "../../../api/auth/auth.api";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeUserInfo } from "../../../redux/slices/auth.slice";
+import { Loader } from "../../../components/loaders/CircularLoader";
+import { useTranslation } from "react-i18next";
+import { PATHS } from "../../../constants/paths";
+import { AppLayout } from "../../../components/layouts/AppLayout";
+import { View } from "react-native";
+import { styles } from "../Auth.styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProps } from "../../../types/commonTypes.types";
 
-export const Logout = ({ navigation }) => {
-  const [open, setOpen] = useState(true)
-  const [modalWithErrorOpen, setModalWithErrorOpen] = useState(false)
-  const [logout, { isLoading }] = useLogoutMutation()
-  const [serverError, setServerError] = useState('')
-  const dispatch = useDispatch()
+export const Logout = ({ navigation }: NavigationProps) => {
+  const [open, setOpen] = useState(true);
+  const [modalWithErrorOpen, setModalWithErrorOpen] = useState(false);
+  const [logout, { isLoading }] = useLogoutMutation();
+  const [serverError, setServerError] = useState("");
+  const dispatch = useDispatch();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const handleOpenModal = () => setOpen(false)
-  const handleOpenModalWithError = () => setModalWithErrorOpen(false)
+  const handleOpenModal = () => setOpen(false);
+  const handleOpenModalWithError = () => setModalWithErrorOpen(false);
 
   const logoutHandler = async () => {
-    const refreshToken = await AsyncStorage.getItem('refreshToken')
-    const accessToken = await AsyncStorage.getItem('accessToken')
+    const refreshToken = await AsyncStorage.getItem("refreshToken");
+    const accessToken = await AsyncStorage.getItem("accessToken");
 
-    logout({ refreshToken, accessToken })
+    if (refreshToken && accessToken) {
+      logout({ refreshToken, accessToken })
       .unwrap()
       .then(response => {
-        dispatch(removeUserInfo())
-        navigation.navigate(PATHS.MAIN)
-        setOpen(false)
+        dispatch(removeUserInfo());
+        navigation.navigate(PATHS.MAIN);
+        setOpen(false);
       })
       .catch(e => {
         if (e) {
-          setOpen(false)
-          setModalWithErrorOpen(true)
-          if (e.status === 401 || e.name === 'Error') {
-            setServerError(t('errors.logout'))
+          setOpen(false);
+          setModalWithErrorOpen(true);
+          if (e.status === 401 || e.name === "Error") {
+            setServerError(t("errors.logout"));
           }
         }
-      })
-  }
+      });
+    }
+  };
 
   return (
     <>
@@ -52,11 +55,11 @@ export const Logout = ({ navigation }) => {
         <View style={styles.logoutWrapper}>
           {serverError && 
             <Modal
-              text={t('errors.serverError')}
+              text={t("errors.serverError")}
               open={modalWithErrorOpen}
               setOpen={handleOpenModalWithError}
               outlinedButton={true}
-              buttonName={t('auth.links.login')}
+              buttonName={t("auth.links.login")}
               buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
               error={true}
             />
@@ -65,7 +68,7 @@ export const Logout = ({ navigation }) => {
             <Modal
               open={open}
               setOpen={handleOpenModal}
-              text={t('auth.logout.sure')}
+              text={t("auth.logout.sure")}
               buttonName='Ok'
               buttonCallback={logoutHandler}
               outlinedButton={true}
@@ -75,5 +78,5 @@ export const Logout = ({ navigation }) => {
         </View>
       </AppLayout>
     </>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Props } from './Layout.types'
-import { Logo } from '../logo/Logo';
-import { SelectLang } from '../selectLang/SelectLang'
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Props } from "./Layout.types";
+import { Logo } from "../logo/Logo";
+import { SelectLang } from "../selectLang/SelectLang";
 
 export const BaseLayout = ({ title, children }: Props) => {
 
@@ -18,15 +18,15 @@ export const BaseLayout = ({ title, children }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    backgroundColor: "#01143d",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#01143d'
+    justifyContent: "center"
   },
   title: {
+    color: "#fff",
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center'
+    fontWeight: "bold",
+    textAlign: "center"
   },
-})
+});

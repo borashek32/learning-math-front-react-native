@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   title: {
-    margin: 20,
+    color: "#fff",
     fontSize: 24,
-    color: '#fff',
-    textAlign: 'center'
+    margin: 20,
+    textAlign: "center"
   }
-})
+});

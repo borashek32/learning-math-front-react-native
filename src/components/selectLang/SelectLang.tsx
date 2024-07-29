@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+import { useTranslation } from "react-i18next";
 
 export const SelectLang = () => {
-  const { t, i18n } = useTranslation('translation');
+  const { t, i18n } = useTranslation("translation");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang);
-  }
+  };
 
   return (
     <View style={styles.selectWrapper}>
       <View style={styles.select}>
-        <Text style={styles.change}>{t('changeLang.select')}</Text>
+        <Text style={styles.change}>{t("changeLang.select")}</Text>
 
         <RNPickerSelect
           useNativeAndroidPickerStyle={false}
@@ -24,8 +24,8 @@ export const SelectLang = () => {
           onOpen={() => setIsPickerOpen(true)}
           onClose={() => setIsPickerOpen(false)}
           items={[
-            { key: 'ru', label: t('changeLang.options.ru'), value: 'ru', color: 'black' },
-            { key: 'en', label: t('changeLang.options.en'), value: 'en', color: 'black' },
+            { key: "ru", label: t("changeLang.options.ru"), value: "ru", color: "black" },
+            { key: "en", label: t("changeLang.options.en"), value: "en", color: "black" },
           ]}
           Icon={() => {
             return (
@@ -40,69 +40,69 @@ export const SelectLang = () => {
         />
       </View>
     </View>
-  )
-}
+  );
+};
 
 const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+  inputAndroid: {
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    color: 'black',
+    color: "black",
+    fontSize: 16,
+    paddingHorizontal: 10,
     paddingRight: 30,
-    backgroundColor: 'white',
+    paddingVertical: 8,
     width: 150,
   },
-  inputAndroid: {
+  inputIOS: {
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderRadius: 4,
+    borderWidth: 1,
+    color: "black",
     fontSize: 16,
     paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 8,
-    color: 'black',
     paddingRight: 30,
-    backgroundColor: 'white',
+    paddingVertical: 12,
     width: 150,
   },
 });
 
 const styles = StyleSheet.create({
-  selectWrapper: {
-    position: 'relative',
-  },
-  select: {},
   change: {
+    color: "white",
     fontSize: 12,
-    color: 'white',
     marginBottom: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
   iconContainer: {
-    position: 'absolute',
-    top: 20,
-    right: 6,
-    backgroundColor: 'transparent',
-    borderTopWidth: 5,
-    borderTopColor: 'gray',
-    borderRightWidth: 5,
-    borderRightColor: 'transparent',
+    backgroundColor: "transparent",
+    borderLeftColor: "transparent",
     borderLeftWidth: 5,
-    borderLeftColor: 'transparent',
-    width: 0,
+    borderRightColor: "transparent",
+    borderRightWidth: 5,
+    borderTopColor: "gray",
+    borderTopWidth: 5,
     height: 0,
-  },
-  iconContainerOpen: {
-    borderBottomWidth: 5,
-    borderBottomColor: 'gray',
-    borderTopWidth: 0,
+    position: "absolute",
+    right: 6,
+    top: 20,
+    width: 0,
   },
   iconContainerClosed: {
-    borderTopWidth: 5,
-    borderTopColor: 'gray',
     borderBottomWidth: 0,
+    borderTopColor: "gray",
+    borderTopWidth: 5,
+  },
+  iconContainerOpen: {
+    borderBottomColor: "gray",
+    borderBottomWidth: 5,
+    borderTopWidth: 0,
+  },
+  select: {},
+  selectWrapper: {
+    position: "relative",
   },
 });

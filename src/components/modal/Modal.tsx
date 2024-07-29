@@ -1,9 +1,9 @@
-import React from 'react'
-import { Props } from './Modal.types'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { useTranslation } from 'react-i18next'
-import { ModalLayout } from '../layouts/ModalLayout'
+import React from "react";
+import { Props } from "./Modal.types";
+import { View, Text, StyleSheet, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import { ModalLayout } from "../layouts/ModalLayout";
 
 export const Modal: React.FC<Props> = ({ 
   text, 
@@ -11,15 +11,16 @@ export const Modal: React.FC<Props> = ({
   buttonName, 
   buttonCallback, 
   open,
-  setOpen, 
   error,
   color,
   buttonBack
 }) => {
-  const navigation = useNavigation()
-  const { t } = useTranslation()
+  const navigation = useNavigation();
+  const { t } = useTranslation();
 
-  const back = () => navigation.goBack()
+  const back = () => navigation.goBack();
+
+  const backgroundColorStyle = color ? { backgroundColor: color } : {};
 
   return (
     <ModalLayout>
@@ -28,7 +29,7 @@ export const Modal: React.FC<Props> = ({
           style={[
             styles.modal, 
             error && styles.modalWithError, 
-            color && { backgroundColor: color }
+            backgroundColorStyle
           ]}
         >
           {text &&
@@ -40,7 +41,7 @@ export const Modal: React.FC<Props> = ({
             {buttonBack && 
               <View style={outlinedButton ? styles.outlinedStyles : {}}>
                 <Button 
-                  title={t('links.back')} 
+                  title={t("links.back")} 
                   onPress={back} 
                 />
               </View>
@@ -57,35 +58,35 @@ export const Modal: React.FC<Props> = ({
         </View>
       }
     </ModalLayout>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
+  buttonWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
   modal: {
-    width: 230,
-    height: 150,
+    alignItems: "center",
+    backgroundColor: "white",
     borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+    flexDirection: "column",
+    height: 150,
+    justifyContent: "center",
     marginBottom: 20,
-    backgroundColor: 'white'
+    width: 230
   },
   modalWithError: {
-    backgroundColor: '#fb6161',
+    backgroundColor: "#fb6161",
+  },
+  outlinedStyles: {
+    borderColor: "#fff",
+    borderRadius: 4,
+    borderWidth: 1,
+    color: "#fff"
   },
   textSmall: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
-  buttonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  outlinedStyles: {
-    borderWidth: 1,
-    borderColor: '#fff',
-    color: '#fff',
-    borderRadius: 4
-  },
-})
+});

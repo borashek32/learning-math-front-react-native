@@ -1,32 +1,32 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  containerMathOperation: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  button: {
     alignItems: "center",
-    gap: 10,
+    backgroundColor: "#61dafb",
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
   },
-  digitsWrapper: {
-    
+  buttonText: {
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   buttonsWrapper: {
     marginTop: 20
   },
-  button: {
-    backgroundColor: '#61dafb',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
+  containerMathOperation: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
   },
   digit: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
+  },
+  digitsWrapper: {
+    
   }
-})
+});

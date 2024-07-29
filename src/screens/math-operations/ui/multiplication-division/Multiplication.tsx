@@ -1,26 +1,27 @@
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import { styles } from '../../MathOperations.styles'
-import { PATHS } from '../../../../constants/paths'
-import { useTranslation } from 'react-i18next'
-import { AppLayout } from '../../../../components/layouts/AppLayout'
-import { ButtonsLayout } from '../../../../components/layouts/ButtonsLayout'
-import { BlueButton } from '../../../../components/buttons/BlueButton'
+import React from "react";
+import { Text, TouchableOpacity } from "react-native";
+import { styles } from "../../MathOperations.styles";
+import { PATHS } from "../../../../constants/paths";
+import { useTranslation } from "react-i18next";
+import { AppLayout } from "../../../../components/layouts/AppLayout";
+import { ButtonsLayout } from "../../../../components/layouts/ButtonsLayout";
+import { BlueButton } from "../../../../components/buttons/BlueButton";
+import { NavigationProps } from "../../../../types/commonTypes.types";
 
-export const Multiplication = ({ navigation }) => {
-  const { t } = useTranslation('translation')
+export const Multiplication = ({ navigation }: NavigationProps) => {
+  const { t } = useTranslation("translation");
 
-  const digits: Array<number> = [2, 3, 4, 5, 6, 7, 8, 9]
+  const digits: number[] = [2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <AppLayout title={t('mathOperations.multTable')}>
+    <AppLayout title={t("mathOperations.multTable")}>
       <ButtonsLayout>
         <BlueButton
-          title={t('mathOperations.multCheck')}
+          title={t("mathOperations.multCheck")}
           path={PATHS.MULT_CHECK}
         />
         <BlueButton
-          title={t('mathOperations.multNulls')}
+          title={t("mathOperations.multNulls")}
           path={PATHS.MULT_NULLS}
         />
         <>
@@ -28,7 +29,7 @@ export const Multiplication = ({ navigation }) => {
             <TouchableOpacity
               key={digit}
               style={styles.button} 
-              onPress={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: digit })}
+              onPress={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: digit.toString() })}
             >
               <Text style={styles.digit}>{digit}</Text>
             </TouchableOpacity>
@@ -36,5 +37,5 @@ export const Multiplication = ({ navigation }) => {
         </>
       </ButtonsLayout>
     </AppLayout>
-  )
-}
+  );
+};
