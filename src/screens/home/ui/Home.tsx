@@ -16,6 +16,7 @@ export const Home = () => {
       <AppLayout>
         <View style={styles.menuContainer}>
           <DefaultButton title={t('screens.math')} path={PATHS.MATH_OPERATIONS}/>
+          <DefaultButton title={t('screens.preSchool')} path={PATHS.PRE_SCHOOL}/>
           <DefaultButton title={t('screens.instructions')} path={PATHS.INSTRUCTIONS}/>
           <DevideLine />
           <DefaultButton title={t('screens.profile')} path={PATHS.PROFILE} />

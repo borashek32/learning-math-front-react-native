@@ -28,6 +28,8 @@ import { Multiplication } from '../screens/math-operations/ui/multiplication-div
 import { MultiplicationNumber } from '../screens/math-operations/ui/multiplication-division/multiplication-table/MultiplicationNumber'
 import { MultiplicationNulls } from '../screens/math-operations/ui/multiplication-division/multiplication-table/MultiplicationNulls'
 import { Docs } from '../screens/main/ui/docs/Docs'
+import { PreSchool } from '../screens/pre-school/PreSchool'
+import { Numbers } from '../screens/pre-school/ui/Numbers'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -53,6 +55,9 @@ export const Navigation = () => {
         [PATHS.EQUATIONS]: PATHS.EQUATIONS,
         [PATHS.EQUATIONS_X]: PATHS.EQUATIONS_X,
         [PATHS.EQUATIONS_XY]: PATHS.EQUATIONS_XY,
+
+        [PATHS.PRE_SCHOOL]: PATHS.PRE_SCHOOL,
+        [PATHS.NUMBERS]: PATHS.NUMBERS,
 
         [PATHS.MAIN]: PATHS.MAIN,
         [PATHS.LOGIN]: PATHS.LOGIN,
@@ -90,6 +95,7 @@ export const Navigation = () => {
             <Stack.Screen name={PATHS.REGISTER} component={Register} options={{ headerTitle: t('screens.register') }} />
             <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
             <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />         
+            <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
           </>
         ) : (
           <>
@@ -98,8 +104,12 @@ export const Navigation = () => {
             <Stack.Screen name={PATHS.INSTRUCTIONS} component={Docs} options={{ headerTitle: t('screens.instructions')}} />
             <Stack.Screen name={PATHS.PROFILE} component={Profile} options={{ headerTitle: t('screens.profile') }} />
             <Stack.Screen name={PATHS.YOUR_SCORE} component={YourScore} options={{ headerTitle: t('screens.yourScore') }} />
-            <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
             <Stack.Screen name={PATHS.LOGOUT} component={Logout} options={{ headerTitle: t('screens.logout') }} />
+
+            <Stack.Screen name={PATHS.PRE_SCHOOL} component={PreSchool} options={{ headerTitle: t('screens.preSchool') }} />
+            <Stack.Screen name={PATHS.NUMBERS} component={Numbers} options={{ headerTitle: t('preSchool.numbers.title') }} />
+            
+            <Stack.Screen name={PATHS.MATH_OPERATIONS} component={MathOperations} options={{ headerTitle: t('screens.math') }} />
             <Stack.Screen
               name={PATHS.SUMM}
               component={SummDifference}

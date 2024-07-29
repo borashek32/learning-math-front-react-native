@@ -16,6 +16,8 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ({
     ? [styles.button, styles.buttonBorder, styles.buttonRed]
     : path === PATHS.MATH_OPERATIONS
     ? [styles.buttonLink]
+    : path === PATHS.PRE_SCHOOL
+    ? [styles.buttonLink]
     : path === PATHS.PROFILE
     ? [styles.buttonLink]
     : path === PATHS.HOME
@@ -68,13 +70,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
     backgroundColor: '#0D6EFD',
-    border: 'none',
   },
   buttonLink: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'inherit',
-    border: 'none',
   },
   buttonBorder: {
     borderWidth: 1,
