@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { DefaultButtonProps } from './Buttons.types'
 import { PATHS } from '../../constants/paths'
-import { useNavigation } from '@react-navigation/native'
 
 export const NavLinkButton: React.FC<DefaultButtonProps> = ({ 
   title, 
@@ -10,8 +9,6 @@ export const NavLinkButton: React.FC<DefaultButtonProps> = ({
   text,
   onPress,
 }: DefaultButtonProps) => {
-  const navigation = useNavigation()
-
   const buttonStyles = path === PATHS.LOGOUT
     ? [styles.button, styles.buttonBorder, styles.buttonRed]
     : path === PATHS.MATH_OPERATIONS
@@ -21,6 +18,8 @@ export const NavLinkButton: React.FC<DefaultButtonProps> = ({
     : path === PATHS.HOME
     ? [styles.buttonTextSmall]
     : path === PATHS.MAIN
+    ? [styles.buttonTextSmall]
+    : path === PATHS.PRE_SCHOOL
     ? [styles.buttonTextSmall]
     : path === PATHS.YOUR_SCORE
     ? [styles.buttonTextSmall]
@@ -61,13 +60,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
     backgroundColor: '#0D6EFD',
-    border: 'none',
   },
   buttonLink: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'inherit',
-    border: 'none',
   },
   buttonBorder: {
     borderWidth: 1,

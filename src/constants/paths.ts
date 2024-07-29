@@ -15,6 +15,9 @@ export const enum PATHS {
   EQUATIONS = "equations",
   EQUATIONS_X = "equations-with-x",
   EQUATIONS_XY = "equations-with-xy",
+
+  PRE_SCHOOL = "pre-school",
+  NUMBERS = "numbers",
   
   LOGIN = "login",
   REGISTER = "register",

@@ -25,6 +25,8 @@ import { Digit } from '../../../../../components/digit/Digit'
 import { AppLayout } from '../../../../../components/layouts/AppLayout'
 import { AnswerType } from '../../../../../types/mathOperations.types'
 import { ResultInput } from '../../../../../components/inputs/ResultInput'
+import { VIBRATION_PATTERN } from '../../../../../constants/vibration'
+import { Vibration } from 'react-native'
 
 export const EquationsWithX = () => {
   const [firstNumber, setFirstNumber] = useState<number>(generateRandomNumber(1, 10))
@@ -92,6 +94,7 @@ export const EquationsWithX = () => {
       setRightWrong('right')
       data = { ...data, score: 2 }
     } else {
+      Vibration.vibrate(VIBRATION_PATTERN)
       setScore(score - 1)
       setRightWrong('wrong')
       data = { ...data, score: -1 }
@@ -180,6 +183,7 @@ export const EquationsWithX = () => {
           <MathOperationButton
             buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
+            disabled={answer ? false : true}
           />
         </ButtonsLayout>
 

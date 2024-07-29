@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
-import { MathOperation } from '../../../../components/mathOperation/MathOperation'
-import { Digit } from '../../../../components/digit/Digit'
-import { ResultInput } from '../../../../components/inputs/ResultInput'
-import { Score } from '../../../../components/score/Score'
-import { AppLayout } from '../../../../components/layouts/AppLayout'
+import { MathOperation } from '../../../../src/components/mathOperation/MathOperation'
+import { Digit } from '../../../../src/components/digit/Digit'
+import { ResultInput } from '../../../../src/components/inputs/ResultInput'
+import { Score } from '../../../../src/components/score/Score'
+import { AppLayout } from '../../../../src/components/layouts/AppLayout'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { useUpdateScoreMutation } from '../../../../api/profile/profile.api'
-import { ScoreType } from '../../../../api/profile/profile.api.types'
-import { Loader } from '../../../../components/loaders/CircularLoader'
-import { useAppSelector } from '../../../../hooks/useAppSelector'
-import { selectUserId } from '../../../../redux/selectors/auth.selectors'
-import { Modal } from '../../../../components/modal/Modal'
-import { AnswerType } from '../../../../types/mathOperations.types'
-import { Error } from '../../../../components/error/Error'
-import { useFormSchema } from '../../../../utils/math/validationShemaMathOperations'
-import { ButtonsLayout } from '../../../../components/layouts/ButtonsLayout'
-import { MathOperationButton } from '../../../../components/buttons/MathOperationButton'
-import { MathExampleLayout } from '../../../../components/layouts/MathExamlpeLayout'
+import { useUpdateScoreMutation } from '../../../profile/profile.api'
+import { ScoreType } from '../../../profile/profile.api.types'
+import { Loader } from '../../../../src/components/loaders/CircularLoader'
+import { useAppSelector } from '../../../../src/hooks/useAppSelector'
+import { selectUserId } from '../../../auth/auth.selectors'
+import { Modal } from '../../../../src/components/modal/Modal'
+import { AnswerType } from '../../mathOperations.types'
+import { Error } from '../../../../src/components/error/Error'
+import { useFormSchema } from '../../../../src/utils/math/validationShemaMathOperations'
+import { ButtonsLayout } from '../../../../src/components/layouts/ButtonsLayout'
+import { MathOperationButton } from '../../../../src/components/buttons/MathOperationButton'
+import { MathExampleLayout } from '../../../../src/components/layouts/MathExamlpeLayout'
 import { useDispatch } from 'react-redux'
-import { setTotalUserScore } from '../../../../redux/slices/profile.slice'
-import { MathOperationsConstants, MathSignsConstants } from '../../../../constants/MathConstants'
-import { checkMathOperation } from '../../../../utils/math/checkMathOperation'
-import { generateRandomNumber } from '../../../../utils/math/generateRandomNumber'
+import { setTotalUserScore } from '../../../profile/profile.slice'
+import { MathOperationsConstants, MathSignsConstants } from '../../../../src/constants/MathConstants'
+import { checkMathOperation } from '../../../../src/utils/math/checkMathOperation'
+import { generateRandomNumber } from '../../../../src/utils/math/generateRandomNumber'
 import { Keyboard, Vibration } from 'react-native'
-import { VIBRATION_PATTERN } from '../../../../constants/vibration'
+import { VIBRATION_PATTERN } from '../../../../src/constants/vibration'
 
 type Props = {
   route: {
@@ -98,23 +98,73 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
     setAnswer(answer)
   }
 
-  const {
-    handleSubmit,
-    reset,
-  } = useForm<ScoreType>({
-    defaultValues: {
-      score: score,
-      userId: useAppSelector(selectUserId), 
-      date: new Date()
-    },
-    mode: 'onChange',
-    resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  })
+  // const {
+  //   handleSubmit,
+  //   reset,
+  // } = useForm<ScoreType>({
+  //   defaultValues: {
+  //     score: score,
+  //     userId: useAppSelector(selectUserId), 
+  //     date: new Date()
+  //   },
+  //   mode: 'onChange',
+  //   resolver: yupResolver(formSchema) as Resolver<ScoreType>,
+  // })
   
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('')
-    Keyboard.dismiss()
+  // const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
+  //   setServerError('')
+  //   Keyboard.dismiss()
 
+  //   if (( checkMathOperation({
+  //     answer: Number(answer),
+  //     operation: MathOperationsConstants.SUMM, 
+  //     firstOperand: firstNumber, 
+  //     secondOperand: secondNumber,
+  //     thirdOperand: thirdNumber ? thirdNumber : null,
+  //     fourthOperand: fourthNumber ? fourthNumber : null,
+  //   }) === true ) ||
+  //   ( checkMathOperation({
+  //     answer: Number(answer),
+  //     operation: MathOperationsConstants.DIFF, 
+  //     firstOperand: firstNumber, 
+  //     secondOperand: secondNumber,
+  //     thirdOperand: thirdNumber ? thirdNumber : null,
+  //     fourthOperand: fourthNumber ? fourthNumber : null,
+  //   }) === true )) {
+  //   // ||
+  //   // ( checkMathOperation({
+  //   //   score: score,
+  //   //   answer: Number(answer),
+  //   //   operation: MathOperationsConstants.DIVIDE, 
+  //   //   firstOperand: firstMultiplier, 
+  //   //   secondOperand: secondMultiplier,
+  //   // }) === true )) {
+  //     setScore(score + 1)
+  //     setRightWrong('right')
+  //     data = { ...data, score: 1 }
+
+  //   } else {
+  //     setScore(score - 1)
+  //     setRightWrong('wrong')
+  //     data = { ...data, score: -1 }
+  //   }
+    
+  //   updateScore(data)
+  //     .unwrap()
+  //     .then(response => {
+  //       reset()
+  //       setOpen(true)
+  //       dispatch(setTotalUserScore(response.data.score))
+  //     })
+  //     .catch((e: any) => {
+  //       if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
+  //     })
+  // }
+
+  const check = () => {
+    Vibration.vibrate(VIBRATION_PATTERN, false)
+    Keyboard.dismiss()
+    setOpen(true)
     if (( checkMathOperation({
       answer: Number(answer),
       operation: MathOperationsConstants.SUMM, 
@@ -131,35 +181,12 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
       thirdOperand: thirdNumber ? thirdNumber : null,
       fourthOperand: fourthNumber ? fourthNumber : null,
     }) === true )) {
-    // ||
-    // ( checkMathOperation({
-    //   score: score,
-    //   answer: Number(answer),
-    //   operation: MathOperationsConstants.DIVIDE, 
-    //   firstOperand: firstMultiplier, 
-    //   secondOperand: secondMultiplier,
-    // }) === true )) {
       setScore(score + 1)
       setRightWrong('right')
-      data = { ...data, score: 1 }
-
     } else {
-      Vibration.vibrate(VIBRATION_PATTERN)
       setScore(score - 1)
       setRightWrong('wrong')
-      data = { ...data, score: -1 }
     }
-    
-    updateScore(data)
-      .unwrap()
-      .then(response => {
-        reset()
-        setOpen(true)
-        dispatch(setTotalUserScore(response.data.score))
-      })
-      .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
-      })
   }
 
   const onPressPlayMore = () => {
@@ -192,7 +219,7 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
       )}
       <AppLayout title={
         mathOperation === MathOperationsConstants.SUMM 
-          ? t('mathOperations.sum')
+          ? t('mathOperations.summ')
           : mathOperation === MathOperationsConstants.DIFF
           ? t('mathOperations.diff')
           : t('mathOperations.multCheck')
@@ -201,7 +228,7 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
         <MathExampleLayout>
           <Digit title={
             firstNumber
-            // (mathOperation === MathOperationsConstants.SUM ||
+            // (mathOperation === MathOperationsConstants.SUMM ||
             // mathOperation === MathOperationsConstants.DIFF) 
             //   ? firstNumber
             //   : firstMultiplier * secondMultiplier
@@ -235,9 +262,9 @@ export const SummDifference: React.FC<Props> = ({ route }) => {
             title={t('mathOperations.common.generate')}
           />
           <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+            // buttonCallback={handleSubmit(onSubmit)}
+            buttonCallback={check}
             title={t('mathOperations.common.check')}
-            disabled={answer ? false : true}
           />
         </ButtonsLayout>
         

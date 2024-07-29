@@ -98,7 +98,7 @@ export const Register = ({ navigation }) => {
           buttonBack={true}
         />
       }
-      <AuthLayout title={i18n.t('auth.links.register')}>
+      <AuthLayout title={i18n.t('screens.register')}>
         <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
           {serverError && <Text style={styles.error}>{serverError}</Text>}
           <View style={styles.inputsWrapper}>
@@ -109,7 +109,7 @@ export const Register = ({ navigation }) => {
                 render={({ field: { ref, value, onChange } }) => (
                   <TextInput
                     placeholderTextColor={'grey'}
-                    placeholder={i18n.t('auth.register.inputs.email.placeholder')}
+                    placeholder={i18n.t('auth.login.inputs.email.placeholder')}
                     style={styles.input}
                     onChangeText={onChange}
                     value={value}
@@ -136,7 +136,7 @@ export const Register = ({ navigation }) => {
                 render={({ field: { ref, onChange, value } }) => (
                   <TextInput
                     placeholderTextColor={'grey'}
-                    placeholder={i18n.t('auth.register.inputs.password.placeholder')}
+                    placeholder={i18n.t('auth.login.inputs.password.placeholder')}
                     style={styles.input}
                     secureTextEntry
                     onChangeText={onChange}
@@ -196,7 +196,7 @@ export const Register = ({ navigation }) => {
           </View>
 
           <DefaultButton
-            title={t('auth.links.login')} 
+            title={t('screens.login')} 
             text={t('auth.register.note')}
             path={PATHS.LOGIN}
           />

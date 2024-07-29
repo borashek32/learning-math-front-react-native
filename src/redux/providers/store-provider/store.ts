@@ -1,12 +1,12 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
-import { authApi } from '../../api/auth/auth.api'
+import { authApi } from '../../../api/auth/auth.api'
+import { profileApi } from '../../../api/profile/profile.api'
+import { rickMortyApi } from '../../../api/profile/rickMorty/rickMorty.api'
+import { userInfoReducer } from '../../slices/auth.slice'
+import { profileReducer } from '../../slices/profile.slice'
+import { appReducer } from '../../../app/app.slice'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { profileApi } from '../../api/profile/profile.api'
-import { userInfoReducer } from '../../redux/slices/auth.slice'
-import { profileReducer } from '../../redux/slices/profile.slice'
-import { rickMortyApi } from '../../api/profile/rickMorty/rickMorty.api'
-import { appReducer } from '../../app/app.slice'
- 
+
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
