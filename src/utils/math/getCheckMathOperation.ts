@@ -1,7 +1,7 @@
-import { MathOperationsConstants } from "../../constants/MathConstants";
+import { MathOperationsConstants } from '../../constants/MathConstants';
 
 export const getCheckMathOperation = (mathOperation: string) => {
-  let checkMathOperation: string;
+  let checkMathOperation: string = MathOperationsConstants.SUM;
 
   if (mathOperation === MathOperationsConstants.DIFF) {
     checkMathOperation = MathOperationsConstants.SUM;

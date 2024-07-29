@@ -1,5 +1,4 @@
 export const PublicRoutes = () => {
-
   return (
     <></>
     // <>

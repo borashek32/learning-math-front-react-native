@@ -1,6 +1,7 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { ModalLayout } from "../layouts/ModalLayout";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+import { ModalLayout } from '@components/layouts/ModalLayout';
 
 export const DotsLoader = () => {
   return (
@@ -16,14 +17,14 @@ export const DotsLoader = () => {
 
 const styles = StyleSheet.create({
   dot: {
-    color: "#0d47a1",
+    color: '#0d47a1',
     fontSize: 30,
-    fontWeight: "bold",
-    marginHorizontal: 5, 
+    fontWeight: 'bold',
+    marginHorizontal: 5,
   },
   dotsContainer: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

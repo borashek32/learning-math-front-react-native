@@ -1,39 +1,39 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   alertGreen: {
-    backgroundColor: "green",
-    borderColor: "darkgreen",
+    backgroundColor: 'green',
+    borderColor: 'darkgreen',
     borderWidth: 1,
   },
   alertRed: {
-    backgroundColor: "pink",
-    borderColor: "red",
+    backgroundColor: 'pink',
+    borderColor: 'red',
     borderWidth: 1,
   },
   alertText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
   },
   alertWrapper: {
-    alignItems: "center",
+    alignItems: 'center',
     height: 300,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: -150,
     padding: 10,
     width: 300,
   },
   button: {
-    backgroundColor: "yellow",
-    color: "white",
+    backgroundColor: 'yellow',
+    color: 'white',
     height: 60,
-    justifyContent: "center",
+    justifyContent: 'center',
     width: 200,
   },
   buttonBorder: {
-    borderColor: "#fff",
+    borderColor: '#fff',
     borderWidth: 1,
-    color: "#fff",
+    color: '#fff',
     marginTop: 20,
   },
   closeButton: {
@@ -41,12 +41,12 @@ export const styles = StyleSheet.create({
     width: 100,
   },
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
   },
   containerMathOperation: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 20,
   },
   digitInput: {
@@ -54,14 +54,14 @@ export const styles = StyleSheet.create({
     width: 80,
   },
   digitsText: {
-    color: "#fff",
-    fontSize: 34
+    color: '#fff',
+    fontSize: 34,
   },
   firstDigit: {
-    alignItems: "center",
-    borderColor: "#fff",
+    alignItems: 'center',
+    borderColor: '#fff',
     borderWidth: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 10,
   },
   generateButton: {
@@ -70,12 +70,12 @@ export const styles = StyleSheet.create({
   },
   multDigit: {
     fontSize: 30,
-    fontWeight: "700"
+    fontWeight: '700',
   },
   title: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
     margin: 20,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 });

@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
-import { styles } from "../../styles/styles";
-import { TextInput, View } from "react-native";
-import { Props } from "./Input.types";
+import React, { useRef } from 'react';
+import { TextInput, View } from 'react-native';
 
-export const ResultInput: React.FC<Props> = ({ value, onChange, type }) => {
+import { styles } from '../../styles/styles';
+import { Props } from './Input.types';
+
+export const ResultInput: React.FC<Props> = ({ value, onChange }) => {
   const inputRef = useRef<TextInput>(null);
 
   const handleSubmit = () => {
@@ -18,10 +19,10 @@ export const ResultInput: React.FC<Props> = ({ value, onChange, type }) => {
     <View style={styles.firstDigit}>
       <TextInput
         blurOnSubmit={false}
-        autoFocus={true}
+        autoFocus
         onChangeText={handleChange}
         value={value}
-        keyboardType={"numbers-and-punctuation"}
+        keyboardType="numbers-and-punctuation"
         style={[styles.digitsText, styles.digitInput]}
         onSubmitEditing={handleSubmit}
       />

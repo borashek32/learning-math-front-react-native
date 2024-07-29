@@ -1,10 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { DefaultButtonProps } from "./Buttons.types";
-import { useNavigation } from "@react-navigation/native";
-import { FC } from "react";
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { FC } from 'react';
 
-export const BlueButton: FC<DefaultButtonProps> = ({ 
-  title, 
+import { DefaultButtonProps } from './Buttons.types';
+
+export const BlueButton: FC<DefaultButtonProps> = ({
+  title,
   path,
   text,
   onPress,
@@ -18,17 +19,16 @@ export const BlueButton: FC<DefaultButtonProps> = ({
     if (path) {
       navigation.navigate(path as never);
     } else if (onPressWithValue) {
-      onPressWithValue(source, avatarName);
+      if (source && avatarName) {
+        onPressWithValue(source, avatarName);
+      }
     } else if (onPress) {
       onPress();
     }
   };
 
   return (
-    <TouchableOpacity
-      style={styles.button} 
-      onPress={handlePress}
-    >
+    <TouchableOpacity style={styles.button} onPress={handlePress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -36,17 +36,17 @@ export const BlueButton: FC<DefaultButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
-    backgroundColor: "#61dafb",
+    alignItems: 'center',
+    backgroundColor: '#61dafb',
     borderRadius: 5,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: 10,
     padding: 10,
   },
   buttonText: {
-    color: "#000",
+    color: '#000',
     fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

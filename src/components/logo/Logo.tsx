@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 export const Logo = () => {
   const [firstDigit, setFirstDigit] = useState(0);
@@ -40,10 +40,7 @@ export const Logo = () => {
           <Text style={styles.digit}>+</Text>
           <Text style={styles.digit}>{secondDigit}</Text>
           <Text style={[styles.digit, styles.equalsSign]}> = </Text>
-          <Text style={[styles.digit, styles.answer]}>
-            {/* {answer !== null ? answer : <DotsLoader />} */}
-            {answer !== null ? answer : ""}
-          </Text>
+          <Text style={[styles.digit, styles.answer]}>{answer ?? ''}</Text>
         </View>
       </View>
     </View>
@@ -51,33 +48,31 @@ export const Logo = () => {
 };
 
 const styles = StyleSheet.create({
-  answer: {
-  },
+  answer: {},
   digit: {
-    color: "#0d47a1",
+    color: '#0d47a1',
     fontSize: 34,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   digitsWrapper: {
-    alignItems: "flex-end",
-    display: "flex",
-    flexDirection: "row",
+    alignItems: 'flex-end',
+    display: 'flex',
+    flexDirection: 'row',
     gap: 3,
-    justifyContent: "center",
-    position: "relative",
+    justifyContent: 'center',
+    position: 'relative',
     width: 160,
   },
-  equalsSign: {
-  },
+  equalsSign: {},
   learn: {
     fontSize: 52,
-    fontWeight: "900",
+    fontWeight: '900',
     lineHeight: 50,
     marginLeft: -3,
-    textAlign: "left",
+    textAlign: 'left',
   },
   learnMathComWrapper: {
-    display: "flex"
+    display: 'flex',
   },
   logo: {
     marginBottom: 20,
@@ -86,18 +81,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   logoWrapper: {
-    alignItems: "center",
-    backgroundColor: "#fff",
+    alignItems: 'center',
+    backgroundColor: '#fff',
     borderRadius: 40,
-    flexDirection: "column",
+    flexDirection: 'column',
     height: 200,
-    justifyContent: "center",
+    justifyContent: 'center',
     width: 200,
   },
   mathCom: {
     fontSize: 30,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 30,
-    textAlign: "left",
+    textAlign: 'left',
   },
 });

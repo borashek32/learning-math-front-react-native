@@ -1,39 +1,40 @@
-import { useState } from "react";
-import { generateRandomNumber } from "../../../utils/math/generateRandomNumber";
-import { AnswerType } from "../../../types/mathOperations.types";
-import { useDispatch } from "react-redux";
-import { useUpdateScoreMutation } from "../../../api/profile/profile.api";
-import { useFormSchema } from "../../../utils/math/validationShemaMathOperations";
-import { useTranslation } from "react-i18next";
-import { Loader } from "../../../components/loaders/CircularLoader";
-import { Modal } from "../../../components/modal/Modal";
-import { Error } from "../../../components/error/Error";
-import { AppLayout } from "../../../components/layouts/AppLayout";
-import { AppText } from "../../../components/text/AppText";
-import { MathExampleLayout } from "../../../components/layouts/MathExamlpeLayout";
-import { Keyboard, StyleSheet, Vibration, View } from "react-native";
-import { MathOperationButton } from "../../../components/buttons/MathOperationButton";
-import { MathOperation } from "../../../components/mathOperation/MathOperation";
-import { MathSignsConstants } from "../../../constants/MathConstants";
-import { ResultInput } from "../../../components/inputs/ResultInput";
-import { ButtonsLayout } from "../../../components/layouts/ButtonsLayout";
-import { Score } from "../../../components/score/Score";
-import { VIBRATION_PATTERN } from "../../../constants/vibration";
-import { setTotalUserScore } from "../../../redux/slices/profile.slice";
-import { Resolver, SubmitHandler, useForm } from "react-hook-form";
-import { ScoreType } from "../../../api/profile/profile.api.types";
-import { useAppSelector } from "../../../hooks/useAppSelector";
-import { selectUserId } from "../../../redux/selectors/auth.selectors";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { SvgUri } from "react-native-svg";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Keyboard, StyleSheet, Vibration, View } from 'react-native';
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SvgUri } from 'react-native-svg';
+
+import { generateRandomNumber } from '@utils/math/generateRandomNumber';
+import { AnswerType } from 'types/mathOperations.types';
+import { useUpdateScoreMutation } from '@api/profile/profile.api';
+import { useFormSchema } from '@utils/math/validationShemaMathOperations';
+import { Loader } from '@components/loaders/CircularLoader';
+import { Modal } from '@components/modal/Modal';
+import { Error } from '@components/error/Error';
+import { AppLayout } from '@components/layouts/AppLayout';
+import { AppText } from '@components/text/AppText';
+import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
+import { MathOperationButton } from '@components/buttons/MathOperationButton';
+import { MathOperation } from '@components/mathOperation/MathOperation';
+import { ResultInput } from '@components/inputs/ResultInput';
+import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
+import { Score } from '@components/score/Score';
+import { VIBRATION_PATTERN } from '@constants/vibration';
+import { setTotalUserScore } from '@redux/slices/profile.slice';
+import { ScoreType } from '@api/profile/profile.api.types';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { selectUserId } from '@redux/selectors/auth.selectors';
+import { MathOperationsConstants } from '@constants/MathConstants';
 
 export const Numbers = () => {
   const [score, setScore] = useState(0);
 
-  const [number, setNumber] = useState((generateRandomNumber(1, 10)));
-  const [answer, setAnswer] = useState<string>("");
+  const [number, setNumber] = useState(generateRandomNumber(1, 10));
+  const [answer, setAnswer] = useState<string>('');
   const [rightWrong, setRightWrong] = useState<AnswerType>(null);
-  const [serverError, setServerError] = useState("");
+  const [serverError, setServerError] = useState('');
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -46,9 +47,9 @@ export const Numbers = () => {
   for (let i = 1; i <= number; i++) {
     numbers.push(i);
   }
-  
+
   const onGenerateNewNumbers = () => {
-    setAnswer("");
+    setAnswer('');
     setOpen(false);
     setNumber(generateRandomNumber(1, 10));
   };
@@ -57,35 +58,31 @@ export const Numbers = () => {
     setAnswer(answer);
   };
 
-  const {
-    handleSubmit,
-    reset,
-  } = useForm<ScoreType>({
+  const { handleSubmit, reset } = useForm<ScoreType>({
     defaultValues: {
-      score: score,
-      userId: useAppSelector(selectUserId), 
-      date: new Date()
+      score,
+      userId: useAppSelector(selectUserId),
+      date: new Date(),
     },
-    mode: "onChange",
+    mode: 'onChange',
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
   });
-  
+
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError("");
+    setServerError('');
     Keyboard.dismiss();
 
     if (number === Number(answer)) {
       setScore(score + 1);
-      setRightWrong("right");
+      setRightWrong('right');
       data = { ...data, score: 1 };
-
     } else {
       Vibration.vibrate(VIBRATION_PATTERN);
       setScore(score - 1);
-      setRightWrong("wrong");
+      setRightWrong('wrong');
       data = { ...data, score: -1 };
     }
-    
+
     updateScore(data)
       .unwrap()
       .then(response => {
@@ -94,19 +91,19 @@ export const Numbers = () => {
         dispatch(setTotalUserScore(response.data.score));
       })
       .catch((e: any) => {
-        if (e.status === "FETCH_ERROR") setServerError(t("errors.serverError"));
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
       });
   };
 
   const onPressPlayMore = () => {
     setOpen(false);
     onGenerateNewNumbers();
-    setAnswer("");
+    setAnswer('');
   };
 
   const onPressTryAgain = () => {
     setOpen(false);
-    setAnswer("");
+    setAnswer('');
   };
 
   return (
@@ -115,56 +112,55 @@ export const Numbers = () => {
       {open && (
         <Modal
           text={
-            rightWrong === "right" 
-              ? t("modal.checkMathOperationSuccess") 
-              : t("modal.checkMathOperationFail")
-            }
+            rightWrong === 'right'
+              ? t('modal.checkMathOperationSuccess')
+              : t('modal.checkMathOperationFail')
+          }
           open={open}
           outlinedButton={false}
-          buttonName={t("modal.button")}
-          buttonCallback={rightWrong === "right" ? onPressPlayMore : onPressTryAgain}
-          color={rightWrong === "right" ? "blue" : "red"}
+          buttonName={t('modal.button')}
+          buttonCallback={
+            rightWrong === 'right' ? onPressPlayMore : onPressTryAgain
+          }
+          color={rightWrong === 'right' ? 'blue' : 'red'}
         />
       )}
-      <AppLayout title={t("preSchool.numbers.title")}>
-        {serverError && <Error error={serverError} />}
-        <AppText desc={t("preSchool.numbers.desc")} />
-    
-      <MathExampleLayout>
-        <View style={styles.imagesContainer}>
-          {numbers && numbers.map((item: number) => {
-            return (
-              <SvgUri
-                key={item}
-                uri="https://www.svgrepo.com/show/434029/cat.svg"
-                width="34px"
-                height="34px"
-              />
-            );
-          })}
-        </View>
+      <AppLayout title={t('preSchool.numbers.title')}>
+        <View>{serverError && <Error error={serverError} />}</View>
+        <AppText desc={t('preSchool.numbers.desc')} />
 
-        <MathOperation title={MathSignsConstants.EQUAL} />
+        <MathExampleLayout>
+          <View style={styles.imagesContainer}>
+            {numbers.map((item: number) => {
+              return (
+                <SvgUri
+                  key={item}
+                  uri="https://www.svgrepo.com/show/434029/cat.svg"
+                  width="34px"
+                  height="34px"
+                />
+              );
+            })}
+          </View>
 
-        <ResultInput
-          value={answer} 
-          onChange={onChangeHandler}
-        />
-      </MathExampleLayout>
+          <MathOperation title={MathOperationsConstants.EQUAL} />
 
-      <ButtonsLayout>
-        <MathOperationButton
-          buttonCallback={onGenerateNewNumbers}
-          title={t("mathOperations.common.generate")}
-        />
-        <MathOperationButton
-          buttonCallback={handleSubmit(onSubmit)}
-          title={t("mathOperations.common.check")}
-          disabled={!answer}
-        />
-      </ButtonsLayout>
+          <ResultInput value={answer} onChange={onChangeHandler} />
+        </MathExampleLayout>
 
-      <Score score={score} />
+        <ButtonsLayout>
+          <MathOperationButton
+            buttonCallback={onGenerateNewNumbers}
+            title={t('mathOperations.common.generate')}
+          />
+          <MathOperationButton
+            buttonCallback={handleSubmit(onSubmit)}
+            title={t('mathOperations.common.check')}
+            disabled={!answer}
+          />
+        </ButtonsLayout>
+
+        <Score score={score} />
       </AppLayout>
     </>
   );
@@ -172,11 +168,11 @@ export const Numbers = () => {
 
 const styles = StyleSheet.create({
   imagesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
     marginBottom: 20,
     marginTop: 20,
-    width: 160
+    width: 160,
   },
 });

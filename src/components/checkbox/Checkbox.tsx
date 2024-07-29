@@ -1,6 +1,7 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Props } from "./Checkbox.types";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { Props } from './Checkbox.types';
 
 export const Checkbox = ({ label, isChecked, onChange }: Props) => {
   const toggleCheckbox = () => {
@@ -19,29 +20,29 @@ export const Checkbox = ({ label, isChecked, onChange }: Props) => {
 
 const styles = StyleSheet.create({
   checkbox: {
-    alignItems: "center",
-    borderColor: "#fff",
+    alignItems: 'center',
+    borderColor: '#fff',
     borderRadius: 3,
     borderWidth: 1,
     height: 20,
-    justifyContent: "center",
+    justifyContent: 'center',
     width: 20,
   },
   checked: {
-    backgroundColor: "blue",
+    backgroundColor: 'blue',
   },
   checkmark: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 2,
     height: 10,
     width: 10,
   },
   container: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
   },
   label: {
-    color: "#fff"
-  }
+    color: '#fff',
+  },
 });

@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "lint": "eslint src",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test:eslint": "echo \"\\033[33mRunning eslint check\" && eslint .",
+    "test:tsc": "echo \"\\033[33mRunning typescript check\" && tsc",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -23,7 +25,8 @@
     "@react-navigation/stack": "^6.4.1",
     "@reduxjs/toolkit": "^2.0.1",
     "base-64": "^1.0.0",
-    "eslint": "8",
+    "eslint": "^8.57.0",
+    "eslint-config-universe": "^13.0.0",
     "expo": "^51.0.18",
     "expo-linking": "~6.3.1",
     "expo-localization": "~15.0.3",
@@ -33,6 +36,7 @@
     "i18next": "^23.8.2",
     "intl-pluralrules": "^2.0.1",
     "lru-cache": "^11.0.0",
+    "prettier": "^3.3.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.49.3",
@@ -60,6 +64,7 @@
     "@types/react": "~18.2.79",
     "@types/react-native": "^0.72.8",
     "@types/react-test-renderer": "^18.0.7",
+    "babel-plugin-module-resolver": "^5.0.2",
     "eslint-config-expo": "^7.1.2",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-native": "^4.1.0",

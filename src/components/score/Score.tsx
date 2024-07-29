@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Props } from "./Score.types";
-import { useAppSelector } from "../../hooks/useAppSelector";
-import { selectUserAvatarPath } from "../../redux/selectors/auth.selectors";
-import { UserAvatar } from "../avatar/UserAvatar";
+import { StyleSheet, Text, View } from 'react-native';
+
+import { Props } from './Score.types';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { selectUserAvatarPath } from '@redux/selectors/auth.selectors';
+import { UserAvatar } from '../avatar/UserAvatar';
 
 export const Score = ({ score }: Props) => {
   const avatarPath = useAppSelector(selectUserAvatarPath);
@@ -10,13 +11,8 @@ export const Score = ({ score }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.scoreWrapper}>
-        <UserAvatar 
-          source={avatarPath}
-          small={true}
-        />
-        <Text style={styles.title}>
-          {score} XP
-        </Text>
+        <UserAvatar source={avatarPath} small />
+        <Text style={styles.title}>{score} XP</Text>
       </View>
     </View>
   );
@@ -24,19 +20,19 @@ export const Score = ({ score }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 20,
   },
   scoreWrapper: {
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
     gap: 6,
-    width: 100
+    width: 100,
   },
   title: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 });

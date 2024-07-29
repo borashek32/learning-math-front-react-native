@@ -1,1 +1,1 @@
-export type AnswerType = "right" | "wrong" | null
+export type AnswerType = 'right' | 'wrong' | null;

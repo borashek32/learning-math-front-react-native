@@ -1,14 +1,15 @@
-import { FC } from "react";
-import { MathOperationsConstants } from "../../constants/MathConstants";
+import { FC } from 'react';
+
+import { MathOperationsConstants } from '../../constants/MathConstants';
 
 type Props = {
-  answer: number
-  operation: string
-  firstOperand: number 
-  secondOperand: number
-  thirdOperand?: number | undefined
-  fourthOperand?: number | undefined
-}
+  answer: number;
+  operation: string;
+  firstOperand: number;
+  secondOperand: number;
+  thirdOperand?: number | undefined;
+  fourthOperand?: number | undefined;
+};
 
 export const checkMathOperation: FC<Props> = ({
   answer,
@@ -18,16 +19,22 @@ export const checkMathOperation: FC<Props> = ({
   thirdOperand,
   fourthOperand,
 }: Props): boolean => {
-
   switch (operation) {
     case MathOperationsConstants.SUM:
       if (
-        ((firstOperand && secondOperand) && 
-        (firstOperand + secondOperand === answer)) ||
-        ((firstOperand && secondOperand && thirdOperand) && 
-        (firstOperand + secondOperand + thirdOperand === answer)) ||
-        ((firstOperand && secondOperand && thirdOperand && fourthOperand) && 
-        (firstOperand + secondOperand + thirdOperand + fourthOperand === answer))
+        (firstOperand &&
+          secondOperand &&
+          firstOperand + secondOperand === answer) ??
+        (firstOperand &&
+          secondOperand &&
+          thirdOperand &&
+          firstOperand + secondOperand + thirdOperand === answer) ??
+        (firstOperand &&
+          secondOperand &&
+          thirdOperand &&
+          fourthOperand &&
+          firstOperand + secondOperand + thirdOperand + fourthOperand ===
+            answer)
       ) {
         return true;
       } else {
@@ -36,12 +43,19 @@ export const checkMathOperation: FC<Props> = ({
 
     case MathOperationsConstants.DIFF:
       if (
-        ((firstOperand && secondOperand) && 
-        (firstOperand - secondOperand === answer)) ||
-        ((firstOperand && secondOperand && thirdOperand) && 
-        (firstOperand - secondOperand - thirdOperand === answer)) ||
-        ((firstOperand && secondOperand && thirdOperand && fourthOperand) && 
-        (firstOperand - secondOperand - thirdOperand - fourthOperand === answer))
+        (firstOperand &&
+          secondOperand &&
+          firstOperand - secondOperand === answer) ??
+        (firstOperand &&
+          secondOperand &&
+          thirdOperand &&
+          firstOperand - secondOperand - thirdOperand === answer) ??
+        (firstOperand &&
+          secondOperand &&
+          thirdOperand &&
+          fourthOperand &&
+          firstOperand - secondOperand - thirdOperand - fourthOperand ===
+            answer)
       ) {
         return true;
       } else {
@@ -56,8 +70,8 @@ export const checkMathOperation: FC<Props> = ({
       } else {
         return false;
       }
-      
+
     default:
-      throw new Error("Unsupported operation");
+      throw new Error('Unsupported operation');
   }
 };

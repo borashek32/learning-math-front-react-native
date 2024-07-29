@@ -1,34 +1,45 @@
 module.exports = {
-  env: {
-    node: true,
-    es2021: true, // Поддержка ECMAScript 2021
-  },
-
   extends: [
-    "expo",
-    "eslint:recommended",
+    'universe',
+    'universe/native',
+    'universe/web',
+    'universe/shared/typescript-analysis',
+    'eslint:recommended',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
-
-  globals: {
-    __dirname: "readonly",
-    // Добавьте любые другие глобальные переменные, которые могут потребоваться
-  },
-
-  rules: {
-    // Здесь можно добавить или переопределить правила ESLint
-    "no-unused-vars": ["warn"],
-    "no-undef": ["error"],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
-  },
-
   overrides: [
     {
-      files: ["*.js", "*.jsx", "*.ts", "*.tsx"],
-      rules: {
-        // Переопределите или добавьте правила для определенных типов файлов, если необходимо
+      files: ['*.ts', '*.tsx', '*.d.ts'],
+      parserOptions: {
+        project: './tsconfig.json',
       },
     },
   ],
+  plugins: ['react-hooks', 'prettier', 'import'],
+  rules: {
+    'import/order': [
+      'error',
+      {
+        groups: [['builtin', 'external', 'internal']],
+        'newlines-between': 'always',
+        pathGroups: [
+          {
+            pattern: '**/styles.css',
+            group: 'index',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+      },
+    ],
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'no-undef': 'error',
+    'prettier/prettier': ['error', { singleQuote: true }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+  },
+  env: {
+    node: true,
+  },
 };

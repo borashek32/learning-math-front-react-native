@@ -1,19 +1,18 @@
-import React from "react";
-import { Text, StyleSheet, ScrollView, View } from "react-native";
-import { Props } from "./Layout.types";
-import { Nav } from "../nav/Nav";
+import React from 'react';
+import { Text, StyleSheet, ScrollView, View } from 'react-native';
+
+import { Props } from './Layout.types';
+import { Nav } from '@components/nav/Nav';
 
 export const AppLayout = ({ title, children }: Props) => {
-
   return (
-    <ScrollView 
+    <ScrollView
       contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps={"handled"}
-    >
+      keyboardShouldPersistTaps="handled">
       <Nav />
       <View style={styles.contentWrapper}>
         <Text style={styles.title}>{title}</Text>
-        { children }
+        {children}
       </View>
     </ScrollView>
   );
@@ -21,24 +20,24 @@ export const AppLayout = ({ title, children }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    backgroundColor: "#01143d",
+    alignItems: 'center',
+    backgroundColor: '#01143d',
     flexGrow: 1,
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     paddingBottom: 40,
-    width: "100%",
+    width: '100%',
   },
   contentWrapper: {
     flex: 1,
     marginTop: 20,
-    width: 260
+    width: 260,
   },
   title: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 30,
-    textAlign: "center"
+    textAlign: 'center',
   },
 });

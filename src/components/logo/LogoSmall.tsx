@@ -1,16 +1,20 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { PATHS } from "../../constants/paths";
-import { Props } from "./Logo.types";
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { PATHS } from '../../constants/paths';
+import { Props } from './Logo.types';
 
 export const LogoSmall = ({ path }: Props) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity 
-      onPress={() => navigation.navigate(path === PATHS.MAIN ? PATHS.MAIN : PATHS.HOME)}
-      >
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate(
+          path === PATHS.MAIN ? (PATHS.MAIN as never) : (PATHS.HOME as never),
+        )
+      }>
       <View style={styles.logoWrapperSmall}>
         <View style={styles.learnMathComWrapperSmall}>
           <Text style={styles.learnSmall}>Learn</Text>
@@ -24,27 +28,27 @@ export const LogoSmall = ({ path }: Props) => {
 
 const styles = StyleSheet.create({
   learnMathComWrapperSmall: {
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   learnSmall: {
     fontSize: 18,
-    fontWeight: "900",
+    fontWeight: '900',
     lineHeight: 20,
-    textAlign: "left",
+    textAlign: 'left',
   },
   logoWrapperSmall: {
-    alignItems: "center",
-    backgroundColor: "white",
+    alignItems: 'center',
+    backgroundColor: 'white',
     borderRadius: 8,
     height: 60,
-    justifyContent: "center",
+    justifyContent: 'center',
     width: 60,
   },
   mathComSmall: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 12,
     marginLeft: 2,
-    textAlign: "left",
-  }
+    textAlign: 'left',
+  },
 });
