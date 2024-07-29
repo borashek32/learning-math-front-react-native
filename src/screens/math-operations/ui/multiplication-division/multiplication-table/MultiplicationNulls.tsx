@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard, SafeAreaView } from 'react-native'
+import { Keyboard, SafeAreaView, Vibration } from 'react-native'
 import { Score } from '../../../../../components/score/Score'
 import { ResultInput } from '../../../../../components/inputs/ResultInput'
 import { Digit } from '../../../../../components/digit/Digit'
@@ -22,6 +22,7 @@ import { Modal } from '../../../../../components/modal/Modal'
 import { Error } from '../../../../../components/error/Error'
 import { setTotalUserScore } from '../../../../../redux/slices/profile.slice'
 import { useDispatch } from 'react-redux'
+import { VIBRATION_PATTERN } from '../../../../../constants/vibration'
 
 export const MultiplicationNulls = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
@@ -74,6 +75,7 @@ export const MultiplicationNulls = () => {
       setRightWrong('right')
       data = { ...data, score: 1 }
     } else {
+      Vibration.vibrate(VIBRATION_PATTERN)
       setScore(score - 1)
       setRightWrong('wrong')
       data = { ...data, score: -1 }
@@ -159,6 +161,7 @@ export const MultiplicationNulls = () => {
           <MathOperationButton
             buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
+            disabled={answer ? false : true}
           />
         </ButtonsLayout>
         

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard } from 'react-native'
+import { Keyboard, Vibration } from 'react-native'
 import { Score } from '../../../../../components/score/Score'
 import { ResultInput } from '../../../../../components/inputs/ResultInput'
 import { Digit } from '../../../../../components/digit/Digit'
@@ -23,6 +23,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { setTotalUserScore } from '../../../../../redux/slices/profile.slice'
 import { useDispatch } from 'react-redux'
 import { generateRandomNumber } from '../../../../../utils/math/generateRandomNumber'
+import { VIBRATION_PATTERN } from '../../../../../constants/vibration'
 
 export const MultiplicationNumber = ({ route }) => {
   const { digit } = route.params
@@ -75,6 +76,7 @@ export const MultiplicationNumber = ({ route }) => {
       data = { ...data, score: 1 }
     }
     else {
+      Vibration.vibrate(VIBRATION_PATTERN)
       setScore(score - 1)
       setRightWrong('wrong')
       data = { ...data, score: -1 }

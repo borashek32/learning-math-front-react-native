@@ -25,9 +25,16 @@ export const Nav = () => {
 
   const dispatch = useDispatch()
   const userId = useAppSelector(selectUserId)
-  const { data: userScoreData } = useGetTotalUserScoreQuery(userId)
+  const { data: userScoreData, refetch } = useGetTotalUserScoreQuery(userId)
 
   useEffect(() => {
+    if (userScoreData) {
+      refetch()
+    }
+  }, [userScoreData])
+
+  useEffect(() => {
+    refetch()
     userScoreData && dispatch(setTotalUserScore(userScoreData.score))
   }, [userScoreData, dispatch])
   
@@ -45,7 +52,7 @@ export const Nav = () => {
           {userEmail && 
             <TouchableOpacity onPress={() => navigation.navigate(PATHS.PROFILE as never)}>
               <Text style={styles.buttonTextSmall}>{userEmail}</Text>
-              {/* <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text> */}
+              <Text style={styles.score}>{totalUserScore && totalUserScore} XP</Text>
             </TouchableOpacity>
           }
           <TouchableOpacity style={styles.menu} onPress={toggleMenu}>
@@ -84,6 +91,14 @@ export const Nav = () => {
               path={PATHS.MATH_OPERATIONS} 
               onPress={() => {
                 navigation.navigate(PATHS.MATH_OPERATIONS as never)
+                setMenuOpen(false)
+              }} 
+            />
+            <NavLinkButton 
+              title={t("screens.preSchool")} 
+              path={PATHS.PRE_SCHOOL} 
+              onPress={() => {
+                navigation.navigate(PATHS.PRE_SCHOOL as never)
                 setMenuOpen(false)
               }} 
             />

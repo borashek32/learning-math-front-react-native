@@ -10,12 +10,12 @@ export const AppText: FC<Props> = ({ desc, onPress,link }: Props) => {
 
 export const styles = StyleSheet.create({
   digitsText: {
-    fontSize: 24,
+    fontSize: 14,
     textDecorationColor: '#fff',
     textDecorationLine: "underline",
     color: '#fff',
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: 4,
     marginBottom: 4,
   },
 })

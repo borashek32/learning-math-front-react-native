@@ -23,7 +23,9 @@ export type DefaultButtonProps = {
     PATHS.CHANGE_AVATAR |
     PATHS.EQUATIONS |
     PATHS.EQUATIONS_X |
-    PATHS.EQUATIONS_XY
+    PATHS.EQUATIONS_XY |
+    PATHS.PRE_SCHOOL | 
+    PATHS.NUMBERS
   onPress?: () => void
   onPressWithValue?: (value: string, avatarName: string) => void
   name?: string
