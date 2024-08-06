@@ -9,7 +9,7 @@ export const SelectLang = () => {
 
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang);
-  }
+  };
 
   return (
     <View style={styles.selectWrapper}>
@@ -20,19 +20,31 @@ export const SelectLang = () => {
           useNativeAndroidPickerStyle={false}
           style={pickerSelectStyles}
           value={i18n.language}
-          onValueChange={(value) => changeLang(value)}
+          onValueChange={value => changeLang(value)}
           onOpen={() => setIsPickerOpen(true)}
           onClose={() => setIsPickerOpen(false)}
           items={[
-            { key: 'ru', label: t('changeLang.options.ru'), value: 'ru', color: 'black' },
-            { key: 'en', label: t('changeLang.options.en'), value: 'en', color: 'black' },
+            {
+              key: 'ru',
+              label: t('changeLang.options.ru'),
+              value: 'ru',
+              color: 'black',
+            },
+            {
+              key: 'en',
+              label: t('changeLang.options.en'),
+              value: 'en',
+              color: 'black',
+            },
           ]}
           Icon={() => {
             return (
               <View
                 style={[
                   styles.iconContainer,
-                  isPickerOpen ? styles.iconContainerOpen : styles.iconContainerClosed
+                  isPickerOpen
+                    ? styles.iconContainerOpen
+                    : styles.iconContainerClosed,
                 ]}
               />
             );
@@ -40,69 +52,69 @@ export const SelectLang = () => {
         />
       </View>
     </View>
-  )
-}
+  );
+};
 
 const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    color: 'black',
-    paddingRight: 30,
-    backgroundColor: 'white',
-    width: 150,
-  },
   inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
+    backgroundColor: 'white',
     borderColor: 'gray',
     borderRadius: 8,
+    borderWidth: 1,
     color: 'black',
+    fontSize: 16,
+    paddingHorizontal: 10,
     paddingRight: 30,
+    paddingVertical: 8,
+    width: 150,
+  },
+  inputIOS: {
     backgroundColor: 'white',
+    borderColor: 'gray',
+    borderRadius: 4,
+    borderWidth: 1,
+    color: 'black',
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingRight: 30,
+    paddingVertical: 12,
     width: 150,
   },
 });
 
 const styles = StyleSheet.create({
-  selectWrapper: {
-    position: 'relative',
-  },
-  select: {},
   change: {
-    fontSize: 12,
     color: 'white',
+    fontSize: 12,
     marginBottom: 4,
     textAlign: 'center',
   },
   iconContainer: {
-    position: 'absolute',
-    top: 20,
-    right: 6,
     backgroundColor: 'transparent',
-    borderTopWidth: 5,
-    borderTopColor: 'gray',
-    borderRightWidth: 5,
-    borderRightColor: 'transparent',
-    borderLeftWidth: 5,
     borderLeftColor: 'transparent',
-    width: 0,
+    borderLeftWidth: 5,
+    borderRightColor: 'transparent',
+    borderRightWidth: 5,
+    borderTopColor: 'gray',
+    borderTopWidth: 5,
     height: 0,
-  },
-  iconContainerOpen: {
-    borderBottomWidth: 5,
-    borderBottomColor: 'gray',
-    borderTopWidth: 0,
+    position: 'absolute',
+    right: 6,
+    top: 20,
+    width: 0,
   },
   iconContainerClosed: {
-    borderTopWidth: 5,
-    borderTopColor: 'gray',
     borderBottomWidth: 0,
+    borderTopColor: 'gray',
+    borderTopWidth: 5,
+  },
+  iconContainerOpen: {
+    borderBottomColor: 'gray',
+    borderBottomWidth: 5,
+    borderTopWidth: 0,
+  },
+  select: {},
+  selectWrapper: {
+    position: 'relative',
   },
 });

@@ -1,95 +1,97 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { DefaultButtonProps } from './Buttons.types'
-import { PATHS } from '../../constants/paths'
-import { useNavigation } from '@react-navigation/native'
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { PATHS } from '@constants/paths';
 
-export const DefaultButton: React.FC<DefaultButtonProps> = ({ 
-  title, 
+import { DefaultButtonProps } from './Buttons.types';
+
+export const DefaultButton: React.FC<DefaultButtonProps> = ({
+  title,
   path,
   text,
   onPress,
 }: DefaultButtonProps) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  const buttonStyles = path === PATHS.LOGOUT
-    ? [styles.button, styles.buttonBorder, styles.buttonRed]
-    : path === PATHS.MATH_OPERATIONS
-    ? [styles.buttonLink]
-    : path === PATHS.PRE_SCHOOL
-    ? [styles.buttonLink]
-    : path === PATHS.PROFILE
-    ? [styles.buttonLink]
-    : path === PATHS.HOME
-    ? [styles.buttonLink]
-    : path === PATHS.YOUR_SCORE
-    ? [styles.buttonLink]
-    : path === PATHS.INSTRUCTIONS
-    ? [styles.buttonLink]
-    : path === PATHS.FORGOT_PASSWORD
-    ? [styles.buttonLink]
-    : path === PATHS.CHANGE_EMAIL
-    ? [styles.buttonLink]
-    : path === PATHS.CHANGE_PASSWORD
-    ? [styles.buttonLink]
-    : path === PATHS.CHANGE_AVATAR
-    ? [styles.buttonLink]
-    : [styles.button, styles.buttonBorder]
+  const buttonStyles =
+    path === PATHS.LOGOUT
+      ? [styles.button, styles.buttonBorder, styles.buttonRed]
+      : path === PATHS.MATH_OPERATIONS
+        ? [styles.buttonLink]
+        : path === PATHS.PRE_SCHOOL
+          ? [styles.buttonLink]
+          : path === PATHS.PROFILE
+            ? [styles.buttonLink]
+            : path === PATHS.HOME
+              ? [styles.buttonLink]
+              : path === PATHS.YOUR_SCORE
+                ? [styles.buttonLink]
+                : path === PATHS.INSTRUCTIONS
+                  ? [styles.buttonLink]
+                  : path === PATHS.FORGOT_PASSWORD
+                    ? [styles.buttonLink]
+                    : path === PATHS.CHANGE_EMAIL
+                      ? [styles.buttonLink]
+                      : path === PATHS.CHANGE_PASSWORD
+                        ? [styles.buttonLink]
+                        : path === PATHS.CHANGE_AVATAR
+                          ? [styles.buttonLink]
+                          : [styles.button, styles.buttonBorder];
 
   return (
     <View style={styles.noteWrapper}>
       {text && <Text style={styles.note}>{text}</Text>}
-      <TouchableOpacity style={buttonStyles} onPress={
-        path 
-          ? () => navigation.navigate(path as never)
-          : onPress
-        }>
-        <Text style={text ? styles.buttonTextSmall : styles.buttonText}>{title}</Text>
+      <TouchableOpacity
+        style={buttonStyles}
+        onPress={path ? () => navigation.navigate(path as never) : onPress}>
+        <Text style={text ? styles.buttonTextSmall : styles.buttonText}>
+          {title}
+        </Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 export const styles = StyleSheet.create({
-  noteWrapper: {
-    width: 200,
+  button: {
     alignItems: 'center',
+    backgroundColor: '#0D6EFD',
+    borderRadius: 4,
     justifyContent: 'center',
+    paddingHorizontal: 13,
+    paddingVertical: 6,
+  },
+  buttonBorder: {
+    borderColor: '#000',
+    borderWidth: 1,
+  },
+  buttonLink: {
+    alignItems: 'center',
+    backgroundColor: 'inherit',
+    justifyContent: 'center',
+  },
+  buttonRed: {
+    backgroundColor: '#fb6161',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  buttonTextSmall: {
+    color: '#fff',
+    fontSize: 14,
   },
   note: {
     color: '#dfdfdf',
     fontSize: 14,
-    textAlign: 'center',
+    marginBottom: 10,
     marginTop: 30,
-    marginBottom: 10
+    textAlign: 'center',
   },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 13,
-    justifyContent: 'center',
+  noteWrapper: {
     alignItems: 'center',
-    borderRadius: 4,
-    backgroundColor: '#0D6EFD',
-  },
-  buttonLink: {
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'inherit',
+    width: 200,
   },
-  buttonBorder: {
-    borderWidth: 1,
-    borderColor: '#000',
-  },
-  buttonRed: {
-    backgroundColor: "#fb6161",
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#fff',
-    textAlign: 'center'
-  },
-  buttonTextSmall: {
-    fontSize: 14,
-    color: '#fff',
-  },
-})
+});

@@ -1,91 +1,85 @@
-import React from 'react'
-import { Props } from './Modal.types'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { useTranslation } from 'react-i18next'
-import { ModalLayout } from '../layouts/ModalLayout'
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { ModalLayout } from '@components/layouts/ModalLayout';
 
-export const Modal: React.FC<Props> = ({ 
-  text, 
-  outlinedButton, 
-  buttonName, 
-  buttonCallback, 
+import { Props } from './Modal.types';
+
+export const Modal: React.FC<Props> = ({
+  text,
+  outlinedButton,
+  buttonName,
+  buttonCallback,
   open,
-  setOpen, 
   error,
   color,
-  buttonBack
+  buttonBack,
 }) => {
-  const navigation = useNavigation()
-  const { t } = useTranslation()
+  const navigation = useNavigation();
+  const { t } = useTranslation();
 
-  const back = () => navigation.goBack()
+  const back = () => navigation.goBack();
+
+  const backgroundColorStyle = color ? { backgroundColor: color } : {};
 
   return (
     <ModalLayout>
-      {open && 
-        <View 
+      {open && (
+        <View
           style={[
-            styles.modal, 
-            error && styles.modalWithError, 
-            color && { backgroundColor: color }
-          ]}
-        >
-          {text &&
-            <Text style={styles.textSmall}>
-              {text}
-            </Text>
-          }
+            styles.modal,
+            error && styles.modalWithError,
+            backgroundColorStyle,
+          ]}>
+          {text && <Text style={styles.textSmall}>{text}</Text>}
           <View style={styles.buttonWrapper}>
-            {buttonBack && 
+            {buttonBack && (
               <View style={outlinedButton ? styles.outlinedStyles : {}}>
-                <Button 
-                  title={t('links.back')} 
-                  onPress={back} 
+                <Button title={t('links.back')} onPress={back} />
+              </View>
+            )}
+            {buttonCallback && (
+              <View style={outlinedButton ? styles.outlinedStyles : {}}>
+                <Button
+                  title={buttonName ? buttonName : 'Ok'}
+                  onPress={buttonCallback}
                 />
               </View>
-            }
-            {buttonCallback && 
-              <View style={outlinedButton ? styles.outlinedStyles : {}}>
-                <Button 
-                  title={buttonName ? buttonName : "Ok"} 
-                  onPress={buttonCallback} 
-                />
-              </View>
-            }
+            )}
           </View>
         </View>
-      }
+      )}
     </ModalLayout>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   modal: {
-    width: 230,
-    height: 150,
-    borderRadius: 16,
-    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 16,
     flexDirection: 'column',
+    height: 150,
+    justifyContent: 'center',
     marginBottom: 20,
-    backgroundColor: 'white'
+    width: 230,
   },
   modalWithError: {
     backgroundColor: '#fb6161',
+  },
+  outlinedStyles: {
+    borderColor: '#fff',
+    borderRadius: 4,
+    borderWidth: 1,
+    color: '#fff',
   },
   textSmall: {
     fontSize: 16,
     fontWeight: '500',
   },
-  buttonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  outlinedStyles: {
-    borderWidth: 1,
-    borderColor: '#fff',
-    color: '#fff',
-    borderRadius: 4
-  },
-})
+});

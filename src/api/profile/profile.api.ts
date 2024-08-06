@@ -1,9 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { baseURL } from '../../redux/constants/baseUrl'
-import { algByDecodingToken } from '../../utils/string/algByDecodingToken'
-import { AvatarType, ScoreType } from './profile.api.types'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { UserType } from '../auth/auth.api.types'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { baseURL } from '@redux/constants/baseUrl';
+import { algByDecodingToken } from '@utils/string/algByDecodingToken';
+import { UserType } from '@api/auth/auth.api.types';
+
+import { AvatarType, ScoreType } from './profile.api.types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
@@ -12,21 +13,21 @@ const baseQuery = fetchBaseQuery({
   headers: {
     'Content-Type': 'application/json',
   },
-  prepareHeaders: async (headers) => {
-    const token = await AsyncStorage.getItem('accessToken')
-  
+  prepareHeaders: async headers => {
+    const token = await AsyncStorage.getItem('accessToken');
+
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
-      algByDecodingToken(token)
+      headers.set('Authorization', `Bearer ${token}`);
+      algByDecodingToken(token);
     }
-  
-    return headers
-  }
-})
+
+    return headers;
+  },
+});
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
-  baseQuery: baseQuery,
+  baseQuery,
   tagTypes: [],
   endpoints: build => {
     return {
@@ -38,9 +39,9 @@ export const profileApi = createApi({
             body: {
               score: data.score,
               userId: data.userId,
-              date: data.date
+              date: data.date,
             },
-          }
+          };
         },
       }),
       getTotalUserScore: build.query<ScoreType, string>({
@@ -48,8 +49,8 @@ export const profileApi = createApi({
           return {
             method: 'GET',
             url: `get-total-user-score/${userId}`,
-          }
-        }
+          };
+        },
       }),
       updateAvatar: build.mutation<UserType, AvatarType>({
         query: (data: AvatarType) => {
@@ -59,17 +60,17 @@ export const profileApi = createApi({
             body: {
               userId: data.userId,
               avatarPath: data.avatarPath,
-              avatarName: data.avatarName
-            }
-          }
-        }
+              avatarName: data.avatarName,
+            },
+          };
+        },
       }),
-    }
+    };
   },
-})
+});
 
 export const {
   useUpdateScoreMutation,
   useGetTotalUserScoreQuery,
   useUpdateAvatarMutation,
-} = profileApi
+} = profileApi;

@@ -1,80 +1,82 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { DefaultButtonProps } from './Buttons.types'
-import { PATHS } from '../../constants/paths'
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { PATHS } from '@constants/paths';
 
-export const NavLinkButton: React.FC<DefaultButtonProps> = ({ 
-  title, 
+import { DefaultButtonProps } from './Buttons.types';
+
+export const NavLinkButton: React.FC<DefaultButtonProps> = ({
+  title,
   path,
   text,
   onPress,
 }: DefaultButtonProps) => {
-  const buttonStyles = path === PATHS.LOGOUT
-    ? [styles.button, styles.buttonBorder, styles.buttonRed]
-    : path === PATHS.MATH_OPERATIONS
-    ? [styles.buttonTextSmall]
-    : path === PATHS.PROFILE
-    ? [styles.buttonTextSmall]
-    : path === PATHS.HOME
-    ? [styles.buttonTextSmall]
-    : path === PATHS.MAIN
-    ? [styles.buttonTextSmall]
-    : path === PATHS.PRE_SCHOOL
-    ? [styles.buttonTextSmall]
-    : path === PATHS.YOUR_SCORE
-    ? [styles.buttonTextSmall]
-    : path === PATHS.INSTRUCTIONS
-    ? [styles.buttonTextSmall]
-    : [styles.button, styles.buttonBorder]
+  const buttonStyles = [
+    styles.buttonTextSmall,
+    path === PATHS.LOGOUT
+      ? (styles.button, styles.buttonBorder, styles.buttonRed)
+      : {},
+  ];
+  // : path === PATHS.MATH_OPERATIONS
+  //   ? [styles.buttonTextSmall]
+  //   : path === PATHS.PROFILE
+  //     ? [styles.buttonTextSmall]
+  //     : path === PATHS.HOME
+  //       ? [styles.buttonTextSmall]
+  //       : path === PATHS.MAIN
+  //         ? [styles.buttonTextSmall]
+  //         : path === PATHS.PRE_SCHOOL
+  //           ? [styles.buttonTextSmall]
+  //           : path === PATHS.YOUR_SCORE
+  //             ? [styles.buttonTextSmall]
+  //             : path === PATHS.INSTRUCTIONS
+  //               ? [styles.buttonTextSmall]
+  //               : [styles.button, styles.buttonBorder];
 
   return (
     <View style={styles.noteWrapper}>
       {text && <Text style={styles.note}>{text}</Text>}
-      <TouchableOpacity 
-        style={buttonStyles} 
-        onPress={onPress}
-        >
+      <TouchableOpacity style={buttonStyles} onPress={onPress}>
         <Text style={styles.buttonTextSmall}>{title}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 export const styles = StyleSheet.create({
-  noteWrapper: {
-    width: 200,
+  button: {
     alignItems: 'center',
+    backgroundColor: '#0D6EFD',
+    borderRadius: 4,
     justifyContent: 'center',
+    paddingHorizontal: 13,
+    paddingVertical: 6,
+  },
+  buttonBorder: {
+    borderColor: '#000',
+    borderWidth: 1,
+  },
+  buttonLink: {
+    alignItems: 'center',
+    backgroundColor: 'inherit',
+    justifyContent: 'center',
+  },
+  buttonRed: {
+    backgroundColor: '#fb6161',
+  },
+  buttonTextSmall: {
+    color: '#fff',
+    fontSize: 14,
   },
   note: {
     color: '#dfdfdf',
     fontSize: 14,
-    textAlign: 'center',
+    marginBottom: 10,
     marginTop: 30,
-    marginBottom: 10
+    textAlign: 'center',
   },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 13,
-    justifyContent: 'center',
+  noteWrapper: {
     alignItems: 'center',
-    borderRadius: 4,
-    backgroundColor: '#0D6EFD',
-  },
-  buttonLink: {
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'inherit',
+    width: 200,
   },
-  buttonBorder: {
-    borderWidth: 1,
-    borderColor: '#000',
-  },
-  buttonRed: {
-    backgroundColor: "#fb6161",
-  },
-  buttonTextSmall: {
-    fontSize: 14,
-    color: '#fff',
-  },
-})
+});

@@ -1,11 +1,13 @@
-import React from 'react'
-import { BaseLayout } from '../../../components/layouts/BaseLayout'
-import { useTranslation } from 'react-i18next'
-import { PATHS } from '../../../constants/paths'
-import { BlueButton } from '../../../components/buttons/BlueButton'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-export const Main = ({ navigation }) => {
-  const { t } = useTranslation('translation')
+import { BaseLayout } from '../../../components/layouts/BaseLayout';
+import { PATHS } from '../../../constants/paths';
+import { BlueButton } from '../../../components/buttons/BlueButton';
+import { NavigationProps } from '../../../types/commonTypes.types';
+
+export const Main = ({ navigation }: NavigationProps) => {
+  const { t } = useTranslation('translation');
 
   return (
     <>
@@ -24,9 +26,9 @@ export const Main = ({ navigation }) => {
         />
         <BlueButton
           title={t('screens.login')}
-          onPress={() => navigation.push(PATHS.LOGIN)}
+          onPress={() => navigation.navigate(PATHS.LOGIN)}
         />
       </BaseLayout>
     </>
-  )
-}
+  );
+};

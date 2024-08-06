@@ -1,21 +1,24 @@
-import { Text } from "react-native"
-import { Props } from "./AppText.types"
-import { StyleSheet } from 'react-native'
-import { FC } from "react"
+import { Text, StyleSheet } from 'react-native';
+import { FC } from 'react';
 
-export const AppText: FC<Props> = ({ desc, onPress,link }: Props) => {
+import { Props } from './AppText.types';
 
-  return <Text style={styles.digitsText} onPress={onPress}>{desc}</Text>
-}
+export const AppText: FC<Props> = ({ desc, onPress }: Props) => {
+  return (
+    <Text style={styles.digitsText} onPress={onPress}>
+      {desc}
+    </Text>
+  );
+};
 
 export const styles = StyleSheet.create({
   digitsText: {
-    fontSize: 14,
-    textDecorationColor: '#fff',
-    textDecorationLine: "underline",
     color: '#fff',
-    textAlign: 'center',
-    marginTop: 4,
+    fontSize: 14,
     marginBottom: 4,
+    marginTop: 4,
+    textAlign: 'center',
+    textDecorationColor: '#fff',
+    textDecorationLine: 'underline',
   },
-})
+});

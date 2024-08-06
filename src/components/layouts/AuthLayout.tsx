@@ -1,52 +1,53 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Props } from './Layout.types'
-import { LogoSmall } from '../logo/LogoSmall'
-import { selectUserEmail } from '../../redux/selectors/auth.selectors'
-import { useAppSelector } from '../../hooks/useAppSelector'
-import { PATHS } from '../../constants/paths'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { LogoSmall } from '@components/logo/LogoSmall';
+import { selectUserEmail } from '@redux/selectors/auth.selectors';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { PATHS } from '@constants/paths';
+
+import { Props } from './Layout.types';
 
 export const AuthLayout = ({ title, children }: Props) => {
-  const userEmail = useAppSelector(selectUserEmail)
+  const userEmail = useAppSelector(selectUserEmail);
 
   return (
     <>
       <View style={styles.logoSmallWrapper}>
-        <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN}  />
+        <LogoSmall path={userEmail ? PATHS.HOME : PATHS.MAIN} />
       </View>
       <View style={styles.container}>
         {/* <View style={styles.contentWrapper}> */}
-          <Text style={styles.title}>{title}</Text>
-          { children }
+        <Text style={styles.title}>{title}</Text>
+        {children}
         {/* </View> */}
       </View>
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#01143d',
-  },
-  logoSmallWrapper: {
-    backgroundColor: '#01143d',
-    flexDirection: 'row',
+    flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingLeft: 10
   },
   contentWrapper: {
     marginTop: 40,
   },
+  logoSmallWrapper: {
+    alignItems: 'flex-start',
+    backgroundColor: '#01143d',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
   title: {
-    marginBottom: 30,
+    color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center'
+    marginBottom: 30,
+    textAlign: 'center',
   },
-})
+});

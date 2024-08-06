@@ -1,5 +1,4 @@
 export const PublicRoutes = () => {
-
   return (
     <></>
     // <>
@@ -9,5 +8,5 @@ export const PublicRoutes = () => {
     //   <Stack.Screen name={PATHS.VERIFY} component={Verify} options={{ headerTitle: t('screens.verify') }} />
     //   <Stack.Screen name={PATHS.FORGOT_PASSWORD} component={ForgotPassword} options={{ headerTitle: t('screens.forgotPassword') }} />
     // </>
-  )
-}
+  );
+};

@@ -1,40 +1,41 @@
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import { styles } from '../../MathOperations.styles'
-import { PATHS } from '../../../../constants/paths'
-import { useTranslation } from 'react-i18next'
-import { AppLayout } from '../../../../components/layouts/AppLayout'
-import { ButtonsLayout } from '../../../../components/layouts/ButtonsLayout'
-import { BlueButton } from '../../../../components/buttons/BlueButton'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { PATHS } from '@constants/paths';
+import { AppLayout } from '@components/layouts/AppLayout';
+import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
+import { BlueButton } from '@components/buttons/BlueButton';
+import { NavigationProps } from 'types/commonTypes.types';
 
-export const Multiplication = ({ navigation }) => {
-  const { t } = useTranslation('translation')
+export const Multiplication = ({ navigation }: NavigationProps) => {
+  const { t } = useTranslation('translation');
 
-  const digits: Array<number> = [2, 3, 4, 5, 6, 7, 8, 9]
+  const digits: number[] = [2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <AppLayout title={t('mathOperations.multTable')}>
       <ButtonsLayout>
         <BlueButton
           title={t('mathOperations.multCheck')}
-          path={PATHS.MULT_CHECK}
+          onPress={() => navigation.navigate(PATHS.MULT_CHECK)}
         />
         <BlueButton
           title={t('mathOperations.multNulls')}
-          path={PATHS.MULT_NULLS}
+          onPress={() => navigation.navigate(PATHS.MULT_NULLS)}
         />
         <>
           {digits.map(digit => (
-            <TouchableOpacity
+            <BlueButton
               key={digit}
-              style={styles.button} 
-              onPress={() => navigation.navigate(PATHS.MULT_DIGIT, { digit: digit })}
-            >
-              <Text style={styles.digit}>{digit}</Text>
-            </TouchableOpacity>
+              title={digit.toString()}
+              onPress={() =>
+                navigation.navigate(PATHS.MULT_DIGIT, {
+                  digit: digit.toString(),
+                })
+              }
+            />
           ))}
         </>
       </ButtonsLayout>
     </AppLayout>
-  )
-}
+  );
+};

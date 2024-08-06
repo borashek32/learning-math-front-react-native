@@ -1,3 +1,3 @@
 export type Props = {
-  score: number
-}
+  score: number;
+};
