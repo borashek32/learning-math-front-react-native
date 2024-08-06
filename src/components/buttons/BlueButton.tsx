@@ -8,8 +8,6 @@ export const BlueButton: FC<DefaultButtonProps> = ({
   title,
   disabled,
   onPress,
-  source,
-  avatarName,
 }: DefaultButtonProps) => {
   const { t } = useTranslation();
 

@@ -9,5 +9,7 @@ export const ButtonsLayout = ({ children }: Props) => {
 export const styles = StyleSheet.create({
   buttonsWrapper: {
     marginTop: 20,
+    flexDirection: 'column',
+    gap: 10,
   },
 });

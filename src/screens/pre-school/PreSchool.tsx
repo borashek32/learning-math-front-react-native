@@ -14,7 +14,7 @@ export const PreSchool = ({ navigation }: NavigationProps) => {
 
   return (
     <>
-      <AppLayout>
+      <AppLayout title={t('screens.preSchool')}>
         <View style={styles.menuContainer}>
           <BlueButton
             title={t('preSchool.numbers.title')}
