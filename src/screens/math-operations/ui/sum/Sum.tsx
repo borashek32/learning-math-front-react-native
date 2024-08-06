@@ -19,7 +19,6 @@ import { AnswerType } from 'types/mathOperations.types';
 import { Error } from '@components/error/Error';
 import { useFormSchema } from '@utils/math/validationShemaMathOperations';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
-import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
 import { MathOperationsConstants } from '@constants/MathConstants';

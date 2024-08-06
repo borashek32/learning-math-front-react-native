@@ -5,10 +5,11 @@ import { AppLayout } from '@components/layouts/AppLayout';
 import { DefaultButton } from '@components/buttons/DefaultButton';
 import { PATHS } from '@constants/paths';
 import { DevideLine } from '@components/devideLine/DevideLine';
+import { NavigationProps } from 'types/commonTypes.types';
 
 import { styles } from '../../home/Home.styles';
 
-export const Profile = () => {
+export const Profile = ({ navigation }: NavigationProps) => {
   const { t } = useTranslation();
 
   return (
@@ -18,15 +19,15 @@ export const Profile = () => {
         <DevideLine />
         <DefaultButton
           title={t('screens.changeAvatar')}
-          path={PATHS.CHANGE_AVATAR}
+          onPress={() => navigation.navigate(PATHS.CHANGE_AVATAR)}
         />
         <DefaultButton
           title={t('screens.changeEmail')}
-          path={PATHS.CHANGE_EMAIL}
+          onPress={() => navigation.navigate(PATHS.CHANGE_EMAIL)}
         />
         <DefaultButton
           title={t('screens.changePassword')}
-          path={PATHS.CHANGE_PASSWORD}
+          onPress={() => navigation.navigate(PATHS.CHANGE_PASSWORD)}
         />
         <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
       </View>

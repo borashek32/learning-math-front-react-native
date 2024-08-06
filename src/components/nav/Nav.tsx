@@ -24,8 +24,8 @@ import { setTotalUserScore } from '@redux/slices/profile.slice';
 
 import { UserAvatar } from '../avatar/UserAvatar';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { DefaultButton } from '../buttons/DefaultButton';
 import { LogoSmall } from '../logo/LogoSmall';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 export const Nav = () => {
   const navigation = useNavigation();
@@ -139,9 +139,8 @@ export const Nav = () => {
                 setMenuOpen(false);
               }}
             />
-            <DefaultButton
+            <BlueButton
               title={t('buttons.logout')}
-              path={PATHS.LOGOUT}
               onPress={() => {
                 navigation.navigate(PATHS.LOGOUT as never);
                 setMenuOpen(false);

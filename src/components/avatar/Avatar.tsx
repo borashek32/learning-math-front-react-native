@@ -60,7 +60,7 @@ export const Avatar = ({
               title={t('profile.changeAvatar.button')}
               source={source}
               avatarName={name}
-              onPressWithValue={onPressButton}
+              onPress={() => onPressButton(source, name)}
             />
           </View>
         )}

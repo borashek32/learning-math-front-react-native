@@ -53,7 +53,7 @@ export const Logout = ({ navigation }: NavigationProps) => {
     <>
       {isLoading && <Loader />}
       <AppLayout>
-        <View style={styles.logoutWrapper}>
+        <>
           {serverError && (
             <Modal
               text={t('errors.serverError')}
@@ -76,7 +76,7 @@ export const Logout = ({ navigation }: NavigationProps) => {
               buttonBack
             />
           )}
-        </View>
+        </>
       </AppLayout>
     </>
   );

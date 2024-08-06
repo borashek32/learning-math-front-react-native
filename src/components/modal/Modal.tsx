@@ -24,7 +24,7 @@ export const Modal: React.FC<Props> = ({
   const backgroundColorStyle = color ? { backgroundColor: color } : {};
 
   return (
-    <ModalLayout>
+    <>
       {open && (
         <View
           style={[
@@ -50,7 +50,7 @@ export const Modal: React.FC<Props> = ({
           </View>
         </View>
       )}
-    </ModalLayout>
+    </>
   );
 };
 

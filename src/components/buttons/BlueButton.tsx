@@ -1,32 +1,15 @@
 import React, { FC } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { DefaultButtonProps } from './Buttons.types';
 
 export const BlueButton: FC<DefaultButtonProps> = ({
   title,
-  path,
   disabled,
   onPress,
-  onPressWithValue,
   source,
   avatarName,
 }: DefaultButtonProps) => {
-  const navigation = useNavigation();
-
-  const handlePress = () => {
-    if (path) {
-      navigation.navigate(path as never);
-    } else if (onPressWithValue) {
-      if (source && avatarName) {
-        onPressWithValue(source, avatarName);
-      }
-    } else if (onPress) {
-      onPress();
-    }
-  };
-
   const buttonStyles = [
     styles.button,
     disabled && styles.buttonDisabled,
@@ -35,7 +18,7 @@ export const BlueButton: FC<DefaultButtonProps> = ({
   return (
     <TouchableOpacity
       style={buttonStyles}
-      onPress={disabled ? undefined : handlePress}
+      onPress={disabled ? undefined : onPress}
       disabled={disabled}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
