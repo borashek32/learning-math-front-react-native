@@ -10,7 +10,6 @@ import { Digit } from '@components/digit/Digit';
 import { MathOperation } from '@components/mathOperation/MathOperation';
 import { AppLayout } from '@components/layouts/AppLayout';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
-import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
 
 import { AnswerType } from '/types/mathOperations.types';
@@ -26,6 +25,7 @@ import { Error } from '@components/error/Error';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
 import { VIBRATION_PATTERN } from '@constants/vibration';
 import { MathOperationsConstants } from '@constants/MathConstants';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 export const MultiplicationNulls = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(0);
@@ -143,12 +143,12 @@ export const MultiplicationNulls = () => {
         </MathExampleLayout>
 
         <ButtonsLayout>
-          <MathOperationButton
-            buttonCallback={onGenerateNewDigits}
+          <BlueButton
+            onPress={onGenerateNewDigits}
             title={t('mathOperations.common.generate')}
           />
-          <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+          <BlueButton
+            onPress={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />
