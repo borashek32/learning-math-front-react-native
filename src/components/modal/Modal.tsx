@@ -58,6 +58,7 @@ export const Modal: React.FC<Props> = ({
 const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row',
+    gap: 10,
     justifyContent: 'space-around',
   },
   modal: {

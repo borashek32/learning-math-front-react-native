@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { styles } from '../Auth.styles';
 import { RegisterType } from '../../../api/auth/auth.api.types';
@@ -20,7 +21,6 @@ import { setUserInfo } from '../../../redux/slices/auth.slice';
 import { Loader } from '../../../components/loaders/CircularLoader';
 import { convertFirstLetterToLowerCase } from '../../../utils/string/convertFirstLetterToLowerCase';
 import { PATHS } from '../../../constants/paths';
-import { DefaultButton } from '../../../components/buttons/DefaultButton';
 import { Error } from '../../../components/error/Error';
 import { Checkbox } from '../../../components/checkbox/Checkbox';
 import { NavigationProps } from '../../../types/commonTypes.types';
@@ -170,16 +170,16 @@ export const Login = ({ navigation }: NavigationProps) => {
             </TouchableOpacity>
           </View>
 
-          <DefaultButton
+          <BlueButton
             title={t('screens.register')}
             text={t('auth.login.note')}
-            path={PATHS.REGISTER}
+            onPress={() => navigation.navigate(PATHS.REGISTER)}
           />
 
-          <DefaultButton
+          <BlueButton
             title={t('screens.forgotPassword')}
             text={t('auth.forgotPassword.note')}
-            path={PATHS.FORGOT_PASSWORD}
+            onPress={() => navigation.navigate(PATHS.FORGOT_PASSWORD)}
           />
         </KeyboardAvoidingView>
       </AuthLayout>

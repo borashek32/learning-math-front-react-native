@@ -32,6 +32,7 @@ export const Profile = ({ navigation }: NavigationProps) => {
           title={t('screens.changePassword')}
           onPress={() => navigation.navigate(PATHS.CHANGE_PASSWORD)}
         />
+        <DevideLine />
         <BlueButton
           title={t('buttons.logout')}
           onPress={() => navigation.navigate(PATHS.LOGOUT)}
