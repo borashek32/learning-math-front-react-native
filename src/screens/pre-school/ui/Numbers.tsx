@@ -15,7 +15,6 @@ import { Error } from '@components/error/Error';
 import { AppLayout } from '@components/layouts/AppLayout';
 import { AppText } from '@components/text/AppText';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
-import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { MathOperation } from '@components/mathOperation/MathOperation';
 import { ResultInput } from '@components/inputs/ResultInput';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
@@ -26,6 +25,7 @@ import { ScoreType } from '@api/profile/profile.api.types';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectUserId } from '@redux/selectors/auth.selectors';
 import { MathOperationsConstants } from '@constants/MathConstants';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 export const Numbers = () => {
   const [score, setScore] = useState(0);
@@ -148,12 +148,12 @@ export const Numbers = () => {
         </MathExampleLayout>
 
         <ButtonsLayout>
-          <MathOperationButton
-            buttonCallback={onGenerateNewNumbers}
+          <BlueButton
+            onPress={onGenerateNewNumbers}
             title={t('mathOperations.common.generate')}
           />
-          <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+          <BlueButton
+            onPress={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />

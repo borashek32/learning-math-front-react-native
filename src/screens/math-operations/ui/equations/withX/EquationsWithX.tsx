@@ -18,7 +18,6 @@ import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
 import { AppText } from '@components/text/AppText';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
-import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { getRandomMathOperation } from '@utils/math/getRandomMathOperation';
 import { getCheckMathOperation } from '@utils/math/getCheckMathOperation';
 import { Error } from '@components/error/Error';
@@ -27,6 +26,7 @@ import { AppLayout } from '@components/layouts/AppLayout';
 import { AnswerType } from 'types/mathOperations.types';
 import { ResultInput } from '@components/inputs/ResultInput';
 import { VIBRATION_PATTERN } from '@constants/vibration';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 export const EquationsWithX = () => {
   const [firstNumber, setFirstNumber] = useState<number>(
@@ -179,12 +179,12 @@ export const EquationsWithX = () => {
         </MathExampleLayout>
 
         <ButtonsLayout>
-          <MathOperationButton
-            buttonCallback={onGenerateNewNumbers}
+          <BlueButton
+            onPress={onGenerateNewNumbers}
             title={t('mathOperations.common.generate')}
           />
-          <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+          <BlueButton
+            onPress={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />

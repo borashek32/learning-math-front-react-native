@@ -11,7 +11,6 @@ import { Digit } from '@components/digit/Digit';
 import { MathOperation } from '@components/mathOperation/MathOperation';
 import { AppLayout } from '@components/layouts/AppLayout';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
-import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
 import { Error } from '@components/error/Error';
 import { Modal } from '@components/modal/Modal';
@@ -26,6 +25,7 @@ import { setTotalUserScore } from '@redux/slices/profile.slice';
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { VIBRATION_PATTERN } from '@constants/vibration';
 import { MathOperationsConstants } from '@constants/MathConstants';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 type Props = {
   digit: string;
@@ -150,12 +150,12 @@ export const MultiplicationNumber = () => {
         </MathExampleLayout>
 
         <ButtonsLayout>
-          <MathOperationButton
-            buttonCallback={onGenerateNewDigits}
+          <BlueButton
+            onPress={onGenerateNewDigits}
             title={t('mathOperations.common.generate')}
           />
-          <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+          <BlueButton
+            onPress={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />

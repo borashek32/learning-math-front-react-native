@@ -21,10 +21,10 @@ import { NavLinkButton } from '@components/buttons/NavLinkButton';
 import { selectTotalUserScore } from '@redux/selectors/profile.selectors';
 import { useGetTotalUserScoreQuery } from '@api/profile/profile.api';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { UserAvatar } from '../avatar/UserAvatar';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { DefaultButton } from '../buttons/DefaultButton';
 import { LogoSmall } from '../logo/LogoSmall';
 
 export const Nav = () => {
@@ -139,9 +139,8 @@ export const Nav = () => {
                 setMenuOpen(false);
               }}
             />
-            <DefaultButton
+            <BlueButton
               title={t('buttons.logout')}
-              path={PATHS.LOGOUT}
               onPress={() => {
                 navigation.navigate(PATHS.LOGOUT as never);
                 setMenuOpen(false);

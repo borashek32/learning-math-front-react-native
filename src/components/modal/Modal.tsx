@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { ModalLayout } from '@components/layouts/ModalLayout';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { Props } from './Modal.types';
 
@@ -36,12 +37,12 @@ export const Modal: React.FC<Props> = ({
           <View style={styles.buttonWrapper}>
             {buttonBack && (
               <View style={outlinedButton ? styles.outlinedStyles : {}}>
-                <Button title={t('links.back')} onPress={back} />
+                <BlueButton title={t('links.back')} onPress={back} />
               </View>
             )}
             {buttonCallback && (
               <View style={outlinedButton ? styles.outlinedStyles : {}}>
-                <Button
+                <BlueButton
                   title={buttonName ? buttonName : 'Ok'}
                   onPress={buttonCallback}
                 />
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     width: 230,
+    gap: 20,
   },
   modalWithError: {
     backgroundColor: '#fb6161',
@@ -81,5 +83,7 @@ const styles = StyleSheet.create({
   textSmall: {
     fontSize: 16,
     fontWeight: '500',
+    textAlign: 'center',
+    color: '#fff',
   },
 });
