@@ -1,32 +1,30 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  containerMathOperation: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: "center",
-    gap: 10,
-  },
-  digitsWrapper: {
-    
-  },
-  buttonsWrapper: {
-    marginTop: 20
-  },
   button: {
-    backgroundColor: '#61dafb',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
     alignItems: 'center',
+    backgroundColor: '#61dafb',
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
   },
   buttonText: {
+    color: '#000',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000',
+  },
+  buttonsWrapper: {
+    marginTop: 20,
+  },
+  containerMathOperation: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'center',
   },
   digit: {
     fontSize: 20,
     fontWeight: '700',
-  }
-})
+  },
+  digitsWrapper: {},
+});

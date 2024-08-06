@@ -1,17 +1,16 @@
-import { StyleSheet, Text } from "react-native"
-import { Props } from "./Error.types"
+import { StyleSheet, Text } from 'react-native';
+import { FC } from 'react';
 
-export const Error = ({ error }: Props) => {
+import { Props } from './Error.types';
 
-  return (
-    <Text style={styles.error}>{error}</Text>
-  )
-}
+export const Error: FC<Props> = ({ error }: Props) => {
+  return <Text style={styles.error}>{error}</Text>;
+};
 
 const styles = StyleSheet.create({
   error: {
+    color: 'red',
     position: 'absolute',
     top: -20,
-    color: 'red'
   },
-})
+});

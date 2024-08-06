@@ -1,125 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import { Keyboard, SafeAreaView, Vibration } from 'react-native'
-import { Score } from '../../../../../components/score/Score'
-import { ResultInput } from '../../../../../components/inputs/ResultInput'
-import { Digit } from '../../../../../components/digit/Digit'
-import { MathOperation } from '../../../../../components/mathOperation/MathOperation'
-import { useTranslation } from 'react-i18next'
-import { AppLayout } from '../../../../../components/layouts/AppLayout'
-import { ButtonsLayout } from '../../../../../components/layouts/ButtonsLayout'
-import { MathOperationButton } from '../../../../../components/buttons/MathOperationButton'
-import { MathExampleLayout } from '../../../../../components/layouts/MathExamlpeLayout'
-import { AnswerType } from '../../../../../types/mathOperations.types'
-import { useUpdateScoreMutation } from '../../../../../api/profile/profile.api'
-import { useFormSchema } from '../../../../../utils/math/validationShemaMathOperations'
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { ScoreType } from '../../../../../api/profile/profile.api.types'
-import { useAppSelector } from '../../../../../hooks/useAppSelector'
-import { selectUserId } from '../../../../../redux/selectors/auth.selectors'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Loader } from '../../../../../components/loaders/CircularLoader'
-import { Modal } from '../../../../../components/modal/Modal'
-import { Error } from '../../../../../components/error/Error'
-import { setTotalUserScore } from '../../../../../redux/slices/profile.slice'
-import { useDispatch } from 'react-redux'
-import { VIBRATION_PATTERN } from '../../../../../constants/vibration'
+import React, { useEffect, useState } from 'react';
+import { Keyboard, SafeAreaView, Vibration } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
+import { Score } from '@components/score/Score';
+import { ResultInput } from '@components/inputs/ResultInput';
+import { Digit } from '@components/digit/Digit';
+import { MathOperation } from '@components/mathOperation/MathOperation';
+import { AppLayout } from '@components/layouts/AppLayout';
+import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
+import { MathOperationButton } from '@components/buttons/MathOperationButton';
+import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
+
+import { AnswerType } from '/types/mathOperations.types';
+
+import { useUpdateScoreMutation } from '@api/profile/profile.api';
+import { useFormSchema } from '@utils/math/validationShemaMathOperations';
+import { ScoreType } from '@api/profile/profile.api.types';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { selectUserId } from '@redux/selectors/auth.selectors';
+import { Loader } from '@components/loaders/CircularLoader';
+import { Modal } from '@components/modal/Modal';
+import { Error } from '@components/error/Error';
+import { setTotalUserScore } from '@redux/slices/profile.slice';
+import { VIBRATION_PATTERN } from '@constants/vibration';
+import { MathOperationsConstants } from '@constants/MathConstants';
 
 export const MultiplicationNulls = () => {
-  const [firstMultiplier, setFirstMultiplier] = useState<number>(null)
-  const [secondMultiplier, setSecondMultiplier] = useState<number>(null)
-  const [score, setScore] = useState(0)
-  const [answer, setAnswer] = useState<string>('')
-  const [serverError, setServerError] = useState('')
-  const [rightWrong, setRightWrong] = useState<AnswerType>(null)
-  const [open, setOpen] = useState(false)
-  const dispatch = useDispatch()
+  const [firstMultiplier, setFirstMultiplier] = useState<number>(0);
+  const [secondMultiplier, setSecondMultiplier] = useState<number>(0);
+  const [score, setScore] = useState(0);
+  const [answer, setAnswer] = useState<string>('');
+  const [serverError, setServerError] = useState('');
+  const [rightWrong, setRightWrong] = useState<AnswerType>(null);
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  const [updateScore, { isLoading }] = useUpdateScoreMutation()
-  const { t } = useTranslation('translation')
-  const formSchema = useFormSchema()
+  const [updateScore, { isLoading }] = useUpdateScoreMutation();
+  const { t } = useTranslation('translation');
+  const formSchema = useFormSchema();
 
   const generateNewDigits = () => {
-    setFirstMultiplier((Math.floor(Math.random() * 8) + 2) * 10)
-    setSecondMultiplier((Math.floor(Math.random() * 8) + 2) * 10)
-  }
+    setFirstMultiplier((Math.floor(Math.random() * 8) + 2) * 10);
+    setSecondMultiplier((Math.floor(Math.random() * 8) + 2) * 10);
+  };
 
   const onGenerateNewDigits = () => {
-    generateNewDigits()
-    setAnswer('')
-    setOpen(false)
-  }
+    generateNewDigits();
+    setAnswer('');
+    setOpen(false);
+  };
 
   const onChangeHandler = (answer: string) => {
-    setAnswer(answer)
-  }
+    setAnswer(answer);
+  };
 
-  const {
-    handleSubmit,
-    reset,
-  } = useForm<ScoreType>({
+  const { handleSubmit, reset } = useForm<ScoreType>({
     defaultValues: {
-      score: score,
-      userId: useAppSelector(selectUserId), 
-      date: new Date()
+      score,
+      userId: useAppSelector(selectUserId),
+      date: new Date(),
     },
     mode: 'onChange',
     resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  })
+  });
 
   const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('')
-    const answerToNumber = Number(answer)
-    Keyboard.dismiss()
+    setServerError('');
+    const answerToNumber = Number(answer);
+    Keyboard.dismiss();
     if (answerToNumber / firstMultiplier === secondMultiplier) {
-      setScore(score + 1)
-      setRightWrong('right')
-      data = { ...data, score: 1 }
+      setScore(score + 1);
+      setRightWrong('right');
+      data = { ...data, score: 1 };
     } else {
-      Vibration.vibrate(VIBRATION_PATTERN)
-      setScore(score - 1)
-      setRightWrong('wrong')
-      data = { ...data, score: -1 }
+      Vibration.vibrate(VIBRATION_PATTERN);
+      setScore(score - 1);
+      setRightWrong('wrong');
+      data = { ...data, score: -1 };
     }
-    
+
     updateScore(data)
       .unwrap()
       .then(response => {
-        reset()
-        setOpen(true)
-        dispatch(setTotalUserScore(response.data.score))
+        reset();
+        setOpen(true);
+        dispatch(setTotalUserScore(response.data.score));
       })
       .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'))
-      })
-  }
-
-  const check = () => {
-    const answerToNumber = Number(answer)
-    setOpen(true)
-    Keyboard.dismiss()
-    if (answerToNumber / firstMultiplier === secondMultiplier) {
-      setScore(score + 1)
-      setRightWrong('right')
-    } else {
-      setScore(score - 1)
-      setRightWrong('wrong')
-    }
-  }
+        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
+      });
+  };
 
   const onPressPlayMore = () => {
-    setOpen(false)
-    setAnswer('')
-    generateNewDigits()
-  }
+    setOpen(false);
+    setAnswer('');
+    generateNewDigits();
+  };
 
   const onPressTryAgain = () => {
-    setOpen(false)
-    setAnswer('')
-  }
+    setOpen(false);
+    setAnswer('');
+  };
 
   useEffect(() => {
-    generateNewDigits()
-  }, [])
+    generateNewDigits();
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -127,28 +114,30 @@ export const MultiplicationNulls = () => {
       {open && (
         <Modal
           text={
-            rightWrong === 'right' 
-              ? t('modal.checkMathOperationSuccess') 
+            rightWrong === 'right'
+              ? t('modal.checkMathOperationSuccess')
               : t('modal.checkMathOperationFail')
-            }
+          }
           open={open}
           outlinedButton={false}
           buttonName={t('modal.button')}
-          buttonCallback={rightWrong === 'right' ? onPressPlayMore : onPressTryAgain}
+          buttonCallback={
+            rightWrong === 'right' ? onPressPlayMore : onPressTryAgain
+          }
           color={rightWrong === 'right' ? 'blue' : 'red'}
         />
       )}
       <AppLayout title={t('mathOperations.multCheck')}>
-        {serverError && <Error error={serverError} />}
+        <>{serverError && <Error error={serverError} />}</>
         <MathExampleLayout>
           <Digit title={firstMultiplier} />
-          <MathOperation title='*' />
+          <MathOperation title={MathOperationsConstants.MULTIPLY} />
           <Digit title={secondMultiplier} />
-          <MathOperation title='=' />
+          <MathOperation title={MathOperationsConstants.EQUAL} />
 
-          <ResultInput 
-            value={answer} 
-            type={'numeric'}
+          <ResultInput
+            value={answer}
+            type="numeric"
             onChange={onChangeHandler}
           />
         </MathExampleLayout>
@@ -161,12 +150,12 @@ export const MultiplicationNulls = () => {
           <MathOperationButton
             buttonCallback={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
-            disabled={answer ? false : true}
+            disabled={!answer}
           />
         </ButtonsLayout>
-        
+
         <Score score={score} />
       </AppLayout>
     </SafeAreaView>
-  )
-}
+  );
+};

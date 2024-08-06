@@ -1,4 +1,4 @@
 export type Props = {
-  title: number | string
-  italic?: boolean
-}
+  title: number | string;
+  italic?: boolean;
+};

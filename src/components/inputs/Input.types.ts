@@ -1,7 +1,7 @@
-import { KeyboardTypeOptions } from "react-native"
+import { KeyboardTypeOptions } from 'react-native';
 
 export type Props = {
-  value: string
-  type?: KeyboardTypeOptions
-  onChange: (value: string) => void
-}
+  value: string;
+  type?: KeyboardTypeOptions;
+  onChange: (value: string) => void;
+};

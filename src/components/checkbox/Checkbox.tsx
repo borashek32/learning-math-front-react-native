@@ -1,11 +1,12 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { Props } from './Checkbox.types'
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { Props } from './Checkbox.types';
 
 export const Checkbox = ({ label, isChecked, onChange }: Props) => {
   const toggleCheckbox = () => {
-    onChange(!isChecked)
-  }
+    onChange(!isChecked);
+  };
 
   return (
     <TouchableOpacity onPress={toggleCheckbox} style={styles.container}>
@@ -14,34 +15,34 @@ export const Checkbox = ({ label, isChecked, onChange }: Props) => {
       </View>
       <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    gap: 10,
-  },
   checkbox: {
-    width: 20,
-    height: 20,
+    alignItems: 'center',
+    borderColor: '#fff',
     borderRadius: 3,
     borderWidth: 1,
-    borderColor: '#fff',
+    height: 20,
     justifyContent: 'center',
-    alignItems: 'center',
+    width: 20,
   },
   checked: {
     backgroundColor: 'blue',
   },
   checkmark: {
-    width: 10,
-    height: 10,
     backgroundColor: '#fff',
     borderRadius: 2,
+    height: 10,
+    width: 10,
+  },
+  container: {
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'flex-start',
   },
   label: {
-    color: '#fff'
-  }
-})
+    color: '#fff',
+  },
+});

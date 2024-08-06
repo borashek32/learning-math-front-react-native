@@ -1,20 +1,20 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native"
-import { Props } from './Layout.types'
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
-export const MathExampleLayout = ({ title, onPress, children }: Props) => {
+import { Props } from './Layout.types';
 
+export const MathExampleLayout = ({ onPress, children }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.containerMathOperation}>
       {children}
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 export const styles = StyleSheet.create({
   containerMathOperation: {
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: "center",
     gap: 4,
+    justifyContent: 'center',
   },
-})
+});

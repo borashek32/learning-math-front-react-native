@@ -1,5 +1,3 @@
-const NULL_SECOND_IN_MS = 0
+const NULL_SECOND_IN_MS = 0;
 
-export const VIBRATION_PATTERN = [
-  NULL_SECOND_IN_MS,
-]
+export const VIBRATION_PATTERN = [NULL_SECOND_IN_MS];

@@ -1,23 +1,24 @@
-import { 
-  BaseQueryFn, 
-  FetchArgs, 
-  FetchBaseQueryError, 
-  createApi, 
-  fetchBaseQuery 
-} from '@reduxjs/toolkit/query/react'
-import { baseURL } from '../../redux/constants/baseUrl'
-import { 
-  ForgotPasswordType, 
-  RegistedUserType, 
-  RegisterType, 
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  createApi,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { baseURL } from '@redux/constants/baseUrl';
+import { algByDecodingToken } from '@utils/string/algByDecodingToken';
+
+import {
+  ForgotPasswordType,
+  RegistedUserType,
+  RegisterType,
   PasswordRecoveryType,
   UserType,
   NewPasswordType,
   NewEmailType,
   LogoutType,
-} from './auth.api.types'
-import { algByDecodingToken } from '../../utils/string/algByDecodingToken'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+} from './auth.api.types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
@@ -26,69 +27,89 @@ const baseQuery = fetchBaseQuery({
   headers: {
     'Content-Type': 'application/json',
   },
-  prepareHeaders: async (headers) => {
+  prepareHeaders: async headers => {
     try {
-      const token = await AsyncStorage.getItem('accessToken')
+      const token = await AsyncStorage.getItem('accessToken');
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-        algByDecodingToken(token)
+        headers.set('Authorization', `Bearer ${token}`);
+        algByDecodingToken(token);
       }
-      return headers
-
+      return headers;
     } catch (error) {
-      console.log('Ошибка при чтении токена доступа:', error)
-      return headers
+      console.log('Ошибка при чтении токена доступа:', error);
+      return headers;
     }
-  }
-})
+  },
+});
 
-const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
-  args,
-  api,
-  extraOptions
-) => {
-  let result = await baseQuery(args, api, extraOptions)
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
-    const token = await AsyncStorage.getItem('accessToken')
-  
+    const token = await AsyncStorage.getItem('accessToken');
+
     if (token) {
-      const tokenString = token as string
-      const decodedToken = await algByDecodingToken(tokenString)
+      const tokenString = token as string;
+      const decodedToken = await algByDecodingToken(tokenString);
 
       if (!decodedToken.isExpirationTimeLongerThanCurrent) {
-        const refreshResult = await baseQuery({
+        const refreshResult = await baseQuery(
+          {
             method: 'GET',
             url: `${baseURL}refresh`,
           },
           api,
-          extraOptions
-        )
+          extraOptions,
+        );
 
         if (
           refreshResult.data &&
           typeof refreshResult.data === 'object' &&
           'accessToken' in refreshResult.data
         ) {
-          await AsyncStorage.setItem('accessToken', refreshResult.data.accessToken as string)
+          await AsyncStorage.setItem(
+            'accessToken',
+            refreshResult.data.accessToken as string,
+          );
         }
       }
     }
   }
 
-  if ((api.endpoint === 'login' || api.endpoint === 'refresh') && result.data && typeof result.data === 'object' && 'accessToken' in result.data) {
-    await AsyncStorage.setItem('accessToken', result.data.accessToken as string)
+  if (
+    (api.endpoint === 'login' || api.endpoint === 'refresh') &&
+    result.data &&
+    typeof result.data === 'object' &&
+    'accessToken' in result.data
+  ) {
+    await AsyncStorage.setItem(
+      'accessToken',
+      result.data.accessToken as string,
+    );
   }
 
-  if (api.endpoint === 'me' && result.data && typeof result.data === 'object' && 'accessToken' in result.data) {
-    await AsyncStorage.getItem('accessToken')
+  if (
+    api.endpoint === 'me' &&
+    result.data &&
+    typeof result.data === 'object' &&
+    'accessToken' in result.data
+  ) {
+    await AsyncStorage.getItem('accessToken');
   }
 
-  if (api.endpoint === 'logout'&& result.data&& typeof result.data === 'object') {
-    await AsyncStorage.removeItem('accessToken')
+  if (
+    api.endpoint === 'logout' &&
+    result.data &&
+    typeof result.data === 'object'
+  ) {
+    await AsyncStorage.removeItem('accessToken');
   }
 
-  return result
-}
+  return result;
+};
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -98,6 +119,7 @@ export const authApi = createApi({
     return {
       login: build.mutation<RegistedUserType, RegisterType>({
         query: ({ email, password, rememberMe }: RegisterType) => {
+          console.log(email, password);
           return {
             method: 'POST',
             url: 'login',
@@ -106,7 +128,7 @@ export const authApi = createApi({
               password,
               rememberMe,
             },
-          }
+          };
         },
         invalidatesTags: ['me'],
       }),
@@ -119,7 +141,7 @@ export const authApi = createApi({
               email,
               password,
             },
-          }
+          };
         },
       }),
       verify: build.query<string, string | undefined>({
@@ -132,10 +154,10 @@ export const authApi = createApi({
             url: 'logout',
             body: {
               refreshToken: data.refreshToken,
-              accessToken: data.accessToken
-            }
-          }
-        },  
+              accessToken: data.accessToken,
+            },
+          };
+        },
         invalidatesTags: ['me'],
       }),
       emailSent: build.mutation<any, ForgotPasswordType>({
@@ -144,21 +166,21 @@ export const authApi = createApi({
             url: 'forgot-password',
             method: 'POST',
             body: {
-              email
+              email,
             },
-          }
+          };
         },
       }),
       saveNewPassword: build.mutation<any, PasswordRecoveryType>({
         query: ({ email, password }: PasswordRecoveryType) => {
           return {
-            url: `save-new-password`,
+            url: 'save-new-password',
             method: 'POST',
             body: {
               password,
-              email
-            }
-          }
+              email,
+            },
+          };
         },
       }),
       me: build.query<UserType | null, void>({
@@ -166,12 +188,12 @@ export const authApi = createApi({
           return {
             method: 'GET',
             url: 'me',
-          }
+          };
         },
         providesTags: ['me'],
       }),
       changePassword: build.mutation<UserType, NewPasswordType>({
-        query: (data: NewPasswordType) => { 
+        query: (data: NewPasswordType) => {
           return {
             method: 'POST',
             url: 'change-password',
@@ -179,9 +201,9 @@ export const authApi = createApi({
               userId: data.userId,
               password: data.password,
               newPassword: data.newPassword,
-            }
-          }
-        }
+            },
+          };
+        },
       }),
       changeEmail: build.mutation<UserType, NewEmailType>({
         query: (data: NewEmailType) => {
@@ -190,14 +212,14 @@ export const authApi = createApi({
             url: 'change-email',
             body: {
               userId: data.userId,
-              newEmail: data.newEmail
-            }
-          }
-        }
-      })
-    }
+              newEmail: data.newEmail,
+            },
+          };
+        },
+      }),
+    };
   },
-})
+});
 
 export const {
   useLoginMutation,
@@ -209,4 +231,4 @@ export const {
   useMeQuery,
   useChangePasswordMutation,
   useChangeEmailMutation,
-} = authApi
+} = authApi;
