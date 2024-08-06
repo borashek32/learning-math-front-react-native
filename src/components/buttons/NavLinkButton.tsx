@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { PATHS } from '@constants/paths';
 
 import { DefaultButtonProps } from './Buttons.types';
-import { PATHS } from '@constants/paths';
 
 export const NavLinkButton: React.FC<DefaultButtonProps> = ({
   title,

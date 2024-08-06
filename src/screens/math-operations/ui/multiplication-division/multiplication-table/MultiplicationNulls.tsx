@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
-
 import { Score } from '@components/score/Score';
 import { ResultInput } from '@components/inputs/ResultInput';
 import { Digit } from '@components/digit/Digit';
@@ -13,7 +12,9 @@ import { AppLayout } from '@components/layouts/AppLayout';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
 import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
+
 import { AnswerType } from '/types/mathOperations.types';
+
 import { useUpdateScoreMutation } from '@api/profile/profile.api';
 import { useFormSchema } from '@utils/math/validationShemaMathOperations';
 import { ScoreType } from '@api/profile/profile.api.types';

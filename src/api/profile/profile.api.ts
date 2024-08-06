@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { baseURL } from '@redux/constants/baseUrl';
 import { algByDecodingToken } from '@utils/string/algByDecodingToken';
-import { AvatarType, ScoreType } from './profile.api.types';
 import { UserType } from '@api/auth/auth.api.types';
+
+import { AvatarType, ScoreType } from './profile.api.types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,

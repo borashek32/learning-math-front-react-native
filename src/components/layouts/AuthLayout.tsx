@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-import { Props } from './Layout.types';
 import { LogoSmall } from '@components/logo/LogoSmall';
 import { selectUserEmail } from '@redux/selectors/auth.selectors';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { PATHS } from '@constants/paths';
+
+import { Props } from './Layout.types';
 
 export const AuthLayout = ({ title, children }: Props) => {
   const userEmail = useAppSelector(selectUserEmail);

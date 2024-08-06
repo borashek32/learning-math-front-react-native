@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, ScrollView, View } from 'react-native';
+import { Nav } from '@components/nav/Nav';
 
 import { Props } from './Layout.types';
-import { Nav } from '@components/nav/Nav';
 
 export const AppLayout = ({ title, children }: Props) => {
   return (

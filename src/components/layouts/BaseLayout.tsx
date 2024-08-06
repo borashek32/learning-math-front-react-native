@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-import { Props } from './Layout.types';
 import { Logo } from '@components/logo/Logo';
 import { SelectLang } from '@components/selectLang/SelectLang';
+
+import { Props } from './Layout.types';
 
 export const BaseLayout = ({ title, children }: Props) => {
   return (

@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Keyboard, Vibration, View } from 'react-native';
-
 import { MathOperation } from '@components/mathOperation/MathOperation';
 import { Digit } from '@components/digit/Digit';
 import { ResultInput } from '@components/inputs/ResultInput';
@@ -20,13 +19,13 @@ import { AnswerType } from 'types/mathOperations.types';
 import { Error } from '@components/error/Error';
 import { useFormSchema } from '@utils/math/validationShemaMathOperations';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
-import { MathOperationButton } from '@components/buttons/MathOperationButton';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
 import { MathOperationsConstants } from '@constants/MathConstants';
 import { checkMathOperation } from '@utils/math/checkMathOperation';
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { VIBRATION_PATTERN } from '@constants/vibration';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 export const Difference = () => {
   const [firstNumber, setFirstNumber] = useState<number>(
@@ -189,12 +188,12 @@ export const Difference = () => {
         </MathExampleLayout>
 
         <ButtonsLayout>
-          <MathOperationButton
-            buttonCallback={onGenerateNewNumbers}
+          <BlueButton
+            onPress={onGenerateNewNumbers}
             title={t('mathOperations.common.generate')}
           />
-          <MathOperationButton
-            buttonCallback={handleSubmit(onSubmit)}
+          <BlueButton
+            onPress={handleSubmit(onSubmit)}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />

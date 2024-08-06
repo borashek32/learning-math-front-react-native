@@ -1,6 +1,5 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-
 import { ModalLayout } from '@components/layouts/ModalLayout';
 
 export const Loader = () => {

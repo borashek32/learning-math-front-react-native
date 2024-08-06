@@ -3,15 +3,15 @@ import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
-
 import { AppLayout } from '@components/layouts/AppLayout';
-import { styles } from '../../home/Home.styles';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { Score } from '@components/score/Score';
 import { selectTotalUserScore } from '@redux/selectors/profile.selectors';
 import { selectUserId } from '@redux/selectors/auth.selectors';
 import { useGetTotalUserScoreQuery } from '@api/profile/profile.api';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
+
+import { styles } from '../../home/Home.styles';
 
 export const YourScore = () => {
   const totalUserScore = useAppSelector(selectTotalUserScore);

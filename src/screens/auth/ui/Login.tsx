@@ -74,6 +74,7 @@ export const Login = ({ navigation }: NavigationProps) => {
         }
       })
       .catch((e: any) => {
+        console.log(e);
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
         if (e.data.message === 'User password not correct')
           setServerError(t('errors.error400login'));
@@ -87,7 +88,7 @@ export const Login = ({ navigation }: NavigationProps) => {
       {isLoading && <Loader />}
       <AuthLayout title={t('screens.login')}>
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
-          {serverError && <Error error={serverError} />}
+          <Text>{serverError && <Error error={serverError} />}</Text>
           <View style={styles.inputsWrapper}>
             <View style={styles.inputContainer}>
               <Controller
@@ -111,7 +112,9 @@ export const Login = ({ navigation }: NavigationProps) => {
                   />
                 )}
               />
-              {errors.email && <Error error={errors.email.message} />}
+              <Text>
+                {errors.email && <Error error={errors.email.message} />}
+              </Text>
             </View>
 
             <View style={styles.inputContainer}>
@@ -141,7 +144,9 @@ export const Login = ({ navigation }: NavigationProps) => {
                   </>
                 )}
               />
-              {errors.password && <Error error={errors.password.message} />}
+              <Text>
+                {errors.password && <Error error={errors.password.message} />}
+              </Text>
             </View>
           </View>
 

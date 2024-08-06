@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { useMeQuery } from '@api/auth/auth.api';
 import { removeUserInfo, setUserInfo } from '@redux/slices/auth.slice';
 import { useAppSelector } from '@hooks/useAppSelector';

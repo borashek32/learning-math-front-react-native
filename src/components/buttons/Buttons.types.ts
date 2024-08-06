@@ -1,12 +1,13 @@
 export type DefaultButtonProps = {
   title?: string;
+  text?: string;
   path?: string;
   onPress?: () => void;
   onPressWithValue?: (value: string, avatarName: string) => void;
   name?: string;
   source?: string;
   avatarName?: string;
-  text?: string;
+  disabled?: boolean;
 };
 
 export type MathOperationButtonProps = {

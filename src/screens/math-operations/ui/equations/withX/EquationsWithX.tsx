@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Vibration } from 'react-native';
-
 import { Loader } from '@components/loaders/CircularLoader';
 import { Modal } from '@components/modal/Modal';
 import { Score } from '@components/score/Score';

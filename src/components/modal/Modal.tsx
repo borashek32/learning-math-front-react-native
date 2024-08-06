@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { ModalLayout } from '@components/layouts/ModalLayout';
 
 import { Props } from './Modal.types';
-import { ModalLayout } from '@components/layouts/ModalLayout';
 
 export const Modal: React.FC<Props> = ({
   text,

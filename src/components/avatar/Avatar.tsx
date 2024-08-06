@@ -1,8 +1,8 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { BlueButton } from '@components/buttons/BlueButton';
 
 import { Props } from './Avatar.types';
-import { BlueButton } from '@components/buttons/BlueButton';
 
 export const Avatar = ({
   source,

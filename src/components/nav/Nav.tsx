@@ -10,10 +10,6 @@ import { useTranslation } from 'react-i18next';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-
-import { LogoSmall } from '../logo/LogoSmall';
-import { DefaultButton } from '../buttons/DefaultButton';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import {
   selectUserAvatarPath,
   selectUserEmail,
@@ -23,9 +19,13 @@ import { PATHS } from '@constants/paths';
 import { SelectLang } from '@components/selectLang/SelectLang';
 import { NavLinkButton } from '@components/buttons/NavLinkButton';
 import { selectTotalUserScore } from '@redux/selectors/profile.selectors';
-import { UserAvatar } from '../avatar/UserAvatar';
 import { useGetTotalUserScoreQuery } from '@api/profile/profile.api';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
+
+import { UserAvatar } from '../avatar/UserAvatar';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { DefaultButton } from '../buttons/DefaultButton';
+import { LogoSmall } from '../logo/LogoSmall';
 
 export const Nav = () => {
   const navigation = useNavigation();

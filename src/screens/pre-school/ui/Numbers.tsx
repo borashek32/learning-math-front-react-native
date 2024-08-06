@@ -5,7 +5,6 @@ import { Keyboard, StyleSheet, Vibration, View } from 'react-native';
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SvgUri } from 'react-native-svg';
-
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { AnswerType } from 'types/mathOperations.types';
 import { useUpdateScoreMutation } from '@api/profile/profile.api';

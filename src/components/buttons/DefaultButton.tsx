@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { PATHS } from '@constants/paths';
 
 import { DefaultButtonProps } from './Buttons.types';
-import { PATHS } from '@constants/paths';
 
 export const DefaultButton: React.FC<DefaultButtonProps> = ({
   title,

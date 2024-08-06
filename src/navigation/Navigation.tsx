@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Linking from 'expo-linking';
 import { useTranslation } from 'react-i18next';
-
 import { PATHS } from '@constants/paths';
 import { Main } from '@screens/main/ui/Main';
 import { Login } from '@screens/auth/ui/Login';

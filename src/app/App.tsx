@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import { decode, encode } from 'base-64';
-
-import i18n from '../../i18n.config';
 import { Navigation } from '@navigation/Navigation';
 import { store } from '@redux/providers/store-provider/store';
+
+import i18n from '../../i18n.config';
 
 if (!global.btoa) {
   global.btoa = encode;

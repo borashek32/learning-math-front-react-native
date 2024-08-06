@@ -1,8 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-
-import { styles } from '../../MathOperations.styles';
 import { PATHS } from '@constants/paths';
 import { AppLayout } from '@components/layouts/AppLayout';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
@@ -19,24 +16,23 @@ export const Multiplication = ({ navigation }: NavigationProps) => {
       <ButtonsLayout>
         <BlueButton
           title={t('mathOperations.multCheck')}
-          path={PATHS.MULT_CHECK}
+          onPress={() => navigation.navigate(PATHS.MULT_CHECK)}
         />
         <BlueButton
           title={t('mathOperations.multNulls')}
-          path={PATHS.MULT_NULLS}
+          onPress={() => navigation.navigate(PATHS.MULT_NULLS)}
         />
         <>
           {digits.map(digit => (
-            <TouchableOpacity
+            <BlueButton
               key={digit}
-              style={styles.button}
+              title={digit.toString()}
               onPress={() =>
                 navigation.navigate(PATHS.MULT_DIGIT, {
                   digit: digit.toString(),
                 })
-              }>
-              <Text style={styles.digit}>{digit}</Text>
-            </TouchableOpacity>
+              }
+            />
           ))}
         </>
       </ButtonsLayout>

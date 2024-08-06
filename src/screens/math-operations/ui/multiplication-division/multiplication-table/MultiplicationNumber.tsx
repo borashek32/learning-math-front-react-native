@@ -5,7 +5,6 @@ import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
-
 import { Score } from '@components/score/Score';
 import { ResultInput } from '@components/inputs/ResultInput';
 import { Digit } from '@components/digit/Digit';

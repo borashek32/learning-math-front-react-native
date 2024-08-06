@@ -1,13 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { FC } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { FC } from 'react';
+import { StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { DefaultButtonProps } from './Buttons.types';
 
 export const BlueButton: FC<DefaultButtonProps> = ({
   title,
   path,
-  text,
+  disabled,
   onPress,
   onPressWithValue,
   source,
@@ -27,8 +27,16 @@ export const BlueButton: FC<DefaultButtonProps> = ({
     }
   };
 
+  const buttonStyles = [
+    styles.button,
+    disabled && styles.buttonDisabled,
+  ] as ViewStyle[];
+
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
+    <TouchableOpacity
+      style={buttonStyles}
+      onPress={disabled ? undefined : handlePress}
+      disabled={disabled}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -42,6 +50,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
     padding: 10,
+  },
+  buttonDisabled: {
+    backgroundColor: 'grey',
   },
   buttonText: {
     color: '#000',

@@ -3,9 +3,7 @@ import { ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-
 import { AppLayout } from '@components/layouts/AppLayout';
-import { styles } from '../../home/Home.styles';
 import { Loader } from '@components/loaders/CircularLoader';
 import { CharacterType } from '@api/profile/rickMorty/rickMorty.types';
 import { useGetAvatarsQuery } from '@api/profile/rickMorty/rickMorty.api';
@@ -22,6 +20,8 @@ import { PATHS } from '@constants/paths';
 import { setUserInfo } from '@redux/slices/auth.slice';
 import { AppText } from '@components/text/AppText';
 import { NavigationProps } from 'types/commonTypes.types';
+
+import { styles } from '../../home/Home.styles';
 
 export const ChangeAvatar = ({ navigation }: NavigationProps) => {
   const [open, setOpen] = useState(false);

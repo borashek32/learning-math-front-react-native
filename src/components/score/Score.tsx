@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-
-import { Props } from './Score.types';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectUserAvatarPath } from '@redux/selectors/auth.selectors';
+
+import { Props } from './Score.types';
 import { UserAvatar } from '../avatar/UserAvatar';
 
 export const Score = ({ score }: Props) => {

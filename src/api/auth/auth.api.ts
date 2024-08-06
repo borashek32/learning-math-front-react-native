@@ -6,8 +6,9 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { baseURL } from '@redux/constants/baseUrl';
+import { algByDecodingToken } from '@utils/string/algByDecodingToken';
+
 import {
   ForgotPasswordType,
   RegistedUserType,
@@ -18,7 +19,6 @@ import {
   NewEmailType,
   LogoutType,
 } from './auth.api.types';
-import { algByDecodingToken } from '@utils/string/algByDecodingToken';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
@@ -119,6 +119,7 @@ export const authApi = createApi({
     return {
       login: build.mutation<RegistedUserType, RegisterType>({
         query: ({ email, password, rememberMe }: RegisterType) => {
+          console.log(email, password);
           return {
             method: 'POST',
             url: 'login',

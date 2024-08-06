@@ -2,35 +2,42 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { NavigationProps } from 'types/commonTypes.types';
 
 import { AppLayout } from '../../../components/layouts/AppLayout';
-import { DefaultButton } from '../../../components/buttons/DefaultButton';
+import { BlueButton } from '../../../components/buttons/BlueButton';
 import { PATHS } from '../../../constants/paths';
 import { styles } from '../Home.styles';
 import { DevideLine } from '../../../components/devideLine/DevideLine';
 
-export const Home = () => {
+export const Home = ({ navigation }: NavigationProps) => {
   const { t } = useTranslation('translation');
 
   return (
     <>
       <AppLayout>
         <View style={styles.menuContainer}>
-          <DefaultButton
+          <BlueButton
             title={t('screens.math')}
-            path={PATHS.MATH_OPERATIONS}
+            onPress={() => navigation.navigate(PATHS.MATH_OPERATIONS)}
           />
-          <DefaultButton
+          <BlueButton
             title={t('screens.preSchool')}
-            path={PATHS.PRE_SCHOOL}
+            onPress={() => navigation.navigate(PATHS.PRE_SCHOOL)}
           />
-          <DefaultButton
+          <BlueButton
             title={t('screens.instructions')}
-            path={PATHS.INSTRUCTIONS}
+            onPress={() => navigation.navigate(PATHS.INSTRUCTIONS)}
           />
           <DevideLine />
-          <DefaultButton title={t('screens.profile')} path={PATHS.PROFILE} />
-          <DefaultButton title={t('buttons.logout')} path={PATHS.LOGOUT} />
+          <BlueButton
+            title={t('screens.profile')}
+            onPress={() => navigation.navigate(PATHS.PROFILE)}
+          />
+          <BlueButton
+            title={t('buttons.logout')}
+            onPress={() => navigation.navigate(PATHS.LOGOUT)}
+          />
         </View>
         <StatusBar style="auto" />
       </AppLayout>
