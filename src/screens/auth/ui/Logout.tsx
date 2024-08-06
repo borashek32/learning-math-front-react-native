@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Modal } from '../../../components/modal/Modal';
@@ -10,7 +9,6 @@ import { removeUserInfo } from '../../../redux/slices/auth.slice';
 import { Loader } from '../../../components/loaders/CircularLoader';
 import { PATHS } from '../../../constants/paths';
 import { AppLayout } from '../../../components/layouts/AppLayout';
-import { styles } from '../Auth.styles';
 import { NavigationProps } from '../../../types/commonTypes.types';
 
 export const Logout = ({ navigation }: NavigationProps) => {
@@ -52,31 +50,30 @@ export const Logout = ({ navigation }: NavigationProps) => {
   return (
     <>
       {isLoading && <Loader />}
+      {serverError && (
+        <Modal
+          text={t('errors.serverError')}
+          open={modalWithErrorOpen}
+          setOpen={handleOpenModalWithError}
+          outlinedButton
+          buttonName={t('screens.login')}
+          buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
+          error
+        />
+      )}
+      {open && (
+        <Modal
+          open={open}
+          setOpen={handleOpenModal}
+          text={t('auth.logout.sure')}
+          buttonName="Ok"
+          buttonCallback={logoutHandler}
+          outlinedButton
+          buttonBack
+        />
+      )}
       <AppLayout>
-        <>
-          {serverError && (
-            <Modal
-              text={t('errors.serverError')}
-              open={modalWithErrorOpen}
-              setOpen={handleOpenModalWithError}
-              outlinedButton
-              buttonName={t('auth.links.login')}
-              buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
-              error
-            />
-          )}
-          {open && (
-            <Modal
-              open={open}
-              setOpen={handleOpenModal}
-              text={t('auth.logout.sure')}
-              buttonName="Ok"
-              buttonCallback={logoutHandler}
-              outlinedButton
-              buttonBack
-            />
-          )}
-        </>
+        <></>
       </AppLayout>
     </>
   );

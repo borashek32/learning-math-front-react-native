@@ -21,11 +21,11 @@ import { NavLinkButton } from '@components/buttons/NavLinkButton';
 import { selectTotalUserScore } from '@redux/selectors/profile.selectors';
 import { useGetTotalUserScoreQuery } from '@api/profile/profile.api';
 import { setTotalUserScore } from '@redux/slices/profile.slice';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { UserAvatar } from '../avatar/UserAvatar';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { LogoSmall } from '../logo/LogoSmall';
-import { BlueButton } from 'components/buttons/BlueButton';
 
 export const Nav = () => {
   const navigation = useNavigation();
