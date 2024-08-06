@@ -3,13 +3,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, TextInput, View } from 'react-native';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { useChangePasswordMutation } from '../../../api/auth/auth.api';
 import { Loader } from '../../../components/loaders/CircularLoader';
@@ -212,11 +207,10 @@ export const ChangePassword = ({ navigation }: NavigationProps) => {
           </View>
 
           <View style={styles.buttonsWrapper}>
-            <TouchableOpacity
+            <BlueButton
               onPress={handleSubmit(onSubmit)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
-            </TouchableOpacity>
+              title={t('buttons.submit')}
+            />
           </View>
         </KeyboardAvoidingView>
       </AppLayout>

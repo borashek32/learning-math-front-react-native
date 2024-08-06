@@ -4,13 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
-import {
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, TextInput, View } from 'react-native';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { useSaveNewPasswordMutation } from '../../../api/auth/auth.api';
 import { Loader } from '../../../components/loaders/CircularLoader';
@@ -18,7 +13,6 @@ import { Modal } from '../../../components/modal/Modal';
 import { PATHS } from '../../../constants/paths';
 import { AuthLayout } from '../../../components/layouts/AuthLayout';
 import { styles } from '../Auth.styles';
-import { DefaultButton } from '../../../components/buttons/DefaultButton';
 import { Error } from '../../../components/error/Error';
 import { PasswordRecoveryType } from '../../../api/auth/auth.api.types';
 import { NavigationProps } from '../../../types/commonTypes.types';
@@ -170,22 +164,21 @@ export const CreateNewPassword = ({ navigation }: NavigationProps) => {
           </View>
 
           <View style={styles.buttonsWrapper}>
-            <TouchableOpacity
+            <BlueButton
               onPress={handleSubmit(onSubmit)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
-            </TouchableOpacity>
+              title={t('buttons.submit')}
+            />
           </View>
 
-          <DefaultButton
+          <BlueButton
             title={t('auth.links.register')}
             text={t('auth.login.note')}
-            path={PATHS.REGISTER}
+            onPress={() => navigation.navigate(PATHS.REGISTER)}
           />
-          <DefaultButton
+          <BlueButton
             title={t('auth.links.login')}
             text={t('auth.register.note')}
-            path={PATHS.LOGIN}
+            onPress={() => navigation.navigate(PATHS.LOGIN)}
           />
         </KeyboardAvoidingView>
       </AuthLayout>
