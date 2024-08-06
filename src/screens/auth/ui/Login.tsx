@@ -163,11 +163,10 @@ export const Login = ({ navigation }: NavigationProps) => {
           />
 
           <View style={styles.buttonsWrapper}>
-            <TouchableOpacity
+            <BlueButton
               onPress={handleSubmit(onSubmit)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{i18n.t('buttons.login')}</Text>
-            </TouchableOpacity>
+              title={i18n.t('buttons.login')}
+            />
           </View>
 
           <BlueButton

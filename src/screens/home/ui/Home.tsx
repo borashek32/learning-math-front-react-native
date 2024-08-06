@@ -15,7 +15,7 @@ export const Home = ({ navigation }: NavigationProps) => {
 
   return (
     <>
-      <AppLayout>
+      <AppLayout title={t('screens.home')}>
         <View style={styles.menuContainer}>
           <BlueButton
             title={t('screens.math')}

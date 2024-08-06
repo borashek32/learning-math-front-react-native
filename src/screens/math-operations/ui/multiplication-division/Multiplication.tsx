@@ -6,7 +6,8 @@ import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
 import { BlueButton } from '@components/buttons/BlueButton';
 import { NavigationProps } from 'types/commonTypes.types';
 import { styles } from '@screens/home/Home.styles';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
+import { AppText } from 'components/appText/AppText';
 
 export const Multiplication = ({ navigation }: NavigationProps) => {
   const { t } = useTranslation('translation');
@@ -24,20 +25,21 @@ export const Multiplication = ({ navigation }: NavigationProps) => {
           title={t('mathOperations.multNulls')}
           onPress={() => navigation.navigate(PATHS.MULT_NULLS)}
         />
-        <ScrollView contentContainerStyle={styles.menuContainer}>
-          {digits.map(digit => (
-            <BlueButton
-              key={digit}
-              title={digit.toString()}
-              onPress={() =>
-                navigation.navigate(PATHS.MULT_DIGIT, {
-                  digit: digit.toString(),
-                })
-              }
-            />
-          ))}
-        </ScrollView>
       </ButtonsLayout>
+      <AppText text="Choose number to count" />
+      <ScrollView contentContainerStyle={styles.menuContainer}>
+        {digits.map(digit => (
+          <BlueButton
+            key={digit}
+            title={digit.toString()}
+            onPress={() =>
+              navigation.navigate(PATHS.MULT_DIGIT, {
+                digit: digit.toString(),
+              })
+            }
+          />
+        ))}
+      </ScrollView>
     </AppLayout>
   );
 };
