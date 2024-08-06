@@ -77,10 +77,10 @@ export const ChangeAvatar = ({ navigation }: NavigationProps) => {
       {(isLoading || isLoadingUpdateAvatar) && <Loader />}
       {open && (
         <Modal
+          color="blue"
           text={t('modal.changeAvatarSuccess')}
           open={open}
           setOpen={setOpen}
-          outlinedButton
           buttonBack={false}
           buttonName={t('links.back')}
           buttonCallback={modalCallback}

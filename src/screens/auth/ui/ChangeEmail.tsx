@@ -7,19 +7,14 @@ import { Loader } from '@components/loaders/CircularLoader';
 import { Modal } from '@components/modal/Modal';
 import { useTranslation } from 'react-i18next';
 import { PATHS } from '@constants/paths';
-import {
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, TextInput, View } from 'react-native';
 import { AppLayout } from '@components/layouts/AppLayout';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectUserId } from '@redux/selectors/auth.selectors';
 import { NewEmailType } from '@api/auth/auth.api.types';
 import { Error } from '@components/error/Error';
 import { convertFirstLetterToLowerCase } from '@utils/string/convertFirstLetterToLowerCase';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { styles } from '../Auth.styles';
 import { type NavigationProps } from '../../../types/commonTypes.types';
@@ -129,11 +124,10 @@ export const ChangeEmail = ({ navigation }: NavigationProps) => {
           </View>
 
           <View style={styles.buttonsWrapper}>
-            <TouchableOpacity
+            <BlueButton
               onPress={handleSubmit(onSubmit)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
-            </TouchableOpacity>
+              title={t('buttons.submit')}
+            />
           </View>
         </KeyboardAvoidingView>
       </AppLayout>

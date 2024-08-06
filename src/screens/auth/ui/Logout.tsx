@@ -52,10 +52,10 @@ export const Logout = ({ navigation }: NavigationProps) => {
       {isLoading && <Loader />}
       {serverError && (
         <Modal
+          color="red"
           text={t('errors.serverError')}
           open={modalWithErrorOpen}
           setOpen={handleOpenModalWithError}
-          outlinedButton
           buttonName={t('screens.login')}
           buttonCallback={() => navigation.navigate(PATHS.LOGIN)}
           error
@@ -63,12 +63,12 @@ export const Logout = ({ navigation }: NavigationProps) => {
       )}
       {open && (
         <Modal
+          color="blue"
           open={open}
           setOpen={handleOpenModal}
           text={t('auth.logout.sure')}
           buttonName="Ok"
           buttonCallback={logoutHandler}
-          outlinedButton
           buttonBack
         />
       )}

@@ -3,13 +3,8 @@ import { useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
-import {
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Text, TextInput, View } from 'react-native';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { useEmailSentMutation } from '../../../api/auth/auth.api';
 import { Modal } from '../../../components/modal/Modal';
@@ -113,11 +108,10 @@ export const ForgotPassword = () => {
           </View>
 
           <View style={styles.buttonsWrapper}>
-            <TouchableOpacity
+            <BlueButton
               onPress={handleSubmit(onSubmit)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{t('buttons.submit')}</Text>
-            </TouchableOpacity>
+              title={t('buttons.submit')}
+            />
           </View>
         </KeyboardAvoidingView>
       </AuthLayout>

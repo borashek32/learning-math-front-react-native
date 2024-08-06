@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Text, TextInput, View } from 'react-native';
 import { Controller, Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { BlueButton } from 'components/buttons/BlueButton';
 
 import { useSignUpMutation } from '../../../api/auth/auth.api';
 import { RegisterType } from '../../../api/auth/auth.api.types';
@@ -17,7 +12,6 @@ import { Loader } from '../../../components/loaders/CircularLoader';
 import { AuthLayout } from '../../../components/layouts/AuthLayout';
 import { convertFirstLetterToLowerCase } from '../../../utils/string/convertFirstLetterToLowerCase';
 import { PATHS } from '../../../constants/paths';
-import { DefaultButton } from '../../../components/buttons/DefaultButton';
 import { styles } from '../Auth.styles';
 import { Modal } from '../../../components/modal/Modal';
 import { NavigationProps } from '../../../types/commonTypes.types';
@@ -205,19 +199,16 @@ export const Register = ({ navigation }: NavigationProps) => {
           </View>
 
           <View style={styles.buttonsWrapper}>
-            <TouchableOpacity
+            <BlueButton
               onPress={handleSubmit(onSubmit)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>
-                {i18n.t('buttons.register')}
-              </Text>
-            </TouchableOpacity>
+              title={i18n.t('buttons.register')}
+            />
           </View>
 
-          <DefaultButton
+          <BlueButton
             title={t('screens.login')}
             text={t('auth.register.note')}
-            path={PATHS.LOGIN}
+            onPress={() => navigation.navigate(PATHS.LOGIN)}
           />
         </KeyboardAvoidingView>
       </AuthLayout>
