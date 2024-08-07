@@ -1,32 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Vibration } from 'react-native';
+import { Keyboard, Vibration } from 'react-native';
 import { Loader } from '@components/loaders/CircularLoader';
 import { Modal } from '@components/modal/Modal';
 import { Score } from '@components/score/Score';
-import { useUpdateScoreMutation } from '@api/profile/profile.api';
-import { useFormSchema } from '@utils/math/validationShemaMathOperations';
-import { ScoreType } from '@api/profile/profile.api.types';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectUserId } from '@redux/selectors/auth.selectors';
-import { setTotalUserScore } from '@redux/slices/profile.slice';
 import { MathOperationsConstants } from '@constants/MathConstants';
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
 import { AppText } from '@components/text/AppText';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
-import { getRandomMathOperation } from '@utils/math/getRandomMathOperation';
-import { getCheckMathOperation } from '@utils/math/getCheckMathOperation';
 import { Error } from '@components/error/Error';
 import { Digit } from '@components/digit/Digit';
 import { AppLayout } from '@components/layouts/AppLayout';
-import { AnswerType } from 'types/mathOperations.types';
 import { ResultInput } from '@components/inputs/ResultInput';
 import { VIBRATION_PATTERN } from '@constants/vibration';
 import { BlueButton } from 'components/buttons/BlueButton';
+import { useAppForm } from 'hooks/useAppForm';
+import { checkMathOperation } from 'utils/math/checkMathOperation';
 
 export const EquationsWithX = () => {
   const [firstNumber, setFirstNumber] = useState<number>(
@@ -36,20 +28,13 @@ export const EquationsWithX = () => {
     generateRandomNumber(10, 100),
   );
   const [hint, setHint] = useState(false);
-  const [hintIsUsed, setHintIsUsed] = useState(false);
   const [score, setScore] = useState(0);
-  const [serverError, setServerError] = useState('');
   const [answer, setAnswer] = useState<string>('');
-  const [rightWrong, setRightWrong] = useState<AnswerType>(null);
+  const [rightWrong, setRightWrong] = useState<number>(0);
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  const [updateScore, { isLoading }] = useUpdateScoreMutation();
+  const userId = useAppSelector(selectUserId);
   const { t } = useTranslation('translation');
-  const formSchema = useFormSchema();
-
-  const randomOperation = getRandomMathOperation();
-  const checkRandomOperation = getCheckMathOperation(randomOperation);
+  const { isLoading, serverError, onSubmit } = useAppForm(score);
 
   const generateNewNumbers = () => {
     setFirstNumber(generateRandomNumber(1, 10));
@@ -66,59 +51,37 @@ export const EquationsWithX = () => {
     setAnswer(answer);
   };
 
-  const { handleSubmit, reset } = useForm<ScoreType>({
-    defaultValues: {
-      score,
-      userId: useAppSelector(selectUserId),
-      date: new Date(),
-    },
-    mode: 'onChange',
-    resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  });
+  const check = () => {
+    Keyboard.dismiss();
 
-  useEffect(() => {
-    if (hint) {
-      setHintIsUsed(true);
-    }
-  }, [hint]);
+    const isCorrect = checkMathOperation({
+      answer: secondNumber,
+      operation: MathOperationsConstants.SUM,
+      firstOperand: +answer,
+      secondOperand: firstNumber,
+    });
 
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setHint(false);
-    setHintIsUsed(false);
-    setServerError('');
-
-    if (
-      (MathOperationsConstants.SUM &&
-        secondNumber - firstNumber === Number(answer)) ||
-      (MathOperationsConstants.DIFF &&
-        secondNumber + firstNumber === Number(answer))
-    ) {
-      setScore(hintIsUsed ? score + 1 : score + 2);
-      setRightWrong('right');
-      data = { ...data, score: 2 };
+    if (isCorrect) {
+      if (hint) {
+        setScore(score);
+        setRightWrong(1);
+      } else {
+        setScore(score + 1);
+        setRightWrong(1);
+      }
     } else {
       Vibration.vibrate(VIBRATION_PATTERN);
       setScore(score - 1);
-      setRightWrong('wrong');
-      data = { ...data, score: -1 };
+      setRightWrong(-1);
     }
-
-    updateScore(data)
-      .unwrap()
-      .then(response => {
-        reset();
-        setOpen(true);
-        dispatch(setTotalUserScore(response.data.score));
-      })
-      .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
-      });
+    setOpen(true);
   };
 
   const onPressPlayMore = () => {
     setOpen(false);
     generateNewNumbers();
     setAnswer('');
+    setHint(false);
   };
 
   const onPressTryAgain = () => {
@@ -126,23 +89,31 @@ export const EquationsWithX = () => {
     setAnswer('');
   };
 
+  useEffect(() => {
+    if (userId && rightWrong !== 0) {
+      onSubmit({
+        score: rightWrong,
+        userId,
+        date: new Date(),
+      });
+    }
+  }, [score, rightWrong, userId]);
+
   return (
     <>
       {isLoading && <Loader />}
       {open && (
         <Modal
           text={
-            rightWrong === 'right'
+            rightWrong === 1
               ? t('modal.checkMathOperationSuccess')
               : t('modal.checkMathOperationFail')
           }
           open={open}
           outlinedButton={false}
           buttonName={t('modal.button')}
-          buttonCallback={
-            rightWrong === 'right' ? onPressPlayMore : onPressTryAgain
-          }
-          color={rightWrong === 'right' ? 'blue' : 'red'}
+          buttonCallback={rightWrong === 1 ? onPressPlayMore : onPressTryAgain}
+          color={rightWrong === 1 ? 'blue' : 'red'}
           buttonBack={false}
         />
       )}
@@ -150,7 +121,7 @@ export const EquationsWithX = () => {
         <>{serverError && <Error error={serverError} />}</>
         <MathExampleLayout>
           <Digit title={MathOperationsConstants.X} />
-          <Digit title={randomOperation} />
+          <Digit title={MathOperationsConstants.SUM} />
           <Digit title={firstNumber} />
           <Digit title={MathOperationsConstants.EQUAL} />
           <Digit title={secondNumber} />
@@ -167,7 +138,7 @@ export const EquationsWithX = () => {
             <Digit title={MathOperationsConstants.X} italic />
             <Digit title={MathOperationsConstants.EQUAL} italic />
             <Digit title={secondNumber} italic />
-            <Digit title={checkRandomOperation} italic />
+            <Digit title={MathOperationsConstants.DIFF} italic />
             <Digit title={firstNumber} italic />
           </MathExampleLayout>
         )}
@@ -184,7 +155,7 @@ export const EquationsWithX = () => {
             title={t('mathOperations.common.generate')}
           />
           <BlueButton
-            onPress={handleSubmit(onSubmit)}
+            onPress={check}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />

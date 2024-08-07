@@ -24,11 +24,11 @@ export const checkMathOperation: FC<Props> = ({
       if (
         (firstOperand &&
           secondOperand &&
-          firstOperand + secondOperand === answer) ??
+          firstOperand + secondOperand === answer) ||
         (firstOperand &&
           secondOperand &&
           thirdOperand &&
-          firstOperand + secondOperand + thirdOperand === answer) ??
+          firstOperand + secondOperand + thirdOperand === answer) ||
         (firstOperand &&
           secondOperand &&
           thirdOperand &&
@@ -41,31 +41,12 @@ export const checkMathOperation: FC<Props> = ({
         return false;
       }
 
-    case MathOperationsConstants.DIFF:
+    case MathOperationsConstants.MULTIPLY:
       if (
-        (firstOperand &&
-          secondOperand &&
-          firstOperand - secondOperand === answer) ??
-        (firstOperand &&
-          secondOperand &&
-          thirdOperand &&
-          firstOperand - secondOperand - thirdOperand === answer) ??
-        (firstOperand &&
-          secondOperand &&
-          thirdOperand &&
-          fourthOperand &&
-          firstOperand - secondOperand - thirdOperand - fourthOperand ===
-            answer)
+        firstOperand &&
+        secondOperand &&
+        firstOperand * secondOperand === answer
       ) {
-        return true;
-      } else {
-        return false;
-      }
-
-    // case  MathOperationsConstants.MULTIPLY:
-    //   return firstOperand * secondOperand
-    case MathOperationsConstants.DIVIDE:
-      if (firstOperand === answer) {
         return true;
       } else {
         return false;

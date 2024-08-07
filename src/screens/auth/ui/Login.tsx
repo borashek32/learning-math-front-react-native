@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { Controller, Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import {
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
