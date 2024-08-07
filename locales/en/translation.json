@@ -152,6 +152,10 @@
     "numbers": {
       "title": "Numbers",
       "desc": "Count cats"
+    },
+    "cats": {
+      "title": "Sum",
+      "desc": "Sum up cats"
     }
   },
   "schoolProgram": {

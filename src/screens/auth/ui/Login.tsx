@@ -68,7 +68,6 @@ export const Login = ({ navigation }: NavigationProps) => {
         }
       })
       .catch((e: any) => {
-        console.log(e);
         if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
         if (e.data.message === 'Incorrect password')
           setServerError(t('errors.error400login'));
