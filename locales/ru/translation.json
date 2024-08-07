@@ -156,6 +156,10 @@
     "sum": {
       "title": "Сумма",
       "desc": "Сложи котов"
+    },
+    "catsDiff": {
+      "title": "Разность",
+      "desc": "Сщсчитай котов"
     }
   },
   "schoolProgram": {

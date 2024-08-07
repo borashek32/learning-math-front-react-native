@@ -153,9 +153,13 @@
       "title": "Numbers",
       "desc": "Count cats"
     },
-    "cats": {
+    "catsSum": {
       "title": "Sum",
       "desc": "Sum up cats"
+    },
+    "catsDiff": {
+      "title": "Difference",
+      "desc": "Count cats"
     }
   },
   "schoolProgram": {
