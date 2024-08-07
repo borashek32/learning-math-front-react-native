@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Keyboard, Vibration, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Score } from '@components/score/Score';
@@ -18,6 +18,7 @@ import { MathOperationsConstants } from '@constants/MathConstants';
 import { BlueButton } from 'components/buttons/BlueButton';
 import { useAppForm } from 'hooks/useAppForm';
 import { checkMathOperation } from 'utils/math/checkMathOperation';
+import { debounce } from 'utils/common/debounce';
 
 export const MultiplicationCheck = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(0);
@@ -44,9 +45,14 @@ export const MultiplicationCheck = () => {
     setOpen(false);
   };
 
+  const debouncedKeyboardDismiss = useMemo(
+    () => debounce(Keyboard.dismiss, 500),
+    [],
+  );
+
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
-    Keyboard.dismiss();
+    debouncedKeyboardDismiss();
   };
 
   const check = () => {

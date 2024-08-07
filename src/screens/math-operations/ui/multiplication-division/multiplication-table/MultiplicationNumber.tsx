@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Keyboard, Vibration } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
@@ -20,6 +20,7 @@ import { MathOperationsConstants } from '@constants/MathConstants';
 import { BlueButton } from 'components/buttons/BlueButton';
 import { useAppForm } from 'hooks/useAppForm';
 import { checkMathOperation } from 'utils/math/checkMathOperation';
+import { debounce } from 'utils/common/debounce';
 
 type Props = {
   digit: string;
@@ -53,9 +54,14 @@ export const MultiplicationNumber = () => {
     generateNewNumbers();
   };
 
+  const debouncedKeyboardDismiss = useMemo(
+    () => debounce(Keyboard.dismiss, 500),
+    [],
+  );
+
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
-    Keyboard.dismiss();
+    debouncedKeyboardDismiss();
   };
 
   const check = () => {

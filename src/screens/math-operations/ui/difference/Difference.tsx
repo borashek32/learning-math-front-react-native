@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, Vibration, View } from 'react-native';
 import { MathOperation } from '@components/mathOperation/MathOperation';
@@ -19,6 +19,7 @@ import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { VIBRATION_PATTERN } from '@constants/vibration';
 import { BlueButton } from 'components/buttons/BlueButton';
 import { useAppForm } from 'hooks/useAppForm';
+import { debounce } from 'utils/common/debounce';
 
 export const Difference = () => {
   const [firstNumber, setFirstNumber] = useState<number>(
@@ -64,9 +65,14 @@ export const Difference = () => {
     generateNewNumbers(score);
   };
 
+  const debouncedKeyboardDismiss = useMemo(
+    () => debounce(Keyboard.dismiss, 500),
+    [],
+  );
+
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
-    Keyboard.dismiss();
+    debouncedKeyboardDismiss();
   };
 
   const check = () => {

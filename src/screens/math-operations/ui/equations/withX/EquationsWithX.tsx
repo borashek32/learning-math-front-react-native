@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, Vibration } from 'react-native';
 import { Loader } from '@components/loaders/CircularLoader';
@@ -19,6 +19,7 @@ import { VIBRATION_PATTERN } from '@constants/vibration';
 import { BlueButton } from 'components/buttons/BlueButton';
 import { useAppForm } from 'hooks/useAppForm';
 import { checkMathOperation } from 'utils/math/checkMathOperation';
+import { debounce } from 'utils/common/debounce';
 
 export const EquationsWithX = () => {
   const [firstNumber, setFirstNumber] = useState<number>(
@@ -47,9 +48,14 @@ export const EquationsWithX = () => {
     generateNewNumbers();
   };
 
+  const debouncedKeyboardDismiss = useMemo(
+    () => debounce(Keyboard.dismiss, 500),
+    [],
+  );
+
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
-    Keyboard.dismiss();
+    debouncedKeyboardDismiss();
   };
 
   const check = () => {
