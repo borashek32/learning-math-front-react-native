@@ -128,6 +128,7 @@
   "mathOperations": {
     "common": {
       "generate": "Generate new numbers",
+      "generateCats": "Generate new cats",
       "check": "Check",
       "right": "You are right!",
       "notRight": "You are not right",
