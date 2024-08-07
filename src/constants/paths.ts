@@ -19,6 +19,7 @@ export const PATHS = {
   PRE_SCHOOL: 'pre-school',
   NUMBERS: 'numbers',
   SUM_CATS: 'sum-cats',
+  DIFF_CATS: 'difference-cats',
 
   LOGIN: 'login',
   REGISTER: 'register',
