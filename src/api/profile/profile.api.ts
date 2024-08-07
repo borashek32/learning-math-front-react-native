@@ -1,33 +1,31 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { baseURL } from '@redux/constants/baseUrl';
-import { algByDecodingToken } from '@utils/string/algByDecodingToken';
+import { baseQueryWithReauth } from '@api/auth/auth.api';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { UserType } from '@api/auth/auth.api.types';
 
 import { AvatarType, ScoreType } from './profile.api.types';
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: baseURL,
-  method: 'POST',
-  credentials: 'include',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  prepareHeaders: async headers => {
-    const token = await AsyncStorage.getItem('accessToken');
+// const baseQuery = fetchBaseQuery({
+//   baseUrl: baseURL,
+//   method: 'POST',
+//   credentials: 'include',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   prepareHeaders: async headers => {
+//     const token = await AsyncStorage.getItem('accessToken');
 
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`);
-      algByDecodingToken(token);
-    }
+//     if (token) {
+//       headers.set('Authorization', `Bearer ${token}`);
+//       algByDecodingToken(token);
+//     }
 
-    return headers;
-  },
-});
+//     return headers;
+//   },
+// });
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
-  baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: [],
   endpoints: build => {
     return {
