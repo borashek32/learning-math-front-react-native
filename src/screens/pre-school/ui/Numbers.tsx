@@ -1,14 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, StyleSheet, Vibration, View } from 'react-native';
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { SvgUri } from 'react-native-svg';
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
-import { AnswerType } from 'types/mathOperations.types';
-import { useUpdateScoreMutation } from '@api/profile/profile.api';
-import { useFormSchema } from '@utils/math/validationShemaMathOperations';
 import { Loader } from '@components/loaders/CircularLoader';
 import { Modal } from '@components/modal/Modal';
 import { Error } from '@components/error/Error';
@@ -20,27 +14,21 @@ import { ResultInput } from '@components/inputs/ResultInput';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
 import { Score } from '@components/score/Score';
 import { VIBRATION_PATTERN } from '@constants/vibration';
-import { setTotalUserScore } from '@redux/slices/profile.slice';
-import { ScoreType } from '@api/profile/profile.api.types';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectUserId } from '@redux/selectors/auth.selectors';
 import { MathOperationsConstants } from '@constants/MathConstants';
 import { BlueButton } from 'components/buttons/BlueButton';
+import { useAppForm } from 'hooks/useAppForm';
 
 export const Numbers = () => {
   const [score, setScore] = useState(0);
-
   const [number, setNumber] = useState(generateRandomNumber(1, 10));
   const [answer, setAnswer] = useState<string>('');
-  const [rightWrong, setRightWrong] = useState<AnswerType>(null);
-  const [serverError, setServerError] = useState('');
+  const [rightWrong, setRightWrong] = useState<number>(0);
   const [open, setOpen] = useState(false);
-
-  const dispatch = useDispatch();
-  const [updateScore, { isLoading }] = useUpdateScoreMutation();
-  const formSchema = useFormSchema();
-
   const { t } = useTranslation();
+  const userId = useAppSelector(selectUserId);
+  const { isLoading, serverError, onSubmit } = useAppForm(score);
 
   const numbers: number[] = [];
   for (let i = 1; i <= number; i++) {
@@ -57,41 +45,17 @@ export const Numbers = () => {
     setAnswer(answer);
   };
 
-  const { handleSubmit, reset } = useForm<ScoreType>({
-    defaultValues: {
-      score,
-      userId: useAppSelector(selectUserId),
-      date: new Date(),
-    },
-    mode: 'onChange',
-    resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  });
-
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('');
+  const check = () => {
     Keyboard.dismiss();
-
     if (number === Number(answer)) {
       setScore(score + 1);
-      setRightWrong('right');
-      data = { ...data, score: 1 };
+      setRightWrong(1);
     } else {
       Vibration.vibrate(VIBRATION_PATTERN);
       setScore(score - 1);
-      setRightWrong('wrong');
-      data = { ...data, score: -1 };
+      setRightWrong(-1);
     }
-
-    updateScore(data)
-      .unwrap()
-      .then(response => {
-        reset();
-        setOpen(true);
-        dispatch(setTotalUserScore(response.data.score));
-      })
-      .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
-      });
+    setOpen(true);
   };
 
   const onPressPlayMore = () => {
@@ -105,23 +69,31 @@ export const Numbers = () => {
     setAnswer('');
   };
 
+  useEffect(() => {
+    if (userId && rightWrong !== 0) {
+      onSubmit({
+        score: rightWrong,
+        userId,
+        date: new Date(),
+      });
+    }
+  }, [score, rightWrong, userId]);
+
   return (
     <>
       {isLoading && <Loader />}
       {open && (
         <Modal
           text={
-            rightWrong === 'right'
+            rightWrong === 1
               ? t('modal.checkMathOperationSuccess')
               : t('modal.checkMathOperationFail')
           }
           open={open}
           outlinedButton={false}
           buttonName={t('modal.button')}
-          buttonCallback={
-            rightWrong === 'right' ? onPressPlayMore : onPressTryAgain
-          }
-          color={rightWrong === 'right' ? 'blue' : 'red'}
+          buttonCallback={rightWrong === 1 ? onPressPlayMore : onPressTryAgain}
+          color={rightWrong === 1 ? 'blue' : 'red'}
         />
       )}
       <AppLayout title={t('preSchool.numbers.title')}>
@@ -150,10 +122,10 @@ export const Numbers = () => {
         <ButtonsLayout>
           <BlueButton
             onPress={onGenerateNewNumbers}
-            title={t('mathOperations.common.generate')}
+            title={t('mathOperations.common.generateCats')}
           />
           <BlueButton
-            onPress={handleSubmit(onSubmit)}
+            onPress={check}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />
