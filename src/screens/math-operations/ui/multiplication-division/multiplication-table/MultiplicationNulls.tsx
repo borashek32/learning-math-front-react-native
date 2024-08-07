@@ -43,6 +43,7 @@ export const MultiplicationNulls = () => {
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
+    Keyboard.dismiss();
   };
 
   const check = () => {

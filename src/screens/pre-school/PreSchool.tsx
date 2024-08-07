@@ -20,6 +20,10 @@ export const PreSchool = ({ navigation }: NavigationProps) => {
             title={t('preSchool.numbers.title')}
             onPress={() => navigation.navigate(PATHS.NUMBERS)}
           />
+          <BlueButton
+            title={t('preSchool.cats.title')}
+            onPress={() => navigation.navigate(PATHS.SUM_CATS)}
+          />
         </View>
         <StatusBar style="auto" />
       </AppLayout>

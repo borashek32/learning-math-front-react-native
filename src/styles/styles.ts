@@ -78,4 +78,20 @@ export const styles = StyleSheet.create({
     margin: 20,
     textAlign: 'center',
   },
+  imagesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+    marginTop: 20,
+    width: 160,
+  },
+  imagesContainerSumCats: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+    marginTop: 20,
+    width: 40,
+  },
 });

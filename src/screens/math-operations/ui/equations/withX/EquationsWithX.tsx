@@ -49,6 +49,7 @@ export const EquationsWithX = () => {
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
+    Keyboard.dismiss();
   };
 
   const check = () => {

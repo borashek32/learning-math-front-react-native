@@ -46,6 +46,7 @@ export const MultiplicationCheck = () => {
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
+    Keyboard.dismiss();
   };
 
   const check = () => {

@@ -55,6 +55,7 @@ export const MultiplicationNumber = () => {
 
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
+    Keyboard.dismiss();
   };
 
   const check = () => {
