@@ -18,6 +18,7 @@ export const ResultInput: React.FC<Props> = ({ value, onChange }) => {
   return (
     <View style={styles.firstDigit}>
       <TextInput
+        autoFocus
         blurOnSubmit={false}
         autoFocus
         onChangeText={handleChange}

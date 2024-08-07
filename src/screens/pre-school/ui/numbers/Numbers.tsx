@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Keyboard, StyleSheet, Vibration, View } from 'react-native';
+import { Keyboard, Vibration, View } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { Loader } from '@components/loaders/CircularLoader';
@@ -19,6 +19,8 @@ import { selectUserId } from '@redux/selectors/auth.selectors';
 import { MathOperationsConstants } from '@constants/MathConstants';
 import { BlueButton } from 'components/buttons/BlueButton';
 import { useAppForm } from 'hooks/useAppForm';
+import { styles } from '@styles/styles';
+import { debounce } from 'utils/common/debounce';
 
 export const Numbers = () => {
   const [score, setScore] = useState(0);
@@ -41,8 +43,14 @@ export const Numbers = () => {
     setNumber(generateRandomNumber(1, 10));
   };
 
+  const debouncedKeyboardDismiss = useMemo(
+    () => debounce(Keyboard.dismiss, 500),
+    [],
+  );
+
   const onChangeHandler = (answer: string) => {
     setAnswer(answer);
+    debouncedKeyboardDismiss();
   };
 
   const check = () => {
@@ -136,14 +144,3 @@ export const Numbers = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  imagesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-    marginTop: 20,
-    width: 160,
-  },
-});

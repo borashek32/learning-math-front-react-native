@@ -17,45 +17,48 @@ import { MathOperationsConstants } from '@constants/MathConstants';
 import { checkMathOperation } from '@utils/math/checkMathOperation';
 import { generateRandomNumber } from '@utils/math/generateRandomNumber';
 import { VIBRATION_PATTERN } from '@constants/vibration';
-import { BlueButton } from 'components/buttons/BlueButton';
-import { useAppForm } from 'hooks/useAppForm';
+import { BlueButton } from '@components/buttons/BlueButton';
+import { useAppForm } from '@hooks/useAppForm';
+import { styles } from '@styles/styles';
+import { SvgUri } from 'react-native-svg';
 import { debounce } from 'utils/common/debounce';
 
-export const Difference = () => {
+export const CatsSum = () => {
   const [firstNumber, setFirstNumber] = useState<number>(
-    generateRandomNumber(10, 20),
+    generateRandomNumber(1, 3),
   );
   const [secondNumber, setSecondNumber] = useState<number>(
-    generateRandomNumber(1, 10),
+    generateRandomNumber(1, 3),
   );
-  const [thirdNumber, setThirdNumber] = useState<number>(0);
-  const [fourthNumber, setFourthNumber] = useState<number>(0);
   const [score, setScore] = useState(0);
+  const userId = useAppSelector(selectUserId);
   const [answer, setAnswer] = useState<string>('');
   const [rightWrong, setRightWrong] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
   const { t } = useTranslation('translation');
-  const userId = useAppSelector(selectUserId);
   const { isLoading, serverError, onSubmit } = useAppForm(score);
+
+  const firstNumbers: number[] = [];
+  for (let i = 1; i <= firstNumber; i++) {
+    firstNumbers.push(i);
+  }
+  const secondNumbers: number[] = [];
+  for (let i = 1; i <= secondNumber; i++) {
+    secondNumbers.push(i);
+  }
 
   const generateNewNumbers = (score: number) => {
     if (score <= 5) {
-      setFirstNumber(generateRandomNumber(10, 100));
-      setSecondNumber(generateRandomNumber(1, 10));
-      setThirdNumber(0);
-      setFourthNumber(0);
+      setFirstNumber(generateRandomNumber(1, 3));
+      setSecondNumber(generateRandomNumber(1, 3));
     }
     if (score > 5) {
-      setFirstNumber(generateRandomNumber(30, 60));
-      setSecondNumber(generateRandomNumber(1, 10));
-      setThirdNumber(generateRandomNumber(1, 10));
-      setFourthNumber(0);
+      setFirstNumber(generateRandomNumber(1, 6));
+      setSecondNumber(generateRandomNumber(1, 3));
     }
     if (score > 10) {
-      setFirstNumber(generateRandomNumber(30, 80));
-      setSecondNumber(generateRandomNumber(1, 10));
-      setThirdNumber(generateRandomNumber(1, 10));
-      setFourthNumber(generateRandomNumber(1, 10));
+      setFirstNumber(generateRandomNumber(1, 10));
+      setSecondNumber(generateRandomNumber(1, 6));
     }
   };
 
@@ -66,7 +69,7 @@ export const Difference = () => {
   };
 
   const debouncedKeyboardDismiss = useMemo(
-    () => debounce(Keyboard.dismiss, 500),
+    () => debounce(Keyboard.dismiss, 1000),
     [],
   );
 
@@ -79,12 +82,10 @@ export const Difference = () => {
     Keyboard.dismiss();
 
     const isCorrect = checkMathOperation({
-      answer: firstNumber,
+      answer: Number(answer),
       operation: MathOperationsConstants.SUM,
-      firstOperand: +answer,
+      firstOperand: firstNumber,
       secondOperand: secondNumber,
-      thirdOperand: thirdNumber ?? 0,
-      fourthOperand: fourthNumber ?? 0,
     });
 
     if (isCorrect) {
@@ -136,28 +137,34 @@ export const Difference = () => {
           color={rightWrong === 1 ? 'blue' : 'red'}
         />
       )}
-      <AppLayout title={t('mathOperations.diff')}>
+      <AppLayout title={t('mathOperations.sum')}>
         <View>{serverError && <Error error={serverError} />}</View>
         <MathExampleLayout>
-          <Digit title={firstNumber} />
-          <MathOperation title={MathOperationsConstants.DIFF} />
-          <Digit title={secondNumber} />
-          {thirdNumber ? (
-            <>
-              <MathOperation title={MathOperationsConstants.DIFF} />
-              <Digit title={thirdNumber} />
-            </>
-          ) : (
-            <></>
-          )}
-          {fourthNumber ? (
-            <>
-              <MathOperation title={MathOperationsConstants.DIFF} />
-              <Digit title={fourthNumber} />
-            </>
-          ) : (
-            <></>
-          )}
+          <View style={styles.imagesContainerSumCats}>
+            {firstNumbers.map((item: number) => {
+              return (
+                <SvgUri
+                  key={item}
+                  uri="https://www.svgrepo.com/show/434029/cat.svg"
+                  width="34px"
+                  height="34px"
+                />
+              );
+            })}
+          </View>
+          <MathOperation title={MathOperationsConstants.SUM} />
+          <View style={styles.imagesContainerSumCats}>
+            {secondNumbers.map((item: number) => {
+              return (
+                <SvgUri
+                  key={item}
+                  uri="https://www.svgrepo.com/show/434029/cat.svg"
+                  width="34px"
+                  height="34px"
+                />
+              );
+            })}
+          </View>
           <MathOperation title={MathOperationsConstants.EQUAL} />
 
           <ResultInput

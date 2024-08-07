@@ -152,6 +152,10 @@
     "numbers": {
       "title": "Числа",
       "desc": "Сосчитай кошек"
+    },
+    "sum": {
+      "title": "Сумма",
+      "desc": "Сложи котов"
     }
   },
   "schoolProgram": {

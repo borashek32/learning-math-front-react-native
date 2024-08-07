@@ -27,9 +27,10 @@ import { MultiplicationNumber } from '@screens/math-operations/ui/multiplication
 import { MultiplicationNulls } from '@screens/math-operations/ui/multiplication-division/multiplication-table/MultiplicationNulls';
 import { Docs } from '@screens/main/ui/docs/Docs';
 import { PreSchool } from '@screens/pre-school/PreSchool';
-import { Numbers } from '@screens/pre-school/ui/Numbers';
+import { Numbers } from 'screens/pre-school/ui/numbers/Numbers';
 import { Sum } from '@screens/math-operations/ui/sum/Sum';
 import { Difference } from '@screens/math-operations/ui/difference/Difference';
+import { CatsSum } from '@screens/pre-school/ui/cats-sum/CatsSum';
 
 const Stack = createNativeStackNavigator();
 const prefix = Linking.createURL('/');
@@ -64,6 +65,7 @@ export const Navigation = () => {
 
         [PATHS.PRE_SCHOOL]: PATHS.PRE_SCHOOL,
         [PATHS.NUMBERS]: PATHS.NUMBERS,
+        [PATHS.SUM_CATS]: PATHS.SUM_CATS,
 
         [PATHS.MAIN]: PATHS.MAIN,
         [PATHS.LOGIN]: PATHS.LOGIN,
@@ -172,6 +174,11 @@ export const Navigation = () => {
               name={PATHS.NUMBERS}
               component={Numbers}
               options={{ headerTitle: t('preSchool.numbers.title') }}
+            />
+            <Stack.Screen
+              name={PATHS.SUM_CATS}
+              component={CatsSum}
+              options={{ headerTitle: t('preSchool.cats.title') }}
             />
 
             <Stack.Screen
