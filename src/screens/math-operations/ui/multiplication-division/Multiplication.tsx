@@ -6,7 +6,7 @@ import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
 import { BlueButton } from '@components/buttons/BlueButton';
 import { NavigationProps } from 'types/commonTypes.types';
 import { styles } from '@screens/home/Home.styles';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { AppText } from 'components/appText/AppText';
 
 export const Multiplication = ({ navigation }: NavigationProps) => {

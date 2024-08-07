@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Keyboard, SafeAreaView, Vibration } from 'react-native';
+import { Keyboard, Vibration } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
 import { Score } from '@components/score/Score';
 import { ResultInput } from '@components/inputs/ResultInput';
 import { Digit } from '@components/digit/Digit';
@@ -11,35 +8,27 @@ import { MathOperation } from '@components/mathOperation/MathOperation';
 import { AppLayout } from '@components/layouts/AppLayout';
 import { ButtonsLayout } from '@components/layouts/ButtonsLayout';
 import { MathExampleLayout } from '@components/layouts/MathExamlpeLayout';
-
-import { AnswerType } from '/types/mathOperations.types';
-
-import { useUpdateScoreMutation } from '@api/profile/profile.api';
-import { useFormSchema } from '@utils/math/validationShemaMathOperations';
-import { ScoreType } from '@api/profile/profile.api.types';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectUserId } from '@redux/selectors/auth.selectors';
 import { Loader } from '@components/loaders/CircularLoader';
 import { Modal } from '@components/modal/Modal';
 import { Error } from '@components/error/Error';
-import { setTotalUserScore } from '@redux/slices/profile.slice';
 import { VIBRATION_PATTERN } from '@constants/vibration';
 import { MathOperationsConstants } from '@constants/MathConstants';
 import { BlueButton } from 'components/buttons/BlueButton';
+import { useAppForm } from 'hooks/useAppForm';
+import { checkMathOperation } from 'utils/math/checkMathOperation';
 
 export const MultiplicationNulls = () => {
   const [firstMultiplier, setFirstMultiplier] = useState<number>(0);
   const [secondMultiplier, setSecondMultiplier] = useState<number>(0);
   const [score, setScore] = useState(0);
   const [answer, setAnswer] = useState<string>('');
-  const [serverError, setServerError] = useState('');
-  const [rightWrong, setRightWrong] = useState<AnswerType>(null);
+  const [rightWrong, setRightWrong] = useState<number>(0);
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  const [updateScore, { isLoading }] = useUpdateScoreMutation();
+  const userId = useAppSelector(selectUserId);
   const { t } = useTranslation('translation');
-  const formSchema = useFormSchema();
+  const { isLoading, serverError, onSubmit } = useAppForm(score);
 
   const generateNewDigits = () => {
     setFirstMultiplier((Math.floor(Math.random() * 8) + 2) * 10);
@@ -56,41 +45,25 @@ export const MultiplicationNulls = () => {
     setAnswer(answer);
   };
 
-  const { handleSubmit, reset } = useForm<ScoreType>({
-    defaultValues: {
-      score,
-      userId: useAppSelector(selectUserId),
-      date: new Date(),
-    },
-    mode: 'onChange',
-    resolver: yupResolver(formSchema) as Resolver<ScoreType>,
-  });
-
-  const onSubmit: SubmitHandler<ScoreType> = (data: ScoreType) => {
-    setServerError('');
-    const answerToNumber = Number(answer);
+  const check = () => {
     Keyboard.dismiss();
-    if (answerToNumber / firstMultiplier === secondMultiplier) {
+
+    if (
+      checkMathOperation({
+        answer: Number(answer),
+        operation: MathOperationsConstants.MULTIPLY,
+        firstOperand: firstMultiplier,
+        secondOperand: secondMultiplier,
+      }) === true
+    ) {
       setScore(score + 1);
-      setRightWrong('right');
-      data = { ...data, score: 1 };
+      setRightWrong(1);
     } else {
       Vibration.vibrate(VIBRATION_PATTERN);
       setScore(score - 1);
-      setRightWrong('wrong');
-      data = { ...data, score: -1 };
+      setRightWrong(-1);
     }
-
-    updateScore(data)
-      .unwrap()
-      .then(response => {
-        reset();
-        setOpen(true);
-        dispatch(setTotalUserScore(response.data.score));
-      })
-      .catch((e: any) => {
-        if (e.status === 'FETCH_ERROR') setServerError(t('errors.serverError'));
-      });
+    setOpen(true);
   };
 
   const onPressPlayMore = () => {
@@ -108,26 +81,34 @@ export const MultiplicationNulls = () => {
     generateNewDigits();
   }, []);
 
+  useEffect(() => {
+    if (userId && rightWrong !== 0) {
+      onSubmit({
+        score: rightWrong,
+        userId,
+        date: new Date(),
+      });
+    }
+  }, [score, userId, rightWrong]);
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <>
       {isLoading && <Loader />}
       {open && (
         <Modal
           text={
-            rightWrong === 'right'
+            rightWrong === 1
               ? t('modal.checkMathOperationSuccess')
               : t('modal.checkMathOperationFail')
           }
           open={open}
           outlinedButton={false}
           buttonName={t('modal.button')}
-          buttonCallback={
-            rightWrong === 'right' ? onPressPlayMore : onPressTryAgain
-          }
-          color={rightWrong === 'right' ? 'blue' : 'red'}
+          buttonCallback={rightWrong === 1 ? onPressPlayMore : onPressTryAgain}
+          color={rightWrong === 1 ? 'blue' : 'red'}
         />
       )}
-      <AppLayout title={t('mathOperations.multCheck')}>
+      <AppLayout title={t('mathOperations.multNulls')}>
         <>{serverError && <Error error={serverError} />}</>
         <MathExampleLayout>
           <Digit title={firstMultiplier} />
@@ -148,7 +129,7 @@ export const MultiplicationNulls = () => {
             title={t('mathOperations.common.generate')}
           />
           <BlueButton
-            onPress={handleSubmit(onSubmit)}
+            onPress={check}
             title={t('mathOperations.common.check')}
             disabled={!answer}
           />
@@ -156,6 +137,6 @@ export const MultiplicationNulls = () => {
 
         <Score score={score} />
       </AppLayout>
-    </SafeAreaView>
+    </>
   );
 };
